@@ -248,11 +248,17 @@ public class GuestActivity extends AppCompatActivity {
         //**     });
 
         int arraySize = selectedGuests.size();
-        editor.putString("cur_guest", selectedGuests.get(arraySize - 1));
-        editor.apply();
-        //  editor.commit();
-        //   Toast.makeText(MainActivity.this, "Information saved.", Toast.LENGTH_LONG).show();
-        goToInviteActivity();
+        if((arraySize - 1) != -1) {
+            editor.putString("cur_guest", selectedGuests.get(arraySize - 1));
+            editor.apply();
+            //  editor.commit();
+            //   Toast.makeText(MainActivity.this, "Information saved.", Toast.LENGTH_LONG).show();
+            goToInviteActivity();
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Please select one of the guests to invite", Toast.LENGTH_SHORT).show();
+        }
         // int arraySize = selectedGuests.size();
         // for(int i = 0; i < arraySize; i++) {
         //    myTextView.append(selectedGuests[i]);

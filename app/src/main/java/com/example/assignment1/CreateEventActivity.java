@@ -1,6 +1,7 @@
 package com.example.assignment1;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -155,6 +156,7 @@ public class CreateEventActivity extends MainActivity{
     public void onResume()
     {
         Log.d(TAG, "'Create Event' Page Resumed");
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
         super.onResume();
 
         eventName.setText(savedValues.getString("eventName", ""));

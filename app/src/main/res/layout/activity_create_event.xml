@@ -125,35 +125,22 @@
         android:inputType="textPostalAddress" />
     </LinearLayout>
 
-    <LinearLayout
+
+    <Button
+        android:id="@+id/btnAddGuests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30sp">
-        <EditText
-            android:id="@+id/addGuests"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Add Guests"
+        android:layout_marginTop="30sp"
+        android:textColor="#4169E1"
+        app:backgroundTint="@color/white"
+        android:text="ADD GUESTS"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.912" />
 
-            android:ems="10"
-            android:layout_marginLeft="20sp"
-            android:inputType="textPostalAddress" />
-        <Button
-            android:id="@+id/btnAddGuests"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20sp"
-            android:textColor="#4169E1"
-            app:backgroundTint="@color/white"
-            android:text="ADD"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.912" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/listOfGuests"

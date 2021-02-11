@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -33,11 +35,13 @@ public class CreateEventActivity extends MainActivity{
     private Calendar cal = null;
     private final DatePickerDialog.OnDateSetListener callbackMethod = null;
     private SharedPreferences savedValues = null;
+    private Button addGuests = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
 
         savedValues = getSharedPreferences("Saved Values", MODE_PRIVATE);
 
@@ -53,6 +57,15 @@ public class CreateEventActivity extends MainActivity{
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        addGuests = findViewById(R.id.btnAddGuests);
+        addGuests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent guestIntent = new Intent(CreateEventActivity.this, GuestActivity.class);
+                startActivity(guestIntent);
             }
         });
 
@@ -136,6 +149,7 @@ public class CreateEventActivity extends MainActivity{
         super.onPause();
     }
 
+
     @Override
     public void onResume()
     {
@@ -182,5 +196,7 @@ public class CreateEventActivity extends MainActivity{
         datePickerDialog.setMessage("Date");
         datePickerDialog.show();
     }
+
+
 
 }

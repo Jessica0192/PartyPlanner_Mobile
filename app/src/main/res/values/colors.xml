@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#87B8AB</color>
+    <color name="listColor">#D5C5D4</color>
+    <color name="searchColor">#BBBBBB</color>
+    <color name="backColor">#C7D8D1</color>
+    <color name="fontColot">#28202C</color>
+    <color name="backBtnColor">#53155C</color>
+    <color name="sendBtnColor">#155C47</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +16,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_hint_selector">#808080</color>
+    <color name="light_gray_pink">#B892B5</color>
+    <color name="light_gray_green">#92B8AD</color>
+    <color name="violety_pink_ligh">#C371E0</color>
+    <color name="greenish">#8FDEB4</color>
 </resources>

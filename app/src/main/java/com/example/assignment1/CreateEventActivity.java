@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,11 +46,24 @@ public class CreateEventActivity extends MainActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
-
         savedValues = getSharedPreferences("Saved Values", MODE_PRIVATE);
 
         eventName = findViewById(R.id.txtEventName);
         address = findViewById(R.id.editAddress);
+
+
+        address.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent keyEvent) {
+                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER))
+                {
+                    hideKeyboard((EditText) address);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         guests = findViewById(R.id.listOfGuests);
         menu = findViewById(R.id.txtMenu);
         supplies = findViewById(R.id.txtSupplies);
@@ -200,6 +217,10 @@ public class CreateEventActivity extends MainActivity{
         datePickerDialog.show();
     }
 
-
+    private void hideKeyboard(EditText et)
+    {
+        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(et.getWindowToken(), 0);
+    }
 
 }

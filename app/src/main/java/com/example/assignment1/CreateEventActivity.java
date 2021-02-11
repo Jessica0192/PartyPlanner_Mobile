@@ -23,7 +23,7 @@ import java.util.GregorianCalendar;
 public class CreateEventActivity extends MainActivity{
 
     public static final String TAG = "CreateEventActivity";
-
+    private Button addGuests = null;
     private int mYear =0, mMonth=0, mDay=0;
     private Spinner eventTypeSpinner = null;
     private TextView eventName=null;
@@ -35,7 +35,6 @@ public class CreateEventActivity extends MainActivity{
     private Calendar cal = null;
     private final DatePickerDialog.OnDateSetListener callbackMethod = null;
     private SharedPreferences savedValues = null;
-    private Button addGuests = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -60,13 +59,15 @@ public class CreateEventActivity extends MainActivity{
             }
         });
 
+
+
         addGuests = findViewById(R.id.btnAddGuests);
-        addGuests.setOnClickListener(new View.OnClickListener() {
+        addGuests.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 Intent guestIntent = new Intent(CreateEventActivity.this, GuestActivity.class);
                 startActivity(guestIntent);
-            }
+        }
         });
 
         //direct to menu activity

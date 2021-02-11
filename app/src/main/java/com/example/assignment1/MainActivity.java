@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        move = findViewById(R.id.saveBtn);
+        move = findViewById(R.id.moveBtn);
         move.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,4 +25,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }

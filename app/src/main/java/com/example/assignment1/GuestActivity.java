@@ -38,6 +38,7 @@ public class GuestActivity extends AppCompatActivity {
     private Button button;
     //  Button invite = new Button();
     SearchView searchView;
+    //ArrayList<String> nameList = new ArrayList<>();
     String[] nameList = {"Maria", "Suka", "Hoda", "Jessica", "Troy", "Norbert", "Igor", "Marianna", "Yeji", "Priyanka"};
     ArrayAdapter<String> arrayAdapter;
     //   private GuestListAdapter mAdapter;
@@ -48,9 +49,8 @@ public class GuestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // setContentView(R.layout.activity_main);
+        setContentView(R.layout.choose_guests);
 
         //  FloatingActionButton fab = findViewById(R.id.fab);
         // fab.setOnClickListener(new View.OnClickListener() {
@@ -71,19 +71,12 @@ public class GuestActivity extends AppCompatActivity {
 
 //        butn.setLayoutParams (new Toolbar.LayoutParams(50, Toolbar.LayoutParams.WRAP_CONTENT));
 
-        guestList=(ListView)findViewById(R.id.guestList);
+        guestList=findViewById(R.id.guestList);
 
-        guestList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        guestList.setTextFilterEnabled(true);
 
-        ArrayList<String> arrayList = new ArrayList<>();
 
-        //  arrayList.add("Hello");
-        //  arrayList.add("There");
-        //  arrayList.add("I'm");
-        //  arrayList.add("Mary");
-        //arrayList.add("Hello");
-        //  arrayList.add("There");
+
+
 
 
         // ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
@@ -94,17 +87,24 @@ public class GuestActivity extends AppCompatActivity {
 
         //новое
         // Context context = this;
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1,nameList);
-        guestList.setAdapter(arrayAdapter);
-        guestList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-                selectedGuests.add(guestList.getItemAtPosition(i).toString()); //JUST ADDED
-                Toast.makeText(GuestActivity.this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
 
-            }
-        });
+       // if (nameList != null) {
+            arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, nameList);
 
+        //    if (arrayAdapter != null) {
+                guestList.setAdapter(arrayAdapter);
+
+
+                guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        selectedGuests.add(guestList.getItemAtPosition(i).toString()); //JUST ADDED
+                        Toast.makeText(GuestActivity.this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+         //   }
+       // }
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query){

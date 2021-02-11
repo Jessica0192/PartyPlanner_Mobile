@@ -39,7 +39,7 @@ public class InviteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.guest_list_item);
+        setContentView(R.layout.content_invite);
 
 
         //get the spinner from the xml.
@@ -142,8 +142,7 @@ public class InviteActivity extends AppCompatActivity {
         // t1.setText("HELLO THERE");
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
 
 
@@ -159,7 +158,7 @@ public class InviteActivity extends AppCompatActivity {
 
     public void backToList(View view)
     {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, GuestActivity.class);
         startActivity(intent);
     }
 

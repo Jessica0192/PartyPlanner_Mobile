@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name = ".CreateEventActivity"/>
+        <activity android:name = ".GuestActivity"/>
+        <activity android:name = ".InviteActivity"/>
     </application>
 
 </manifest>

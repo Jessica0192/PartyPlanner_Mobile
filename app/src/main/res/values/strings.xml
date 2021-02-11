@@ -1,10 +1,18 @@
 <resources>
-    <string name="app_name">Assignment1</string>
+    <string name="app_name">Party Planner</string>
     <string name="events">Events</string>
     <string name="event1">Event Name</string>
     <string name="createBtn">CREATE</string>
     <string name="SAVE">SAVE</string>
     <string name="eventName">Event Name</string>
     <string name="createEvent">Create Event</string>
-    <string name="vDateEnter">확인</string>
+    <string name="vDateEnter">Enter</string>
+    <string-array name="event_type_spinner">
+        <item>Birthday</item>
+        <item>New Year</item>
+        <item>Graduation</item>
+        <item>Halloween</item>
+        <item>Festival</item>
+        <item>Others</item>
+    </string-array>
 </resources>

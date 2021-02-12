@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2D7D5">
+
+    <TextView
+        android:id="@+id/supplyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="40sp"
+        android:text="@string/supplyTextView"
+        android:textColor="@color/pink"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/checkbox_ballons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="120dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_balloons"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_cake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="190dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_cake"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_flowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="260dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_flowers"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_cups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="330dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_cups"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_cutlery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="400dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_cutlery"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_invitations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="470dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_invitations"
+        android:textSize="35sp" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="570sp"
+        android:backgroundTint="#A569BD"
+        android:onClick="onClick"
+        android:text="@string/SAVE" />
+
+
+</RelativeLayout>

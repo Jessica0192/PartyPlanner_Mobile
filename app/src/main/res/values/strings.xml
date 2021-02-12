@@ -38,4 +38,5 @@
     <string name="checkbox_cutlery">Cutlery</string>
     <string name="checkbox_candle">Candle</string>
     <string name="checkbox_invitations">Invitations</string>
+    <string name="backBtn">BACK</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.assignment1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class Menu extends AppCompatActivity {
     private CheckBox desser = null;
     private Button save = null;
     private SharedPreferences savedValues = null;
+    SharedPreferences menuStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +57,23 @@ public class Menu extends AppCompatActivity {
                     result.append("\ndesser");
                 }
                 //Displaying the message on the toast
-                Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Menu item  selected has been saved: " + result.toString(), Toast.LENGTH_LONG).show();
+
+                menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = menuStorage.edit();
+
+                editor.putString("MenuItems", result.toString());
+                editor.apply();
             }
 
         });
     }
 
-    public void backToList(View view)
+    public void backToEvent(View view)
     {
-        Intent intent = new Intent(this, Menu.class);
+        Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
 
-
-    public void menuSelected(View view)
-    {
-        Toast.makeText(Menu.this, "Menu Selected", Toast.LENGTH_SHORT).show();
-    }
 }

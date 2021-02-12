@@ -1,5 +1,6 @@
 package com.example.assignment1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class Supplies extends AppCompatActivity{
     private CheckBox invitations = null;
     private Button save = null;
     private SharedPreferences savedValues = null;
+    SharedPreferences supplyStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class Supplies extends AppCompatActivity{
 
     public void addListenerOnButtonClick() {
         //Getting instance of CheckBoxes and Button from the activty_main.xml file
-        balloons = findViewById(R.id.checkbox_ballons);
+        balloons = findViewById(R.id.checkbox_balloons);
         cake = findViewById(R.id.checkbox_cake);
         flowers = findViewById(R.id.checkbox_flowers);
         cups = findViewById(R.id.checkbox_cups);
@@ -70,21 +72,22 @@ public class Supplies extends AppCompatActivity{
                     result.append("\ninvitations");
                 }
                 //Displaying the message on the toast
-                Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Supply items selected has been saved: " + result.toString(), Toast.LENGTH_LONG).show();
+
+                supplyStorage = getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = supplyStorage.edit();
+
+                editor.putString("SupplyItems", result.toString());
+                editor.apply();
             }
 
         });
     }
 
-    public void backToList(View view)
+    public void backToEvent(View view)
     {
-        Intent intent = new Intent(this, Menu.class);
+        Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
-    }
-
-
-    public void menuSelected(View view)
-    {
-        Toast.makeText(Supplies.this, "Supplies Selected", Toast.LENGTH_SHORT).show();
     }
 }

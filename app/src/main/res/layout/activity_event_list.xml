@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pink_background">
+
+    <TextView
+        android:id="@+id/txt_event_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="628dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Events"
+        android:textColor="@color/purple_btn"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAddEvent"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:text="Add Event"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:backgroundTint="@color/purple_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936" />
+
+    <TextView
+        android:id="@+id/txtViewEventItem"
+        android:layout_width="389dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:text="There is no event yet"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_event_list"
+        app:layout_constraintVertical_bias="0.055" />
+</androidx.constraintlayout.widget.ConstraintLayout>

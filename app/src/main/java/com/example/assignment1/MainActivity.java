@@ -9,23 +9,20 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button btnLogin = null;
 
-    Button move =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        move = findViewById(R.id.moveBtn);
-        move.setOnClickListener(new View.OnClickListener() {
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent menuIntent = new Intent(v.getContext(), CreateEventActivity.class);
-                startActivity(menuIntent);
+            public void onClick(View view) {
+                Intent eventListIntent = new Intent(view.getContext(), EventListActivity.class);
+                startActivity(eventListIntent);
             }
         });
     }
-
-
 
 }

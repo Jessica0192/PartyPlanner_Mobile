@@ -67,14 +67,6 @@
         android:text="@string/SAVE" />
 
     <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="48dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="230dp"
-        android:layout_marginTop="140dp"
-        app:srcCompat="@drawable/c" />
-
-    <ImageView
         android:id="@+id/imageView14"
         android:layout_width="83dp"
         android:layout_height="76dp"
@@ -83,20 +75,28 @@
         app:srcCompat="@drawable/appet" />
 
     <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="101dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="310dp"
-        android:layout_marginTop="350dp"
-        app:srcCompat="@drawable/mainDish" />
-
-    <ImageView
         android:id="@+id/imageView18"
         android:layout_width="82dp"
         android:layout_height="66dp"
         android:layout_marginStart="270dp"
         android:layout_marginTop="450dp"
         app:srcCompat="@drawable/desser" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="85dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="350dp"
+        app:srcCompat="@drawable/dish" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="53dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginTop="140dp"
+        app:srcCompat="@drawable/drink" />
 
 
 </RelativeLayout>

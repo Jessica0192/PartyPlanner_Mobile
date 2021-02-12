@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="180dp"
         android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_cake"
         android:textSize="35sp" />
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="240dp"
         android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_flowers"
         android:textSize="35sp" />
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="330dp"
+        android:layout_marginTop="300dp"
         android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_cups"
         android:textSize="35sp" />
@@ -60,9 +60,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="360dp"
         android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_cutlery"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_candle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="420dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_candle"
         android:textSize="35sp" />
 
     <CheckBox
@@ -70,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="470dp"
+        android:layout_marginTop="480dp"
         android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_invitations"
         android:textSize="35sp" />

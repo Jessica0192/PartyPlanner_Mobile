@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    FILE: activity_create_event.xml
+    Project: A1
+    PROGRAMMER: Jessica Sim
+    FIRST VERSION: 2021-02-12
+    DESCRIPTION:
+        This file contains the design of the page to create event. It has various of widget such as
+        EditText, dropdown(spinner), button. It is a linear layout and has scrollview to
+        have scroll bar
+-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,11 +19,9 @@
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:background="#FFE4C4">
+    android:background="#F2D7D5">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,12 +44,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.075" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35sp"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/eventNameAsterisk"
+            android:layout_marginTop="27sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textSize="30sp"
+            android:textColor="#B22222"/>
         <EditText
             android:id="@+id/txtEventName"
             android:layout_width="296dp"
             android:layout_height="53dp"
             android:layout_marginTop="30sp"
-            android:hint="Event Name"
+            android:hint="@string/event_name"
+            android:text =""
             android:ems="10"
             android:inputType="textPersonName"
             android:textColorHint="#808080"
@@ -51,26 +73,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/createEventTextView"
             app:layout_constraintVertical_bias="0.202" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35sp"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/eventTypeAsterisk"
+            android:layout_marginTop="28sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textSize="30sp"
+            android:textColor="#B22222"/>
+        <TextView
+            android:layout_marginTop="30sp"
             android:id="@+id/txtEventType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Event Type: "
             android:textColor="@color/black"
-            android:textSize="18dp"/>
+            android:textSize="18sp"/>
 
         <Spinner
+            android:layout_marginTop="30sp"
             android:id="@+id/eventType_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50sp"
+            android:layout_marginStart="50sp"
             android:textAlignment="center"/>
     </LinearLayout>
 
@@ -80,13 +112,20 @@
         android:layout_marginTop="45sp"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/dateAsterisk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textSize="30sp"
+            android:textColor="#B22222"/>
+        <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="150sp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.292"
@@ -108,32 +147,60 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.325" />
     </LinearLayout>
-    
-    <EditText
-        android:id="@+id/editAddress"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/address"
-        android:textAlignment="center"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:autofillHints="Address" />
+        android:layout_marginTop="45sp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/addressAsterisk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textSize="30sp"
+            android:textColor="#B22222"/>
+        <EditText
+            android:id="@+id/editAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/address"
+            android:text =""
+            android:textAlignment="center"
+            android:ems="10"
+            android:inputType="textPostalAddress"
+            android:autofillHints="Address" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAddGuests"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30sp"
-        android:textColor="#4169E1"
-        app:backgroundTint="@color/white"
-        android:text="@string/add_guests"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
-
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/guestsAsterisk"
+            android:layout_marginTop="22sp"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="4sp"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textSize="30sp"
+            android:textColor="#B22222"/>
+        <Button
+            android:id="@+id/btnAddGuests"
+            android:layout_marginTop="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4169E1"
+            app:backgroundTint="@color/white"
+            android:text="@string/add_guests"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.912" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/listOfGuests"
@@ -168,7 +235,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="List of Menu"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:textColor="#696969"
         android:gravity="center_horizontal"/>
 
@@ -194,7 +261,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="List of Supplies"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:textColor="#696969"
         android:gravity="center_horizontal"/>
 
@@ -212,7 +279,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.912" />
-
 
 </LinearLayout>
 </ScrollView>

@@ -25,4 +25,5 @@
         <item>Festival</item>
         <item>Others</item>
     </string-array>
+    <string name="menuTextView">Menu</string>
 </resources>

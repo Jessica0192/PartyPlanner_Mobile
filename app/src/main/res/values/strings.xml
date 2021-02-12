@@ -26,17 +26,4 @@
         <item>Others</item>
     </string-array>
     <string name="menuTextView">Menu</string>
-    <string name="checkbox_drink">Drink</string>
-    <string name="checkbox_appetizer">Appetizer</string>
-    <string name="checkbox_mainDish">Main Dish</string>
-    <string name="checkbox_dessert">Dessert</string>
-    <string name="supplyTextView">Supplies</string>
-    <string name="checkbox_balloons">Balloons</string>
-    <string name="checkbox_cake">Cake</string>
-    <string name="checkbox_flowers">Flowers</string>
-    <string name="checkbox_cups">Cups</string>
-    <string name="checkbox_cutlery">Cutlery</string>
-    <string name="checkbox_candle">Candle</string>
-    <string name="checkbox_invitations">Invitations</string>
-    <string name="backBtn">BACK</string>
 </resources>

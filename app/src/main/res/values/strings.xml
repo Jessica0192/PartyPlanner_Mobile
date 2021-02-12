@@ -26,4 +26,6 @@
         <item>Others</item>
     </string-array>
     <string name="menuTextView">Menu</string>
+    <string name="checkbox_drink">Drink</string>
+    <string name="checkbox_appetizer">Appetizer</string>
 </resources>

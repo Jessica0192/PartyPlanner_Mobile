@@ -14,4 +14,16 @@
         android:textSize="40sp"
         android:textStyle="bold" />
 
+    <CheckBox android:id="@+id/checkbox_drink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_drink"
+        android:onClick="onCheckboxClicked"/>
+
+    <CheckBox android:id="@+id/checkbox_appetizer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_appetizer"
+        android:onClick="onCheckboxClicked"/>
+
 </RelativeLayout>

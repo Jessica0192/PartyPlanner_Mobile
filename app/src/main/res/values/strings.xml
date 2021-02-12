@@ -28,4 +28,6 @@
     <string name="menuTextView">Menu</string>
     <string name="checkbox_drink">Drink</string>
     <string name="checkbox_appetizer">Appetizer</string>
+    <string name="checkbox_mainDish">Main Dish</string>
+    <string name="checkbox_dessert">Dessert</string>
 </resources>

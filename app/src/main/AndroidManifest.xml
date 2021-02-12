@@ -18,6 +18,9 @@
         <activity android:name = ".CreateEventActivity"/>
         <activity android:name = ".GuestActivity"/>
         <activity android:name = ".InviteActivity"/>
+        <activity android:name = ".Menu"/>
+        <activity android:name = ".Supplies"/>
+
     </application>
 
 </manifest>

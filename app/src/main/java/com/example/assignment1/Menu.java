@@ -49,21 +49,14 @@ public class Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
-    }
-
-    /*  -- Function Header Comment
-	Name	:   addListenerOnButtonClick()
-	Purpose :   To save the user selection and store it on shared preferences
-	Inputs	:	NONE
-	Outputs	:	The popup message to present what items selected
-	Returns	:	NONE
-    */
-    public void addListenerOnButtonClick() {
-        //Getting instance of CheckBoxes and Button from the activty_main.xml file
         drink = findViewById(R.id.checkbox_drink);
         appetizer = findViewById(R.id.checkbox_appetizer);
         mainDish = findViewById(R.id.checkbox_mainDish);
         desser = findViewById(R.id.checkbox_dessert);
+
+        menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+
+        menuStorage.edit().clear().apply();
 
         Button saveBtn = findViewById(R.id.saveBtn);
         //Applying the Listener on the Button click
@@ -93,12 +86,11 @@ public class Menu extends AppCompatActivity {
                     result.append("\nmainDish");
                 }
                 if (desser.isChecked()) {
-                    result.append("\ndesser");
+                    result.append("\ndessert");
                 }
                 //Displaying the message on the toast
-                Toast.makeText(getApplicationContext(), "Menu item  selected has been saved: " + result.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Menu item  selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
 
-                menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = menuStorage.edit();
@@ -106,9 +98,9 @@ public class Menu extends AppCompatActivity {
                 editor.putString("MenuItems", result.toString());
                 editor.apply();
             }
-
         });
     }
+
 
     /*  -- Function Header Comment
     Name	:   backToEvent()

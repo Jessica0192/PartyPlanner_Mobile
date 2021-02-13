@@ -51,6 +51,7 @@ public class CreateEventActivity extends MainActivity{
     private Calendar cal = null;
     private final DatePickerDialog.OnDateSetListener callbackMethod = null;
     private SharedPreferences savedValues = null;
+    private SharedPreferences menuValues = null;
     /*
      * FUNCTION: onCreate
      * DESCRIPTION:
@@ -67,7 +68,6 @@ public class CreateEventActivity extends MainActivity{
         setContentView(R.layout.activity_create_event);
 
         savedValues = getSharedPreferences("Saved Values", MODE_PRIVATE);
-
         eventName = findViewById(R.id.txtEventName);
 
         eventName.setOnKeyListener(new View.OnKeyListener() {
@@ -185,8 +185,8 @@ public class CreateEventActivity extends MainActivity{
              */
             @Override
             public void onClick(View v) {
-                //Intent menuIntent = new Intent(v.getContext(), CreateEventActivity.class);
-                //startActivity(menuIntent);
+                Intent menuIntent = new Intent(v.getContext(), Menu.class);
+                startActivity(menuIntent);
             }
         });
 
@@ -204,8 +204,8 @@ public class CreateEventActivity extends MainActivity{
              */
             @Override
             public void onClick(View v) {
-                //Intent supplierIntent = new Intent(v.getContext(), CreateEventActivity.class);
-                //startActivity(supplierIntent);
+                Intent supplierIntent = new Intent(v.getContext(), Supplies.class);
+                startActivity(supplierIntent);
             }
         });
 
@@ -299,13 +299,14 @@ public class CreateEventActivity extends MainActivity{
         Log.d(TAG, "'Create Event' Page Paused");
         SharedPreferences.Editor editor = savedValues.edit();
 
+
         editor.putString("eventName", eventName.getText().toString());
         editor.putString("eventType", eventTypeSpinner.getSelectedItem().toString());
         editor.putString("date", date.getText().toString());
         editor.putString("address", address.getText().toString());
-        //editor.putString("guests", guests.getText().toString());
-        //editor.putString("menu", menu.getText().toString());
-        //editor.putString("supplies", supplies.getText().toString());
+        editor.putString("guests", guests.getText().toString());
+        editor.putString("menu", menu.getText().toString());
+        editor.putString("supplies", supplies.getText().toString());
         editor.apply();
 
         super.onPause();
@@ -326,15 +327,16 @@ public class CreateEventActivity extends MainActivity{
     public void onResume()
     {
         Log.d(TAG, "'Create Event' Page Resumed");
-        SharedPreferences sp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+        SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+        SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
         super.onResume();
 
-//        eventName.setText(savedValues.getString("eventName", ""));
-//        date.setText(savedValues.getString("date", cal.get(Calendar.YEAR) + " / " + (cal.get(Calendar.MONTH) + 1) + " / " + cal.get(Calendar.DATE)));
-//        address.setText(savedValues.getString("address", ""));
-//        guests.setText(savedValues.getString("guests", "List of Guests"));           //instead of savedValues, put something from different page
-        //menu.setText(savedValues.getString("menu", "List of Menu"));              //instead of savedValues, put something from different page
-        //supplies.setText(savedValues.getString("supplies", "List of Supplies"));  //instead of savedValues, put something from different page
+        eventName.setText(savedValues.getString("eventName", ""));
+        date.setText(savedValues.getString("date", cal.get(Calendar.YEAR) + " / " + (cal.get(Calendar.MONTH) + 1) + " / " + cal.get(Calendar.DATE)));
+        address.setText(savedValues.getString("address", ""));
+        guests.setText(savedValues.getString("guests", "List of Guests"));           //instead of savedValues, put something from different page
+        menu.setText(menuSp.getString("MenuItems", "List of Menu"));              //instead of savedValues, put something from different page
+        supplies.setText(suppliesSp.getString("SupplyItems", "List of Supplies"));  //instead of savedValues, put something from different page
 
     }
 
@@ -368,7 +370,6 @@ public class CreateEventActivity extends MainActivity{
     {
         Log.d(TAG, "'Create Event' Page Destroyed");
         super.onDestroy();
-
     }
 
     /*

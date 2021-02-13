@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="150dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_drink"
         android:textSize="40sp" />
 
@@ -43,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="250dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_appetizer"
         android:textSize="40sp" />
 
@@ -53,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="350dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_mainDish"
         android:textSize="40sp" />
 
@@ -63,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="450dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_dessert"
         android:textSize="40sp" />
 

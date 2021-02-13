@@ -52,17 +52,7 @@ public class Supplies extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.supply);
-    }
 
-    /*  -- Function Header Comment
-	Name	:   addListenerOnButtonClick()
-	Purpose :   To save the user selection and store it on shared preferences
-	Inputs	:	NONE
-	Outputs	:	The popup message to present what items selected
-	Returns	:	NONE
-    */
-    public void addListenerOnButtonClick() {
-        //Getting instance of CheckBoxes and Button from the activty_main.xml file
         balloons = findViewById(R.id.checkbox_balloons);
         cake = findViewById(R.id.checkbox_cake);
         flowers = findViewById(R.id.checkbox_flowers);
@@ -70,6 +60,9 @@ public class Supplies extends AppCompatActivity{
         cutlery = findViewById(R.id.checkbox_cutlery);
         candle = findViewById(R.id.checkbox_candle);
         invitations = findViewById(R.id.checkbox_invitations);
+
+        supplyStorage = getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+        supplyStorage.edit().clear().apply();
 
         Button saveBtn = findViewById(R.id.saveBtn);
         //Applying the Listener on the Button click
@@ -111,9 +104,7 @@ public class Supplies extends AppCompatActivity{
                     result.append("\ninvitations");
                 }
                 //Displaying the message on the toast
-                Toast.makeText(getApplicationContext(), "Supply items selected has been saved: " + result.toString(), Toast.LENGTH_LONG).show();
-
-                supplyStorage = getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+                Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = supplyStorage.edit();
@@ -124,6 +115,7 @@ public class Supplies extends AppCompatActivity{
 
         });
     }
+
 
     /*  -- Function Header Comment
     Name	:   backToEvent()

@@ -297,7 +297,6 @@ public class InviteActivity extends AppCompatActivity {
 
         //apply changes
         editor.apply();
-
     }
 }
 

@@ -31,7 +31,7 @@
         android:id="@+id/checkbox_drink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="150dp"
         android:text="@string/checkbox_drink"
         android:textSize="40sp" />
@@ -40,7 +40,7 @@
         android:id="@+id/checkbox_appetizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="250dp"
         android:text="@string/checkbox_appetizer"
         android:textSize="40sp" />
@@ -49,7 +49,7 @@
         android:id="@+id/checkbox_mainDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="350dp"
         android:text="@string/checkbox_mainDish"
         android:textSize="40sp" />
@@ -58,7 +58,7 @@
         android:id="@+id/checkbox_dessert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="450dp"
         android:text="@string/checkbox_dessert"
         android:textSize="40sp" />
@@ -86,7 +86,7 @@
         android:id="@+id/imageView14"
         android:layout_width="83dp"
         android:layout_height="76dp"
-        android:layout_marginStart="310dp"
+        android:layout_marginStart="270dp"
         android:layout_marginTop="240dp"
         app:srcCompat="@drawable/appet" />
 
@@ -94,7 +94,7 @@
         android:id="@+id/imageView18"
         android:layout_width="82dp"
         android:layout_height="66dp"
-        android:layout_marginStart="270dp"
+        android:layout_marginStart="240dp"
         android:layout_marginTop="450dp"
         app:srcCompat="@drawable/desser" />
 
@@ -102,7 +102,7 @@
         android:id="@+id/imageView19"
         android:layout_width="85dp"
         android:layout_height="66dp"
-        android:layout_marginStart="315dp"
+        android:layout_marginStart="280dp"
         android:layout_marginTop="350dp"
         app:srcCompat="@drawable/dish" />
 
@@ -110,7 +110,7 @@
         android:id="@+id/imageView20"
         android:layout_width="53dp"
         android:layout_height="72dp"
-        android:layout_marginStart="230dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="140dp"
         app:srcCompat="@drawable/drink" />
 

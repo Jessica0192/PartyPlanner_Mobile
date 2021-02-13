@@ -13,7 +13,7 @@
         android:layout_marginTop="60dp"
         android:divider="@color/violety_pink_ligh"
         android:dividerHeight="2dp"
-        android:background="@color/listColor"
+        android:background="@color/pink_background"
         android:listSelector="@color/colorAccent">
 
     </ListView>

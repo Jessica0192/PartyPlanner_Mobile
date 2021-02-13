@@ -1,3 +1,10 @@
+<!--
+    FILE          : strings.xml
+    PROJECT       : PROG3150 - Assignment #1
+    PROGRAMMER    : Hoda Akrami, Jessica Sim
+    FIRST VERSION : 2020-02-10
+    DESCRIPTION   : This file contains the resource of strings
+-->
 <resources>
     <string name="app_name">Party Planner</string>
     <string name="events">Events</string>

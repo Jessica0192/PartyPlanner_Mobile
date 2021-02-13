@@ -49,7 +49,7 @@ public class GuestActivity extends AppCompatActivity {
 
     // to keep track of the guests
     ArrayList<String> selectedGuests = new ArrayList<>();
-    //shared preferences ibject
+    //shared preferences object
     SharedPreferences sp_obj;
     //our list view
     ListView guestList;

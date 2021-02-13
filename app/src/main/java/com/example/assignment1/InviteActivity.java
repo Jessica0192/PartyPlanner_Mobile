@@ -16,11 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +68,11 @@ public class InviteActivity extends AppCompatActivity {
     //date picker object to make it easier for the user
     // to choose the date
     private DatePickerDialog.OnDateSetListener dateListener;
+
+    //variable where we will store all edit texts we
+    //have to be able to hide the keyboard once the user
+    //entered all the info
+    EditText eventName;
 
 
     /*
@@ -220,6 +228,7 @@ public class InviteActivity extends AppCompatActivity {
 
         //a new text view object
         TextView t1;
+
         //find the text view where we put the name of the guest who
         // we are currently sending invitation to by id
         t1= findViewById(R.id.whoToInvite);
@@ -281,6 +290,30 @@ public class InviteActivity extends AppCompatActivity {
             }
         });
 
+
+        //hide the keyboard for each of the edit text when
+        //the user puts some text in them, because after
+        //he is done, the keyboard needs to hide (so that
+        //we have a user friendly app)
+
+        eventName = findViewById(R.id.inviteEditText);
+        handleKeyBHiding();
+
+        eventName = findViewById(R.id.descrEditText);
+        handleKeyBHiding();
+
+        eventName = findViewById(R.id.city);
+        handleKeyBHiding();
+
+        eventName = findViewById(R.id.addr);
+        handleKeyBHiding();
+
+        eventName = findViewById(R.id.pc);
+        handleKeyBHiding();
+
+
+
+
     }
 
 
@@ -298,6 +331,60 @@ public class InviteActivity extends AppCompatActivity {
         //go back to the guests list screen
         Intent intent = new Intent(this, GuestActivity.class);
         startActivity(intent);
+    }
+
+
+
+    /*
+     * FUNCTION   : hideKeyboard
+     * DESCRIPTION: This function is called to hide the keyboard
+     * PARAMETERS : EditText et: EditText widget is passed
+     * RETURNS    :NONE
+     */
+    private void hideKeyboard(EditText et)
+    {
+        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(et.getWindowToken(), 0);
+    }
+
+
+
+    /*
+     * FUNCTION   : handleKeyBHiding()
+     * DESCRIPTION: This function handles keyboard hiding
+     * on click of "Enter" button.
+     * PARAMETERS : NONE
+     * RETURNS    : NONE
+     */
+    private void handleKeyBHiding(){
+
+        //whatever editText we are working with right now
+        // (which is eventName variable), we set a listener
+        // on it
+        eventName.setOnKeyListener(new View.OnKeyListener() {
+            /*
+             * FUNCTION   : onKey()
+             * DESCRIPTION: This function returns if we need to
+             * hide keyboard or not.
+             * PARAMETERS : View v,
+             *              int keyCode,
+             *              KeyEvent keyEvent
+             * RETURNS    : true, if there is some action
+             *              requiring to hide the keyboard
+             *              false, if not
+             */
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent keyEvent) {
+                //if there is an action requiring to hide the keyboard
+                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER))
+                {
+                    hideKeyboard((EditText) eventName);
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 }
 

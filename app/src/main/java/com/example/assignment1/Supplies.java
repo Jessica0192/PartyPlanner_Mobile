@@ -1,3 +1,13 @@
+/*
+ * FILE          : Supplies.java
+ * PROJECT       : PROG3150 - Assignment #1
+ * PROGRAMMER    : Hoda Akrami
+ * FIRST VERSION : 2020-02-10
+ * DESCRIPTION   : This file contains the functionality behind the supply.xml file.
+ *                 When the user is presented with this screen, he had a list view of supplies,
+ *                 he can select the item that he wants to use in his party and save it.
+ */
+
 package com.example.assignment1;
 
 import android.content.Context;
@@ -11,6 +21,12 @@ import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
+/*
+ * NAME     :    Supplies
+ * PURPOSE :    Supplies class contains the functionality behind the supply.xml file.
+ *              It contains functions for loading the page, saving the selected items on the shared preferences,
+ *              and getting back to the activity page.
+ */
 public class Supplies extends AppCompatActivity{
 
     private TextView supply = null;
@@ -25,12 +41,26 @@ public class Supplies extends AppCompatActivity{
     private SharedPreferences savedValues = null;
     SharedPreferences supplyStorage;
 
+    /*  -- Function Header Comment
+	Name	:   onCreate()
+	Purpose :   This function is called when the page is loaded,
+	Inputs	:	Bundle   savedInstanceState - save instance state
+	Outputs	:	NONE
+	Returns	:	NONE
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.supply);
     }
 
+    /*  -- Function Header Comment
+	Name	:   addListenerOnButtonClick()
+	Purpose :   To save the user selection and store it on shared preferences
+	Inputs	:	NONE
+	Outputs	:	The popup message to present what items selected
+	Returns	:	NONE
+    */
     public void addListenerOnButtonClick() {
         //Getting instance of CheckBoxes and Button from the activty_main.xml file
         balloons = findViewById(R.id.checkbox_balloons);
@@ -45,6 +75,14 @@ public class Supplies extends AppCompatActivity{
         //Applying the Listener on the Button click
         saveBtn.setOnClickListener(new View.OnClickListener() {
 
+            /*  -- Function Header Comment
+            Name	:   onClick()
+            Purpose :   To save the user selection and store them on shared preferences
+                        also, display them in a popup message
+            Inputs	:	View     view
+            Outputs	:	The popup message to present what items selected
+            Returns	:	NONE
+            */
             @Override
             public void onClick(View view) {
 
@@ -85,6 +123,13 @@ public class Supplies extends AppCompatActivity{
         });
     }
 
+    /*  -- Function Header Comment
+    Name	:   backToEvent()
+    Purpose :   To let the user back to the event page
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
     public void backToEvent(View view)
     {
         Intent intent = new Intent(this, CreateEventActivity.class);

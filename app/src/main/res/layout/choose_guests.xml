@@ -16,6 +16,31 @@
         android:background="@color/pink_background"
         android:listSelector="@color/colorAccent">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/backToEventBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="600dp"
+                android:onClick="backToEventCreation"
+                android:text="Back"
+                app:backgroundTint="@color/pink" />
+
+            <Button
+                android:id="@+id/inviteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginLeft="70sp"
+                android:layout_marginTop="600dp"
+                android:onClick="addToWaitList"
+                android:text="Invite"
+                app:backgroundTint="@color/light_gray_green" />
+        </LinearLayout>
     </ListView>
 
 
@@ -64,32 +89,6 @@
         android:text="Invite"
 
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse" />-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/inviteBtn"
-            android:layout_width="206dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="203dp"
-            android:layout_marginTop="600dp"
-            android:onClick="addToWaitList"
-            android:text="Invite"
-            app:backgroundTint="@color/light_gray_green" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/backToEventBtn"
-        android:layout_width="206dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="600dp"
-        android:onClick="backToEventCreation"
-        android:text="Back to event creation"
-        app:backgroundTint="@color/pink" />
 
 
     <!--<Button

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Perfect Party</string>
+    <string name="app_name">Party Planner</string>
     <string name="events">Events</string>
     <string name="event1">Event Name</string>
     <string name="createBtn">CREATE</string>
@@ -16,6 +16,7 @@
     <string name="click_to_choose_suppliers">Click to choose suppliers</string>
     <string name="list_of_supplies">List of Supplies</string>
     <string name="event_type">Event Type:</string>
+    <string name="event_name">Event Name</string>
     <string-array name="event_type_spinner">
         <item>Birthday</item>
         <item>New Year</item>
@@ -25,5 +26,20 @@
         <item>Others</item>
     </string-array>
     <string name="menuTextView">Menu</string>
-    <string name="event_name">Event Name</string>
+    <string name="checkbox_drink">Drink</string>
+    <string name="checkbox_appetizer">Appetizer</string>
+    <string name="checkbox_mainDish">Main Dish</string>
+    <string name="checkbox_dessert">Dessert</string>
+    <string name="saveBtn">SAVE</string>
+    <string name="backBtn">BACK</string>
+    <string name="supplyTextView">Supplies</string>
+    <string name="checkbox_balloons">Balloons</string>
+    <string name="checkbox_cake">Cake</string>
+    <string name="checkbox_flowers">Flowers</string>
+    <string name="checkbox_cups">Cups</string>
+    <string name="checkbox_cutlery">Cutlery</string>
+    <string name="checkbox_candle">Candle</string>
+    <string name="checkbox_invitations">Invitations</string>
+
+
 </resources>

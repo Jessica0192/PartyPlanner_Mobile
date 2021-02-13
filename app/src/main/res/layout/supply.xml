@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2D7D5">
+
+    <TextView
+        android:id="@+id/supplyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="40sp"
+        android:text="@string/supplyTextView"
+        android:textColor="@color/pink"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/checkbox_balloons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="120dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_balloons"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_cake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="180dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_cake"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_flowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="240dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_flowers"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_cups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="300dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_cups"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_cutlery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="360dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_cutlery"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_candle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="420dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_candle"
+        android:textSize="35sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_invitations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="480dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_invitations"
+        android:textSize="35sp" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="570sp"
+        android:backgroundTint="#A569BD"
+        android:onClick="onClick"
+        android:text="@string/SAVE" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="570sp"
+        android:backgroundTint="#A569BD"
+        android:onClick="backToEvent"
+        android:text="@string/backBtn" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="620dp"
+        app:srcCompat="@drawable/balloonb" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="134dp"
+        android:layout_height="57dp"
+        app:srcCompat="@drawable/party" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_marginStart="300dp"
+        app:srcCompat="@drawable/party" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="204dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="120dp"
+        app:srcCompat="@drawable/party" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="131dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="620dp"
+        app:srcCompat="@drawable/balls" />
+
+
+</RelativeLayout>

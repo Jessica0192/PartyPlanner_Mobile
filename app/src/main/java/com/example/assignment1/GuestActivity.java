@@ -4,6 +4,7 @@ package com.example.assignment1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
@@ -151,6 +153,8 @@ public class GuestActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
 
@@ -244,7 +248,67 @@ public class GuestActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * FUNCTION   : onResume
+     * DESCRIPTION:
+     *      This function is called the current page is in the state of Resume
+     * PARAMETER  : NONE
+     * RETURNS    : NONE
+     */
+    @Override
+    public void onResume()
+    {
+        //log in the state of the page
+        Log.d(LOG_TAG, "'Guest Activity' Page Resumed");
+        super.onResume();
+    }
 
 
+
+    /*
+     * FUNCTION   : onPause
+     * DESCRIPTION:
+     *      This function is called the current page is in the state of Pause
+     * PARAMETER  : NONE
+     * RETURNS    : NONE
+     */
+    @Override
+    public void onPause()
+    {
+        //log in the state of the page
+        Log.d(LOG_TAG, "'Guest Activity' Page Paused");
+        super.onPause();
+    }
+
+
+    /*
+     * FUNCTION   : onStop
+     * DESCRIPTION:
+     *      This function is called the current page is in the state of Stop
+     * PARAMETER  : NONE
+     * RETURNS    : NONE
+     */
+    @Override
+    public void onStop()
+    {
+        //log in the state of the page
+        Log.d(LOG_TAG, "'Guest Activity' Page Stopped");
+        super.onStop();
+    }
+
+    /*
+     * FUNCTION   : onDestroy
+     * DESCRIPTION:
+     *      This function is called the current page is in the state of Destroy
+     * PARAMETER  : NONE
+     * RETURNS    : NONE
+     */
+    @Override
+    public void onDestroy()
+    {
+        //log in the state of the page
+        Log.d(LOG_TAG, "'Guest Activity' Page Destroyed");
+        super.onDestroy();
+    }
 
 }

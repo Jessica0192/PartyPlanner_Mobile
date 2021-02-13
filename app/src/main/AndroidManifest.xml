@@ -2,12 +2,19 @@
 <!--
     FILE          : AndroidManifest.xml
     PROJECT       : PROG3150 - Assignment #1
-    PROGRAMMER    : Hoda Akrami, Jessica Sim, Maria Malinina, suka Sun
+    PROGRAMMER    : Hoda Akrami, Jessica Sim, Maria Malinina, Suka Sun
     FIRST VERSION : 2020-02-10
     DESCRIPTION   : Describes essential information about party app
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.assignment1">
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true"
+        />
 
     <application
         android:allowBackup="true"

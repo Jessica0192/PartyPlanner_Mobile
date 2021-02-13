@@ -33,8 +33,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class CreateEventActivity extends MainActivity{
 
@@ -327,14 +329,36 @@ public class CreateEventActivity extends MainActivity{
     public void onResume()
     {
         Log.d(TAG, "'Create Event' Page Resumed");
+        StringBuilder guestsls = new StringBuilder();
         SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
         SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+        SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+        if (!guestSp.getString("guest1", "").equals("")){
+            guestsls.append(guestSp.getString("guest1", ""));
+            guestsls.append("\n");
+        }
+        if (!guestSp.getString("guest2", "").equals("")){
+            guestsls.append(guestSp.getString("guest2", ""));
+            guestsls.append("\n");
+        }
+        if (!guestSp.getString("guest3", "").equals("")){
+            guestsls.append(guestSp.getString("guest3", ""));
+            guestsls.append("\n");
+        }
+        if (!guestSp.getString("guest4", "").equals("")){
+            guestsls.append(guestSp.getString("guest4", ""));
+            guestsls.append("\n");
+        }
+        if (!guestSp.getString("guest5", "").equals("")){
+            guestsls.append(guestSp.getString("guest5", ""));
+            guestsls.append("\n");
+        }
         super.onResume();
 
         eventName.setText(savedValues.getString("eventName", ""));
         date.setText(savedValues.getString("date", cal.get(Calendar.YEAR) + " / " + (cal.get(Calendar.MONTH) + 1) + " / " + cal.get(Calendar.DATE)));
         address.setText(savedValues.getString("address", ""));
-        guests.setText(savedValues.getString("guests", "List of Guests"));           //instead of savedValues, put something from different page
+        guests.setText(guestsls.toString());           //instead of savedValues, put something from different page
         menu.setText(menuSp.getString("MenuItems", "List of Menu"));              //instead of savedValues, put something from different page
         supplies.setText(suppliesSp.getString("SupplyItems", "List of Supplies"));  //instead of savedValues, put something from different page
 

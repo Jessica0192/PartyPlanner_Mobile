@@ -296,8 +296,7 @@ public class InviteActivity extends AppCompatActivity {
     public void backToList(View view)
     {
         //go back to the guests list screen
-        Intent intent = new Intent(this, GuestActivity.class);
-        startActivity(intent);
+        finish();
     }
 }
 

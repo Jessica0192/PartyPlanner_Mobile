@@ -59,7 +59,7 @@ public class GuestActivity extends AppCompatActivity {
     SearchView searchView;
 
     //an array containing the names of guests to choose from
-    String[] nameList = {"Maria", "Suka", "Hoda", "Jessica", "Troy", "Norbert", "Igor", "Marianna", "Yeji", "Priyanka"};
+    String[] nameList = {"Maria", "Suka", "Hoda", "Jessica", "Troy", "Norbert", "Igor", "Marianna", "Yeji", "Priyanka", ""};
 
     //adapter for the array
     ArrayAdapter<String> arrayAdapter;
@@ -181,8 +181,7 @@ public class GuestActivity extends AppCompatActivity {
     public void backToEventCreation (View view)
     {
         //go back to event creation screen
-        Intent intent = new Intent(this, CreateEventActivity.class);
-        startActivity(intent);
+        finish();
     }
 
 

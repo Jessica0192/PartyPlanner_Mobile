@@ -126,7 +126,6 @@ public class Supplies extends AppCompatActivity{
     */
     public void backToEvent(View view)
     {
-        Intent intent = new Intent(this, CreateEventActivity.class);
-        startActivity(intent);
+        finish();
     }
 }

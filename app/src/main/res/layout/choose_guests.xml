@@ -66,7 +66,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Inverse" />-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         >
 
@@ -75,15 +75,10 @@
             android:layout_width="206dp"
             android:layout_height="80dp"
             android:layout_marginLeft="203dp"
-            android:layout_marginTop="520dp"
+            android:layout_marginTop="600dp"
             android:onClick="addToWaitList"
             android:text="Invite"
             app:backgroundTint="@color/light_gray_green" />
-
-
-
-
-
     </LinearLayout>
 
     <Button
@@ -91,10 +86,12 @@
         android:layout_width="206dp"
         android:layout_height="80dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="520dp"
+        android:layout_marginTop="600dp"
         android:onClick="backToEventCreation"
         android:text="Back to event creation"
         app:backgroundTint="@color/pink" />
+
+
     <!--<Button
         android:id="@+id/goToInviteListBtn"
         android:layout_width="227dp"
@@ -184,6 +181,7 @@
              android:ems="10"
              android:inputType="textPersonName"
              android:text="Guest List" />-->
+
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -239,6 +240,47 @@ public class InviteActivity extends AppCompatActivity {
         // to on the screen
         t1.setText("Invitation to: "+curGuest);
 
+        //find the button that sends the invitation by id
+        Button button = findViewById(R.id.sendBtn);
+
+        //set a listener when we click on item to handle the on click event
+        button.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION   : onClick()
+             * DESCRIPTION: This function is to inform the user his
+             * invitation has been sent to the guest and to save the
+             * invited guests.
+             * PARAMETERS : View view
+             * RETURNS    : NONE
+             */
+            @Override
+            public void onClick(View view) {
+                //a new editor object to edit the contents of the "GuestPrefs"
+                SharedPreferences.Editor editor = sp.edit();
+
+                // fil the "GuestPrefs" object with all the possible guests -
+                // we allow up to 5 guests
+                if (sp.getString("guest1", "") == ""){
+                     editor.putString("guest1", curGuest);
+                }else if (sp.getString("guest2", "") == ""){
+                    editor.putString("guest2", curGuest);
+                } else if (sp.getString("guest3", "") == ""){
+                    editor.putString("guest3", curGuest);
+                }else if (sp.getString("guest4", "") == ""){
+                    editor.putString("guest4", curGuest);
+                }else if (sp.getString("guest5", "") == ""){
+                    editor.putString("guest5", curGuest);
+                }
+
+                //apply changes
+                editor.apply();
+
+                //inform the user that the invitation has been sent
+                Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
     }
 
 
@@ -256,48 +298,6 @@ public class InviteActivity extends AppCompatActivity {
         //go back to the guests list screen
         Intent intent = new Intent(this, GuestActivity.class);
         startActivity(intent);
-    }
-
-
-    /*
-     * FUNCTION   : sendInvitation()
-     * DESCRIPTION: This function is to inform the user his
-     * invitation has been sent to the guest.
-     * PARAMETERS : View view
-     * RETURNS    : NONE
-     */
-    public void sendInvitation(View view)
-    {
-        //inform the user about the invitation being sent
-       Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
-
-
-        //get access to the "GuestPrefs" shared preferences object containing the guest
-        //we are currently sending the invitation to
-        SharedPreferences sp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
-        //retrieve the guest we are sending invitation to
-        String cur_guest = sp.getString("cur_guest", "");
-
-        //a new editor object to edit the contents of the "GuestPrefs"
-        SharedPreferences.Editor editor = shared_obj_guests.edit();
-
-        //fil the "GuestPrefs" object with all the possible guests -
-        // we allow up to 5 guests
-        if (sp.getString("guest1", "") == null) {
-            editor.putString("guest1", cur_guest);
-        }else if (sp.getString("guest2", "") == null){
-            editor.putString("guest2", cur_guest);
-        } else if (sp.getString("guest3", "")==null){
-            editor.putString("guest3", cur_guest);
-        }else if (sp.getString("guest4", "")==null){
-            editor.putString("guest4", cur_guest);
-        }else if (sp.getString("guest5", "")==null){
-            editor.putString("guest5", cur_guest);
-        }
-
-        //apply changes
-        editor.apply();
-
     }
 }
 

@@ -32,6 +32,11 @@ public class InviteActivity extends AppCompatActivity {
 
     private static final String TAG = "InviteActivity";
 
+    //NEW THING
+    SharedPreferences shared_obj_guests;
+    SharedPreferences shared_guest_num;
+    String curGuest;
+    //END
     private TextView displayDate;
     private Spinner spinner;
     private DatePickerDialog.OnDateSetListener dateListener;
@@ -130,7 +135,7 @@ public class InviteActivity extends AppCompatActivity {
         TextView t1;
         t1= findViewById(R.id.whoToInvite);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
-        String curGuest = sp.getString("cur_guest","");
+        curGuest = sp.getString("cur_guest","");
         //if cur_guest is null
         if (curGuest==null)
         {
@@ -165,7 +170,40 @@ public class InviteActivity extends AppCompatActivity {
 
     public void sendInvitation(View view)
     {
-        Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
+
+        //NEW THING
+        shared_obj_guests = getSharedPreferences("AllGuest", Context.MODE_PRIVATE);
+        shared_guest_num= getSharedPreferences("GuestNum", Context.MODE_PRIVATE);
+
+        int i = 1;
+        //////
+
+
+
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+        String cur_guest = sp.getString("cur_guest", "");
+       // String guest = sp.getString("guest1","");
+        String guest = null;
+        SharedPreferences.Editor editor = shared_obj_guests.edit();
+
+        if (sp.getString("guest1", "") == null) {
+            editor.putString("guest1", cur_guest);
+        }else if (sp.getString("guest2", "") == null){
+            editor.putString("guest2", cur_guest);
+        } else if (sp.getString("guest3", "")==null){
+            editor.putString("guest3", cur_guest);
+        }else if (sp.getString("guest4", "")==null){
+            editor.putString("guest4", cur_guest);
+        }else if (sp.getString("guest5", "")==null){
+            editor.putString("guest5", cur_guest);
+        }
+     //   int arraySize = selectedGuests.size();
+
+
+        editor.apply();
+       // editor.commit();
+
     }
 }
 

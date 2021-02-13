@@ -72,17 +72,29 @@
 
         <Button
             android:id="@+id/inviteBtn"
-            android:layout_width="412dp"
+            android:layout_width="206dp"
             android:layout_height="80dp"
-            android:layout_marginLeft="0dp"
+            android:layout_marginLeft="203dp"
             android:layout_marginTop="520dp"
             android:onClick="addToWaitList"
             android:text="Invite"
             app:backgroundTint="@color/light_gray_green" />
 
 
+
+
+
     </LinearLayout>
 
+    <Button
+        android:id="@+id/backToEventBtn"
+        android:layout_width="206dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="520dp"
+        android:onClick="backToEventCreation"
+        android:text="Back to event creation"
+        app:backgroundTint="@color/pink" />
     <!--<Button
         android:id="@+id/goToInviteListBtn"
         android:layout_width="227dp"
@@ -114,7 +126,7 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_bar"
         android:background="@color/searchColor"
-        android:layout_width="520dp"
+        android:layout_width="540dp"
         android:layout_height="68dp"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="0dp"

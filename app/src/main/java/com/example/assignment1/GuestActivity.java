@@ -100,7 +100,6 @@ public class GuestActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         selectedGuests.add(guestList.getItemAtPosition(i).toString()); //JUST ADDED
-                        Toast.makeText(GuestActivity.this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -158,7 +157,11 @@ public class GuestActivity extends AppCompatActivity {
     //return mDb query
     // }
 
-
+    public void backToEventCreation (View view)
+    {
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        startActivity(intent);
+    }
 
     public void addToWaitList(View view)
     {
@@ -229,23 +232,6 @@ public class GuestActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = sp_obj2.edit();
 
-        //**   guestList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-        //**     @Override
-        //**    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-        //**    selectedGuests.add(guestList.getItemAtPosition(position).toString());
-        //**        Toast.makeText(MainActivity.this, "You Click -"+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-        //selectedGuests.add(adapterView.getItemAtPosition(i).toString());
-
-        /////NEW
-        //**        editor.putString("cur_guest", adapterView.getItemAtPosition(i).toString());
-
-        //  Toast.makeText(MainActivity.this, "The array is -"+selectedGuests, Toast.LENGTH_SHORT).show();
-        //     SetDefaultValue(InviteActivity,9, false);
-
-        //  goToInviteActivity();
-
-        //**        }
-        //**     });
 
         int arraySize = selectedGuests.size();
         if((arraySize - 1) != -1) {

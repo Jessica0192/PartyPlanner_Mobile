@@ -216,7 +216,7 @@
         android:layout_height="65dp"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="510dp"
-        android:onClick="sendInvitation"
+
         android:text="send invitation"
         android:textColor="@color/sendBtnColor"
         app:backgroundTint="@color/greenish" />

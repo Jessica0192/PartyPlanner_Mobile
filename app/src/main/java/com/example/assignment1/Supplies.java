@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ import android.widget.Toast;
  */
 public class Supplies extends AppCompatActivity{
 
-    private TextView supply = null;
+    private TextView supplies = null;
     private CheckBox balloons = null;
     private CheckBox cake = null;
     private CheckBox flowers = null;
@@ -40,6 +41,7 @@ public class Supplies extends AppCompatActivity{
     private Button save = null;
     private SharedPreferences savedValues = null;
     SharedPreferences supplyStorage;
+    public static final String TAG = "supplies";
 
     /*  -- Function Header Comment
 	Name	:   onCreate()
@@ -126,6 +128,66 @@ public class Supplies extends AppCompatActivity{
     */
     public void backToEvent(View view)
     {
+        //go back to creation event
         finish();
+    }
+
+
+    /*  -- Function Header Comment
+    Name	:   onPause()
+    Purpose :   This function is called the current page is in the state of Pause
+                and it saves all the data for later use
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onPause()
+    {
+        Log.d(TAG, "'Supplies' Page Paused");
+        super.onPause();
+    }
+
+    /*  -- Function Header Comment
+    Name	:   onResume()
+    Purpose :   This function is called the current page is in the state of Resume
+                and it gets all the data which was saved
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onResume()
+    {
+        Log.d(TAG, "'Supplies' Page Resumed");
+        super.onResume();
+    }
+
+    /*  -- Function Header Comment
+    Name	:   onStop()
+    Purpose :   This function is called the current page is in the state of Stop
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onStop()
+    {
+        Log.d(TAG, "'Supplies' Page Stopped");
+        super.onStop();
+    }
+
+    /*  -- Function Header Comment
+    Name	:   onDestroy()
+    Purpose :   This function is called the current page is in the state of Destroy
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onDestroy()
+    {
+        Log.d(TAG, "'Supplies' Page Destroyed");
+        super.onDestroy();
     }
 }

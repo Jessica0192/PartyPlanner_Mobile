@@ -14,12 +14,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 /*
  * NAME     :    Menu
@@ -33,10 +36,11 @@ public class Menu extends AppCompatActivity {
     private CheckBox drink = null;
     private CheckBox appetizer = null;
     private CheckBox mainDish = null;
-    private CheckBox desser = null;
+    private CheckBox dessert = null;
     private Button save = null;
     private SharedPreferences savedValues = null;
     SharedPreferences menuStorage;
+    public static final String TAG = "menu";
 
     /*  -- Function Header Comment
 	Name	:   onCreate()
@@ -52,7 +56,7 @@ public class Menu extends AppCompatActivity {
         drink = findViewById(R.id.checkbox_drink);
         appetizer = findViewById(R.id.checkbox_appetizer);
         mainDish = findViewById(R.id.checkbox_mainDish);
-        desser = findViewById(R.id.checkbox_dessert);
+        dessert = findViewById(R.id.checkbox_dessert);
 
         menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
 
@@ -85,7 +89,7 @@ public class Menu extends AppCompatActivity {
                 if (mainDish.isChecked()) {
                     result.append("\nmainDish");
                 }
-                if (desser.isChecked()) {
+                if (dessert.isChecked()) {
                     result.append("\ndessert");
                 }
                 //Displaying the message on the toast
@@ -101,7 +105,6 @@ public class Menu extends AppCompatActivity {
         });
     }
 
-
     /*  -- Function Header Comment
     Name	:   backToEvent()
     Purpose :   To let the user back to the event page
@@ -111,7 +114,64 @@ public class Menu extends AppCompatActivity {
     */
     public void backToEvent(View view)
     {
+        //go back to creation event
         finish();
     }
 
+    /*  -- Function Header Comment
+    Name	:   onPause()
+    Purpose :   This function is called the current page is in the state of Pause
+                and it saves all the data for later use
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onPause() {
+        Log.d(TAG, "'Menu' Page Paused");
+        super.onPause();
+    }
+
+    /*  -- Function Header Comment
+    Name	:   onResume()
+    Purpose :   This function is called the current page is in the state of Resume
+                and it gets all the data which was saved
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onResume()
+    {
+        Log.d(TAG, "'Menu' Page Resumed");
+        super.onResume();
+    }
+
+    /*  -- Function Header Comment
+    Name	:   onStop()
+    Purpose :   This function is called the current page is in the state of Stop
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onStop()
+    {
+        Log.d(TAG, "'Menu' Page Stopped");
+        super.onStop();
+    }
+
+    /*  -- Function Header Comment
+    Name	:   onDestroy()
+    Purpose :   This function is called the current page is in the state of Destroy
+    Inputs	:	NONE
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    @Override
+    public void onDestroy()
+    {
+        Log.d(TAG, "'Menu' Page Destroyed");
+        super.onDestroy();
+    }
 }

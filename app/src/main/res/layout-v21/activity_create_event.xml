@@ -245,7 +245,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40sp"
         android:onClick="onClick"
-        android:text="Click to choose suppliers"
+        android:text="Click to choose supplies"
         android:textColor="#4169E1"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

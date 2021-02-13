@@ -1,6 +1,8 @@
 package com.example.assignment1;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +43,15 @@ public class EventListActivity extends MainActivity {
             @Override
             public void onClick(View v) {
                 Intent createEventIntent = new Intent(v.getContext(), CreateEventActivity.class);
+                SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+                SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+                SharedPreferences supplySp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+                SharedPreferences newEvent = getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE);
+
+                menuSp.edit().clear().apply();
+                supplySp.edit().clear().apply();
+                guestSp.edit().clear().apply();
+                newEvent.edit().clear().apply();
                 startActivity(createEventIntent);
             }
         });

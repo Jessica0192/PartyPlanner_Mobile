@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="120dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_balloons"
         android:textSize="35sp" />
 
@@ -42,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="180dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_cake"
         android:textSize="35sp" />
 
@@ -52,7 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="240dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_flowers"
         android:textSize="35sp" />
 
@@ -62,7 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="300dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_cups"
         android:textSize="35sp" />
 
@@ -72,7 +68,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="360dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_cutlery"
         android:textSize="35sp" />
 
@@ -82,7 +77,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="420dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_candle"
         android:textSize="35sp" />
 
@@ -92,7 +86,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="480dp"
-        android:onClick="onCheckboxClicked"
         android:text="@string/checkbox_invitations"
         android:textSize="35sp" />
 

@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    FILE: activity_create_event.xml
+    Project: A1
+    PROGRAMMER: Jessica Sim
+    FIRST VERSION: 2021-02-12
+    DESCRIPTION:
+        This file contains the design of the page to create event. It has various of widget such as
+        EditText, dropdown(spinner), button. It is a linear layout and has scrollview to
+        have scroll bar
+-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,209 +16,269 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:background="#FFE4C4">
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="#F2D7D5">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/createEventTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:text="@string/createEvent"
+                android:textColor="@color/pink"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.075" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35sp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/eventNameAsterisk"
+                    android:layout_marginTop="27sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textSize="30sp"
+                    android:textColor="#B22222"/>
+                <EditText
+                    android:id="@+id/txtEventName"
+                    android:layout_width="296dp"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="30sp"
+                    android:hint="@string/event_name"
+                    android:text =""
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#808080"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/createEventTextView"
+                    app:layout_constraintVertical_bias="0.202" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/eventTypeAsterisk"
+                android:layout_marginTop="28sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textSize="30sp"
+                android:textColor="#B22222"/>
+            <TextView
+                android:layout_marginTop="30sp"
+                android:id="@+id/txtEventType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Type: "
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <Spinner
+                android:layout_marginTop="30sp"
+                android:id="@+id/eventType_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50sp"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45sp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/dateAsterisk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textSize="30sp"
+                android:textColor="#B22222"/>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="150sp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.292"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txtEventName"
+                app:layout_constraintVertical_bias="0.326" />
+            <Button
+                android:id="@+id/editDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40sp"
+                app:backgroundTint="@color/white"
+                android:textColor="#4169E1"
+                android:text="@string/edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.87"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.325" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45sp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/addressAsterisk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textSize="30sp"
+                android:textColor="#B22222"/>
+            <EditText
+                android:id="@+id/editAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/address"
+                android:text =""
+                android:textAlignment="center"
+                android:ems="10"
+                android:inputType="textPostalAddress"
+                android:autofillHints="Address" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/guestsAsterisk"
+                android:layout_marginTop="22sp"
+                android:layout_marginEnd="4sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textSize="30sp"
+                android:textColor="#B22222"/>
+            <Button
+                android:id="@+id/btnAddGuests"
+                android:layout_marginTop="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4169E1"
+                app:backgroundTint="@color/white"
+                android:text="@string/add_guests"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.526"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.912" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/createEventTextView"
+            android:id="@+id/listOfGuests"
+            android:layout_marginTop="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_of_guests"
+            android:textSize="17sp"
+            android:textColor="#696969"
+            android:gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/btnAddMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40sp"
+            android:backgroundTint="@color/white"
+            android:onClick="onClick"
+            android:text="Click to Choose Menu"
+            android:textColor="#4169E1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.912" />
+
+        <TextView
+            android:id="@+id/txtMenu"
+            android:layout_marginTop="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List of Menu"
+            android:textSize="17sp"
+            android:textColor="#696969"
+            android:gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/btnAddSuppliers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40sp"
-            android:text="@string/createEvent"
-            android:textColor="@color/pink"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.075" />
-
-        <EditText
-            android:id="@+id/txtEventName"
-            android:layout_width="296dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="30sp"
-            android:hint="@string/event_name"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColorHint="#808080"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/createEventTextView"
-            app:layout_constraintVertical_bias="0.202" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35sp"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/txtEventType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/event_type"
-            android:textColor="@color/black"
-            android:textSize="18sp"/>
-
-        <Spinner
-            android:id="@+id/eventType_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50sp"
-            android:textAlignment="center"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45sp"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:width="150sp"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.292"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtEventName"
-            app:layout_constraintVertical_bias="0.326" />
-        <Button
-            android:id="@+id/editDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40sp"
-            app:backgroundTint="@color/white"
+            android:onClick="onClick"
+            android:text="Click to choose suppliers"
             android:textColor="#4169E1"
-            android:text="@string/edit"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.87"
+            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.325" />
+            app:layout_constraintVertical_bias="0.912" />
+
+        <TextView
+            android:id="@+id/txtSupplies"
+            android:layout_marginTop="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List of Supplies"
+            android:textSize="17sp"
+            android:textColor="#696969"
+            android:gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:onClick="onClick"
+            android:text="@string/SAVE"
+            android:backgroundTint="#CD5C5C"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.912" />
+
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/editAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45sp"
-        android:hint="@string/address"
-        android:textAlignment="center"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:autofillHints="Address" />
-
-    <Button
-        android:id="@+id/btnAddGuests"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30sp"
-        android:textColor="#4169E1"
-        app:backgroundTint="@color/white"
-        android:text="@string/add_guests"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
-
-
-    <TextView
-        android:id="@+id/listOfGuests"
-        android:layout_marginTop="5sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/list_of_guests"
-        android:textSize="17sp"
-        android:textColor="#696969"
-        android:gravity="center_horizontal"/>
-
-    <Button
-        android:id="@+id/btnAddMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40sp"
-        android:backgroundTint="@color/white"
-        android:text="@string/click_to_choose_menu"
-        android:textColor="#4169E1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
-
-    <TextView
-        android:id="@+id/txtMenu"
-        android:layout_marginTop="5sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/list_of_menu"
-        android:textSize="17sp"
-        android:textColor="#696969"
-        android:gravity="center_horizontal"/>
-
-    <Button
-        android:id="@+id/btnAddSuppliers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:text="@string/click_to_choose_suppliers"
-        android:textColor="#4169E1"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
-
-    <TextView
-        android:id="@+id/txtSupplies"
-        android:layout_marginTop="5sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/list_of_supplies"
-        android:textSize="17sp"
-        android:textColor="#696969"
-        android:gravity="center_horizontal"/>
-
-    <Button
-        android:id="@+id/saveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:text="@string/SAVE"
-        android:backgroundTint="#CD5C5C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
-
-
-</LinearLayout>
 </ScrollView>

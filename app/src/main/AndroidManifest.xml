@@ -15,9 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name = ".EventListActivity"/>
         <activity android:name = ".CreateEventActivity"/>
         <activity android:name = ".GuestActivity"/>
         <activity android:name = ".InviteActivity"/>
+        <activity android:name = ".Menu"/>
+        <activity android:name = ".Supplies"/>
+
     </application>
 
 </manifest>

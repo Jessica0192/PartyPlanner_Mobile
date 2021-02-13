@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F2D7D5">
 
     <TextView
         android:id="@+id/menuTextView"
@@ -13,5 +15,97 @@
         android:textColor="@color/pink"
         android:textSize="40sp"
         android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/checkbox_drink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="150dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_drink"
+        android:textSize="40sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_appetizer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="250dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_appetizer"
+        android:textSize="40sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_mainDish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="350dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_mainDish"
+        android:textSize="40sp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_dessert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="450dp"
+        android:onClick="onCheckboxClicked"
+        android:text="@string/checkbox_dessert"
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="570sp"
+        android:backgroundTint="#A569BD"
+        android:text="@string/SAVE" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="570sp"
+        android:backgroundTint="#A569BD"
+        android:onClick="backToEvent"
+        android:text="@string/backBtn" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="83dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="310dp"
+        android:layout_marginTop="240dp"
+        app:srcCompat="@drawable/appet" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="82dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="450dp"
+        app:srcCompat="@drawable/desser" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="85dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="350dp"
+        app:srcCompat="@drawable/dish" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="53dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginTop="140dp"
+        app:srcCompat="@drawable/drink" />
+
 
 </RelativeLayout>

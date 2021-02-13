@@ -43,17 +43,41 @@
         app:layout_constraintVertical_bias="0.936" />
 
     <TextView
-        android:id="@+id/txtViewEventItem"
-        android:layout_width="389dp"
-        android:layout_height="42dp"
+        android:id="@+id/textViewEventDate"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="477dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewEventName"
+        app:layout_constraintTop_toBottomOf="@+id/txt_event_list"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewEventName"
+        android:layout_width="256dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="477dp"
         android:gravity="center"
         android:text="There is no event yet"
         android:textColor="@color/grey"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnAddEvent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_event_list"
-        app:layout_constraintVertical_bias="0.055" />
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

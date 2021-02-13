@@ -27,91 +27,122 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+/*
+ * FILE          : GuestActivity.java
+ * PROJECT       : PROG3150 - Assignment #1
+ * PROGRAMMER    : Maria Malinina
+ * FIRST VERSION : 2020-02-10
+ * DESCRIPTION   :
+ * This file contains the functionality behind the choose_guests.xml screen.
+ * When the user is presented with this screen, he had a list view of guests
+ * he can invite, he can scroll through them, or start typing name/letter in
+ * the search box and find the guest he wants, then he can press invite in order
+ * to invite him. So here we have an onCreate function which just defines the
+ * basic functionality of the screen, and on button click functions, which are
+ * used to 1. Redirect us to the content_invite.xml screen if the user chose to
+ * invite some guest, 2. Redirect us back to the create event page, if the user
+ * wants to go back. Before going to invitation screen, we store the selected
+ * guest in a shared preference variable to make sure in the invitation screen
+ * we know who we are sending invitation to.
+ */
 public class GuestActivity extends AppCompatActivity {
 
-    // String[] guests= {};
-    ArrayList<String> selectedGuests=new ArrayList<>();
+    // to keep track of the guests
+    ArrayList<String> selectedGuests = new ArrayList<>();
+    //shared preferences ibject
     SharedPreferences sp_obj;
-    SharedPreferences sp_obj2;
+    //our list view
     ListView guestList;
+    //button
     private Button button;
-    //  Button invite = new Button();
+    // searchview object
     SearchView searchView;
-    //ArrayList<String> nameList = new ArrayList<>();
+
+    //an array containing the names of guests to choose from
     String[] nameList = {"Maria", "Suka", "Hoda", "Jessica", "Troy", "Norbert", "Igor", "Marianna", "Yeji", "Priyanka"};
+
+    //adapter for the array
     ArrayAdapter<String> arrayAdapter;
-    //   private GuestListAdapter mAdapter;
+
     private EditText mNewGuestNameEditText;
     private EditText mNewPartySizeEditText;
+
+    //LOG_TAG that we'll use for logging
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
 
+
+    /*
+     * FUNCTION   : onCreate()
+     * DESCRIPTION: This function is called when the page is loaded, so here
+     * we have some basic functionality of the page where the user can select
+     * which guests to invite to a party. Here, we simply add all the possible
+     * guests to the listView to display them and make the options selectable.
+     * PARAMETERS : Bundle savedInstanceState - save instance state
+     * RETURNS    : NONE
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       // setContentView(R.layout.activity_main);
+        //set the content of what we see
         setContentView(R.layout.choose_guests);
 
-        //  FloatingActionButton fab = findViewById(R.id.fab);
-        // fab.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //   public void onClick(View view) {
-        //      Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //             .setAction("Action", null).show();
-        // }
-        //});
-
-
-        // Button butn = (Button)findViewById(R.id.add_to_waitlist_button);
-        //  butn.setHeight(70);
-        // butn.setWidth(120);
-
-        // final float scale = getContext().getResources().getDisplayMetrics().density;
-        //int pixels = (int) (200 * scale + 0.5f);
-
-//        butn.setLayoutParams (new Toolbar.LayoutParams(50, Toolbar.LayoutParams.WRAP_CONTENT));
-
+        //find the list view in our xml by id
         guestList=findViewById(R.id.guestList);
 
+        //find the search view from xml by id
+        searchView = findViewById(R.id.search_bar);
+
+        //set a new array adapter to put the list of possible guests into it and adapt
+        //it for the list view
+         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, nameList);
+
+         //make the list view display the array of possible guests
+         guestList.setAdapter(arrayAdapter);
 
 
+         //set a listener when we click on item to handle the on click event
+         guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+             /*
+              * FUNCTION   : onItemClick()
+              * DESCRIPTION: If some guest from the listview is clicked, we
+              * simply add him to our array list of guests.
+              * PARAMETERS : AdapterView<?> adapterView,
+              *              View view,
+              *              int i,
+              *              long l
+              * RETURNS    : NONE
+              */
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //add selected guest to the list of guests
+                selectedGuests.add(guestList.getItemAtPosition(i).toString());
+
+                 }
+            });
 
 
-
-
-        // ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
-
-
-        searchView = findViewById(R.id.search_bar); //этого не было
-        //  guestList.setAdapter(arrayAdapter);
-
-        //новое
-        // Context context = this;
-
-       // if (nameList != null) {
-            arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, nameList);
-
-        //    if (arrayAdapter != null) {
-                guestList.setAdapter(arrayAdapter);
-
-
-                guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        selectedGuests.add(guestList.getItemAtPosition(i).toString()); //JUST ADDED
-
-                    }
-                });
-         //   }
-       // }
+         //set on query listener to properly handle our search
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            /*
+             * FUNCTION   : onQueryTextSubmit()
+             * DESCRIPTION: When we provide text to search view,
+             * the string needs to be found in list of guests.
+             * PARAMETERS : String query
+             * RETURNS    : false
+             */
             @Override
             public boolean onQueryTextSubmit(String query){
                 GuestActivity.this.arrayAdapter.getFilter().filter(query);
                 return false;
             }
 
+
+            /*
+             * FUNCTION   : onQueryTextChange()
+             * DESCRIPTION: Handle the search of a guest/guests.
+             * PARAMETERS : String newText
+             * RETURNS    : false
+             */
             @Override
             public boolean onQueryTextChange(String newText){
                 GuestActivity.this.arrayAdapter.getFilter().filter(newText);
@@ -120,145 +151,99 @@ public class GuestActivity extends AppCompatActivity {
         });
 
 
-
-        //this,android.R.layout.simple_expandable_list_item_1, android.R.id.text1,nameList
-
-        //String[] my_guest_list = new String[] {"Hello", "My", "Name", "Is Mary"};
-
-        // button = (Button) findViewById(R.id.guestListBtn);
-
-        //  button.setOnClickListener(new View.OnClickListener(){
-        //    @Override
-        //       public void onClick(View v){
-        //  selectedGuests.
-        //    SharedPreferences.Editor editor = sp_obj.edit();
-        //   int arraySize = selectedGuests.size();
-        //  for(int i = 0; i < arraySize; i++) {
-
-        // editor.putString(getString(i), selectedGuests.get(i));
-        //       }
-        //editor.commit();
-        //openNextActivity();
-        //   }
-        //     });
-
     }
 
 
 
-
-
+    /*
+     * FUNCTION   : goToInviteActivity()
+     * DESCRIPTION: This function simply redirects us to to the
+     * invitation screen - content_invite.xml, which corres-
+     * ponds with InviteActivity.
+     * PARAMETERS : NONE
+     * RETURNS    : NONE
+     */
     public void goToInviteActivity(){
+        //go to the invitation screen
         Intent intent = new Intent(this, InviteActivity.class);
         startActivity(intent);
     }
-    //  private Cursor getAllGuests()
-    // {
-    //return mDb query
-    // }
 
+
+    /*
+     * FUNCTION   : backToEventCreation()
+     * DESCRIPTION: This function is a simple on click event,
+     * if the user clicks on "back to event creation" - we go to the
+     * event creation screen, which corresponds with CreateEventActivity.
+     * PARAMETERS : View view
+     * RETURNS    : NONE
+     */
     public void backToEventCreation (View view)
     {
+        //go back to event creation screen
         Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
 
+
+
+    /*
+     * FUNCTION   : addToWaitList()
+     * DESCRIPTION: This function is a simple on click event,
+     * if the user clicks on "invite" - we save the guest the user
+     * selected, to know who to send invitation to, and go to the
+     * invitation screen (content_invite.xml), which corresponds with
+     * InviteActivity.
+     * PARAMETERS : View view
+     * RETURNS    : NONE
+     */
     public void addToWaitList(View view)
     {
+        //get the list view of guests from xml
+        guestList = (ListView)findViewById(R.id.guestList);
 
-
-        //NEW THING
-        //  String selectedGuest=((TextView)view).getText().toString();
-
-        //     if(!(selectedGuests.contains(selectedGuest))){
-//           selectedGuests.add(selectedGuest);
-        //   }
-        //  if (mNewGuestNameEditText.getText().length() == 0 ||
-        //     mNewPartySizeEditText.getText().length() == 0)
-        // {
-        //   return;
-        //}
-
-        ////int partySize = 1;
-        ////try{
-        ////    partySize = Integer.parseInt(mNewPartySizeEditText.getText().toString());
-
-        ////} catch (NumberFormatException ex) {
-        ////   Log.e(LOG_TAG, "Failed to parse party size text to number: " + ex.getMessage());
-        //// }
-
-        //     addNewGuest(mNewGuestNameEditText.getText().toString(), partySize);
-
-        //  mAdapter.swapCursor(getAllGuests());
-
-        // //mNewPartySizeEditText.clearFocus();
-        //// mNewGuestNameEditText.getText().clear();
-        ////mNewPartySizeEditText.getText().clear();
-
-
-
-
-        guestList=(ListView)findViewById(R.id.guestList);
-
-        //  guestList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        // guestList.setTextFilterEnabled(true);
-
+        //establish a new array list object
         ArrayList<String> arrayList = new ArrayList<>();
 
-        //  arrayList.add("Hello");
-        //  arrayList.add("There");
-        //  arrayList.add("I'm");
-        //  arrayList.add("Mary");
-        //arrayList.add("Hello");
-        //  arrayList.add("There");
 
+        //find our search view bar by id
+        searchView = findViewById(R.id.search_bar);
 
-        // ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
-
-
-        searchView = findViewById(R.id.search_bar); //этого не было
-        //  guestList.setAdapter(arrayAdapter);
-
-        //новое
-        // Context context = this;
+        //set up a new adapter that is going to adapt the array to our list view
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1,nameList);
+
+        //adapt
         guestList.setAdapter(arrayAdapter);
 
-        /////
 
-        sp_obj2 = getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+        //establish a new shared preferences object named "GuestPrefs"
+        sp_obj = getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
 
-        //////
+        //editor object to fill the "GuestPrefs" Shared Preferences
+        SharedPreferences.Editor editor = sp_obj.edit();
 
-        SharedPreferences.Editor editor = sp_obj2.edit();
-
-
+        //get the size of the array where we added the selected guest
         int arraySize = selectedGuests.size();
         if((arraySize - 1) != -1) {
+            //save the current guest into the shared preferences object, as
+            //we are going need to know which guest we are sending invitation
+            // to in out InviteActivity
             editor.putString("cur_guest", selectedGuests.get(arraySize - 1));
+
+            //apply changes
             editor.apply();
-            //  editor.commit();
-            //   Toast.makeText(MainActivity.this, "Information saved.", Toast.LENGTH_LONG).show();
+            //redirecting to the content_invite.xml screen for invitation
             goToInviteActivity();
         }
         else
         {
+            //if a user didn't select any guest and pressed "invite"
+            //button - display an error message
             Toast.makeText(getApplicationContext(), "Please select one of the guests to invite", Toast.LENGTH_SHORT).show();
         }
-        // int arraySize = selectedGuests.size();
-        // for(int i = 0; i < arraySize; i++) {
-        //    myTextView.append(selectedGuests[i]);
-        //   Toast.makeText(MainActivity.this, "The array is -"+selectedGuests, Toast.LENGTH_SHORT).show();
-        // }
-
 
 
     }
-
-
-
-
-
 
 
 

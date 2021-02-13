@@ -128,10 +128,7 @@ public class Menu extends AppCompatActivity {
     */
     @Override
     public void onPause() {
-        Log.d(TAG, "'Create Event' Page Paused");
-        SharedPreferences.Editor editor = menuStorage.edit();
-        editor.putString("menu", menu.getText().toString());
-        editor.apply();
+        Log.d(TAG, "'Menu' Page Paused");
         super.onPause();
     }
 
@@ -146,10 +143,8 @@ public class Menu extends AppCompatActivity {
     @Override
     public void onResume()
     {
-        Log.d(TAG, "'Create Event' Page Resumed");
-        menuStorage = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+        Log.d(TAG, "'Menu' Page Resumed");
         super.onResume();
-        menu.setText(menuStorage.getString("MenuItems", "List of Menu"));              //instead of savedValues, put something from different page
     }
 
     /*  -- Function Header Comment
@@ -162,7 +157,7 @@ public class Menu extends AppCompatActivity {
     @Override
     public void onStop()
     {
-        Log.d(TAG, "'Create Event' Page Stopped");
+        Log.d(TAG, "'Menu' Page Stopped");
         super.onStop();
     }
 
@@ -176,7 +171,7 @@ public class Menu extends AppCompatActivity {
     @Override
     public void onDestroy()
     {
-        Log.d(TAG, "'Create Event' Page Destroyed");
+        Log.d(TAG, "'Menu' Page Destroyed");
         super.onDestroy();
     }
 }

@@ -142,11 +142,9 @@ public class Supplies extends AppCompatActivity{
     Returns	:	NONE
     */
     @Override
-    public void onPause() {
-        Log.d(TAG, "'Create Event' Page Paused");
-        SharedPreferences.Editor editor = supplyStorage.edit();
-        editor.putString("supplies", supplies.getText().toString());
-        editor.apply();
+    public void onPause()
+    {
+        Log.d(TAG, "'Supplies' Page Paused");
         super.onPause();
     }
 
@@ -161,10 +159,8 @@ public class Supplies extends AppCompatActivity{
     @Override
     public void onResume()
     {
-        Log.d(TAG, "'Create Event' Page Resumed");
-        supplyStorage = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+        Log.d(TAG, "'Supplies' Page Resumed");
         super.onResume();
-        supplies.setText(supplyStorage.getString("SupplyItems", "List of Supplies"));  //instead of savedValues, put something from different page
     }
 
     /*  -- Function Header Comment
@@ -177,7 +173,7 @@ public class Supplies extends AppCompatActivity{
     @Override
     public void onStop()
     {
-        Log.d(TAG, "'Create Event' Page Stopped");
+        Log.d(TAG, "'Supplies' Page Stopped");
         super.onStop();
     }
 
@@ -191,7 +187,7 @@ public class Supplies extends AppCompatActivity{
     @Override
     public void onDestroy()
     {
-        Log.d(TAG, "'Create Event' Page Destroyed");
+        Log.d(TAG, "'Supplies' Page Destroyed");
         super.onDestroy();
     }
 }

@@ -87,6 +87,7 @@ public class Supplies extends AppCompatActivity{
             public void onClick(View view) {
 
                 StringBuilder result = new StringBuilder();
+                //to store the selected items
                 result.append("Selected Items:");
                 if (balloons.isChecked()) {
                     result.append("\nballoons");
@@ -114,6 +115,7 @@ public class Supplies extends AppCompatActivity{
 
                 supplyStorage = getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
 
+                //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = supplyStorage.edit();
 
                 editor.putString("SupplyItems", result.toString());

@@ -81,6 +81,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View view) {
 
                 StringBuilder result = new StringBuilder();
+                //to store the selected items
                 result.append("Selected Items:");
                 if (drink.isChecked()) {
                     result.append("\ndrink");
@@ -99,6 +100,7 @@ public class Menu extends AppCompatActivity {
 
                 menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
 
+                //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = menuStorage.edit();
 
                 editor.putString("MenuItems", result.toString());

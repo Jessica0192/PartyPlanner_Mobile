@@ -47,6 +47,22 @@ import java.util.ArrayList;
  * guest in a shared preference variable to make sure in the invitation screen
  * we know who we are sending invitation to.
  */
+
+
+/*
+ * NAME     :   GuestActivity
+ * PURPOSE :    This class is used to provide the basic functionality of the guest
+ * selection screen. Here, we have an array of all of the possible guests that the
+ * user may choose to invite, so we fill out the list view programmatically to con-
+ * tain all of the possible guests. We also manipulate data, we keep track of the
+ * guest the user selected to send invitation to in a shared preference object to
+ * be able to retrieve it in the guest invitation screen. We also implement a search
+ * view to display the contents of the list view according to what the user typed in
+ * the search (if he typed something). And we highlight the selected guest. The buttons
+ * allow the user to either proceed with guest invitation or go back to the event cre-
+ * ation screen. The keyboard is automatically hidden if the user types something in the
+ * search view and then presses the "enter" button.
+ */
 public class GuestActivity extends AppCompatActivity {
 
     // to keep track of the guests

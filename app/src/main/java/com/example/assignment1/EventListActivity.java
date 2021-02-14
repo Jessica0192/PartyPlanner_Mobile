@@ -20,7 +20,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 
 /*
@@ -101,9 +103,9 @@ public class EventListActivity extends MainActivity {
             public void onClick(View v) {
                 // Retrieve date from shared preferences and clear data
                 getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE).edit().clear().apply();
-                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();;
-                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();;
-                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();;
+                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();
+                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();
+                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
                 getApplicationContext().getSharedPreferences("Saved Events", Context.MODE_PRIVATE).edit().clear().apply();
                 // Refresh the page
                 startActivity(new Intent(v.getContext(), EventListActivity.class));
@@ -191,10 +193,16 @@ public class EventListActivity extends MainActivity {
             // Store data to string array with a separator
             String[] myDataNameList = eventNameList.split(";");
             String[] myDataDateList = eventDateList.split(";");
+            ArrayList<String> checkEventList = new ArrayList<String>();
             String tmp = "";
 
             for (int i = 0; i < myDataNameList.length; i++) {
                 // Handle the case when string is empty
+                if (checkEventList.contains(myDataNameList[i]))
+                {
+                    continue;
+                }
+                checkEventList.add(myDataNameList[i]);
                 if ( tmp == "")
                 {
                     tmp = myDataNameList[i] + " : " +  myDataDateList[i];
@@ -208,6 +216,7 @@ public class EventListActivity extends MainActivity {
             // Display data
             eventItem.setText(tmp.replace(";", System.getProperty("line.separator")));
         }
+        getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
     }
 
 

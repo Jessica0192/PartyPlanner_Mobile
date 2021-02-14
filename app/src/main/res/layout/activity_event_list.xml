@@ -36,6 +36,7 @@
         android:id="@+id/txtEventItem"
         android:layout_width="389dp"
         android:layout_height="400dp"
+        android:layout_marginTop="16dp"
         android:gravity="center|top"
         android:textColor="@color/grey"
         android:textSize="20sp"

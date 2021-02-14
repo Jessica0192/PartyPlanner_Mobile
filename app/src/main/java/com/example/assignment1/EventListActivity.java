@@ -198,7 +198,7 @@ public class EventListActivity extends MainActivity {
             String[] myDataDateList = eventDateList.split(";");
 
             String tmp = "";
-
+            checkEventList.clear();
             for (int i = 0; i < myDataNameList.length; i++) {
 
                 //if some event already exists - we don't need to duplicate it

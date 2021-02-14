@@ -114,7 +114,7 @@ public class CreateEventActivity extends MainActivity{
         menu = findViewById(R.id.txtMenu);
         supplies = findViewById(R.id.txtSupplies);
 
-        //go back to main page
+        //go back to events page
         Button saveBtn = findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             /*
@@ -129,6 +129,7 @@ public class CreateEventActivity extends MainActivity{
             @Override
             public void onClick(View v)
             {
+                Log.d(TAG, "Create Event Activity -- on click triggered");
                 SharedPreferences.Editor editor = savedValues.edit();
 
                 if(eventName.getText().toString().matches("") ||
@@ -140,6 +141,7 @@ public class CreateEventActivity extends MainActivity{
                     Toast.makeText(getApplicationContext(), "Please provide all the necessary fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Log.d(TAG, "Create Eventr Activity -- put string");
                 editor.putString("eventName", eventName.getText().toString());
                 editor.putString("eventType", eventTypeSpinner.getSelectedItem().toString());
                 editor.putString("date", date.getText().toString());

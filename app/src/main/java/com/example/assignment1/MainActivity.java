@@ -3,10 +3,17 @@ package com.example.assignment1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+/*
+ * NAME     :   MainActivity
+ * PURPOSE :    MainActivity class contains the functionality behind the activity_main.xml file.
+ *              It contains the app start page and leads to the EventListActivity page.
+ */
 public class MainActivity extends AppCompatActivity {
 
     Button btnLogin = null;
@@ -43,5 +50,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

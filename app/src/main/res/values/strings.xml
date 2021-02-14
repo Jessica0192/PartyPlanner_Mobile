@@ -6,7 +6,7 @@
     DESCRIPTION   : This file contains the resource of strings
 -->
 <resources>
-    <string name="app_name">Party Planner</string>
+    <string name="app_name">Perfect Party</string>
     <string name="events">Events</string>
     <string name="event1">Event Name</string>
     <string name="createBtn">CREATE</string>

@@ -43,6 +43,7 @@ public class EventListActivity extends MainActivity {
     private SharedPreferences savedValues;
     Button addEventBtn = null;
     Button clearEventsBtn = null;
+    ArrayList<String> checkEventList = new ArrayList<String>();
 
     /*
      * FUNCTION: onCreate
@@ -107,6 +108,7 @@ public class EventListActivity extends MainActivity {
                 getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();
                 getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
                 getApplicationContext().getSharedPreferences("Saved Events", Context.MODE_PRIVATE).edit().clear().apply();
+                checkEventList.clear();
                 // Refresh the page
                 startActivity(new Intent(v.getContext(), EventListActivity.class));
             }
@@ -148,6 +150,8 @@ public class EventListActivity extends MainActivity {
         // Log state of the page
         Log.d(TAG, "'Event List' Page Resumed");
         super.onResume();
+
+        boolean notdisplayed = true;
         // Display data in text view
         eventname = savedValues.getString("eventName", "");
         eventdate = savedValues.getString("date", "");
@@ -161,12 +165,7 @@ public class EventListActivity extends MainActivity {
             {
                 // Display default message
                 eventItem.setText("There is no event yet");
-            }
-            // Handle the case when the event name is not empty
-            else
-            {
-                // Display saved data
-                eventItem.setText(eventNameList + " / " + eventDateList);
+                notdisplayed = false;
             }
         }
         // Handle the case when there is newly entered event name
@@ -188,19 +187,22 @@ public class EventListActivity extends MainActivity {
                 editor.putString("eventDateList", eventDateList + ";" + eventdate);
             }
             editor.apply();
+        }
+
+        if (notdisplayed)
+        {
             eventNameList = savedEvents.getString("eventNameList", "");
             eventDateList = savedEvents.getString("eventDateList", "");
             // Store data to string array with a separator
             String[] myDataNameList = eventNameList.split(";");
             String[] myDataDateList = eventDateList.split(";");
 
-            //if some event already exists - we don't need to duplicate it
-            //and display it again after we (possibly) restart the emulator
-            ArrayList<String> checkEventList = new ArrayList<String>();
             String tmp = "";
 
             for (int i = 0; i < myDataNameList.length; i++) {
 
+                //if some event already exists - we don't need to duplicate it
+                //and display it again after we (possibly) restart the emulator
                 if (checkEventList.contains(myDataNameList[i]))
                 {
                     continue;

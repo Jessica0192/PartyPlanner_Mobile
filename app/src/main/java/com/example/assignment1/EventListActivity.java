@@ -1,3 +1,12 @@
+/*
+ * FILE          : EventListActivity.java
+ * PROJECT       : PROG3150 - Assignment #1
+ * PROGRAMMER    : Suka Sun
+ * FIRST VERSION : 2020-02-10
+ * DESCRIPTION   : This file contains the functionality behind the activity_event_list.xml file.
+ *                 The user can view existing events, add new event, and delete all events.
+ */
+
 package com.example.assignment1;
 
 import android.content.Context;

@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    FILE          : activity_event_list.xml
+    PROJECT       : PROG3150 - Assignment #1
+    PROGRAMMER    : Suka Sun
+    FIRST VERSION : 2020-02-10
+    DESCRIPTION   : This file contains the user interface of the EventListActivity.java file.
+                   When the user is presented with this screen, they had a list view of existing
+                   events, and can add new event or delete all the events.
+-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

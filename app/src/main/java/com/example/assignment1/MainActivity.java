@@ -1,3 +1,18 @@
+/*
+ * FILE          : MainActivity.java
+ * PROJECT       : PROG3150 - Assignment #1
+ * PROGRAMMER    : Hoda Akrami, Maria Malinina, Jessica Sim, Suka Sun
+ * FIRST VERSION : 2020-02-10
+ * DESCRIPTION   : This file contains the start page of the Perfect Party app.
+ *                 Perfect Party app: This app is used to plan parties. The user can review
+ *                 existing events, add event, and delete all the existing events. When creating
+ *                 a new event, the user may set the party's name, select the purpose of the party,
+ *                 set date of the party, set the address where the party will be held, add guests,
+ *                 and send invitation to guests. The user can also add food and party supplies.
+ *                 Once a new event is created, the name and date of the party will be added to the
+ *                 Events page.
+ */
+
 package com.example.assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;

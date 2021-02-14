@@ -37,7 +37,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-
+/*
+ * NAME     :    CreateEventActivity
+ * PURPOSE :    CreateEventActivity class contains the functionality behind the activity_create_event.xml file.
+ *              It contains functions for taking event name, event type, date, address, name of guests, menus
+ *              and supplies.
+ */
 public class CreateEventActivity extends MainActivity{
 
     public static final String TAG = "CreateEventActivity";

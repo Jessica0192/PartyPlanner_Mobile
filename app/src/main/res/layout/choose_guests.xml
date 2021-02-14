@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * FILE          : choose_guests.xml
+ * PROJECT       : PROG3150 - Assignment #1
+ * PROGRAMMER    : Maria Malinina
+ * FIRST VERSION : 2020-02-10
+ * DESCRIPTION   :
+ * This file contains the design for the guest choosing screen.
+ *In this file, the user can scroll through possible guests and
+ * press the "invite" button if he wants to invite someone to the
+ * party. He also has the ability to go back to even creation page,
+ * editing his preferences. There is a search view implemented to
+ * make the guest finding process easier for the user: if he starts
+ * typing some letter, then the guests whose names start with this
+ * letter will be displayed. User can also scroll through the view.
+ */
+-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

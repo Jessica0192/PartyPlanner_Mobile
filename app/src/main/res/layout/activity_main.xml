@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    FILE          : activity_main.xml
+    PROJECT       : PROG3150 - Assignment #1
+    PROGRAMMER    : Suka Sun
+    FIRST VERSION : 2020-02-10
+    DESCRIPTION   : This file contains the user interface of the MainActivity.java file.
+                    This is the start page of the app.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

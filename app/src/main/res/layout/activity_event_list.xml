@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    FILE          : activity_event_list.xml
+    PROJECT       : PROG3150 - Assignment #1
+    PROGRAMMER    : Suka Sun
+    FIRST VERSION : 2020-02-10
+    DESCRIPTION   : This file contains the user interface of the EventListActivity.java file.
+                   When the user is presented with this screen, they had a list view of existing
+                   events, and can add new event or delete all the events.
+-->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,9 +15,7 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/event_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,10 +41,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+    <TextView
+        android:id="@+id/txtEventItem"
+        android:layout_width="389dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center|top"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_event_list"
+        app:layout_constraintVertical_bias="0.056" />
+
     <Button
         android:id="@+id/btnAddEvent"
         android:layout_width="400dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="80dp"
         android:text="Add Event"
         android:textColor="@android:color/white"
         android:textStyle="bold"
@@ -49,43 +73,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.936" />
 
-    <TextView
-        android:id="@+id/textViewEventDate"
-        android:layout_width="98dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="477dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/grey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddEvent"
+    <Button
+        android:id="@+id/btnClearEvents"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:text="Clear Events"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:backgroundTint="@color/purple_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewEventName"
-        app:layout_constraintTop_toBottomOf="@+id/txt_event_list"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textViewEventName"
-        android:layout_width="256dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="200dp"
-        android:layout_marginBottom="477dp"
-        android:gravity="center"
-        android:text="There is no event yet"
-        android:textColor="@color/grey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddEvent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_event_list"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936" />/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -308,8 +308,6 @@ public class InviteActivity extends AppCompatActivity {
         eventName = findViewById(R.id.addr);
         handleKeyBHiding();
 
-        eventName = findViewById(R.id.pc);
-        handleKeyBHiding();
 
 
 

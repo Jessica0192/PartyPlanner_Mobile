@@ -150,10 +150,10 @@
 
         android:id="@+id/city"
         android:layout_width="250dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_marginStart="95dp"
         android:layout_marginLeft="95dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="378dp"
         android:textColor="@color/colorPrimaryDark"
 
         android:textSize="15sp" />
@@ -163,10 +163,10 @@
 
         android:id="@+id/addr"
         android:layout_width="250dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_marginStart="95dp"
         android:layout_marginLeft="95dp"
-        android:layout_marginTop="433dp"
+        android:layout_marginTop="437dp"
         android:textColor="@color/colorPrimaryDark"
 
         android:textSize="15sp" />

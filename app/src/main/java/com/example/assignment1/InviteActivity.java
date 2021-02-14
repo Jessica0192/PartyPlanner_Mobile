@@ -49,6 +49,17 @@ import java.util.List;
  * list.
  */
 
+
+/*
+ * NAME     :   InviteActivity
+ * PURPOSE :    This class is used to provide the basic functionality of the guest
+ * invitation screen. We have different methods to manipulate the data, display the
+ * data that the user might have filled in the event creation screen. We also have
+ * different methods for handling different states of the screen. We also keep track
+ * of the guest the user sent invitation to and are able to go back to the guest list
+ * if the user wants to go back. In addition, there is a functionality that allows the
+ * user to hide the keyboard on "Enter" key after he fills out some edit text.
+ */
 public class InviteActivity extends AppCompatActivity {
 
     //TAG variable indicating the current activity
@@ -146,7 +157,7 @@ public class InviteActivity extends AppCompatActivity {
             /*
              * FUNCTION   : onNothingSelected()
              * DESCRIPTION: The listener we implemented requires this
-             * method to be overriden.
+             * method to be overridden.
              * PARAMETERS : AdapterView<?> parent
              * RETURNS    : NONE
              */
@@ -309,6 +320,39 @@ public class InviteActivity extends AppCompatActivity {
         handleKeyBHiding();
 
 
+
+        //get the shared preferences object called "Saved" that filled in in the GuestActivity
+        //while selecting who to possibly send invitation to
+        SharedPreferences sp2 = getApplicationContext().getSharedPreferences("Saved Values", MODE_PRIVATE);
+
+        //get the event name value that we filled in in the event creation screen
+        String evName = sp2.getString("eventName","");
+
+        //find the edit text that is used for the event name by id
+        EditText evNameEdit = findViewById(R.id.inviteEditText);
+
+
+        // show the event name in the edit text, filled out for the user
+        evNameEdit.setText(evName);
+
+        //get the date string from the shared preferences object
+        String date = sp2.getString("date", "");
+
+        //get the text view responsible for the date display by its id
+        TextView dateEditText = findViewById(R.id.selectDate);
+
+        //set the date to the edit text that displays the date
+        dateEditText.setText(date);
+
+        //get the edit text for the address field
+        EditText addrEdit = findViewById(R.id.addr);
+
+        //get the address string from the shared preferences object
+        String address = sp2.getString("address", "");
+
+        //display the address that the user typed in the
+        //event creation screen
+        addrEdit.setText(address);
 
 
 

@@ -193,16 +193,23 @@ public class EventListActivity extends MainActivity {
             // Store data to string array with a separator
             String[] myDataNameList = eventNameList.split(";");
             String[] myDataDateList = eventDateList.split(";");
+
+            //if some event already exists - we don't need to duplicate it
+            //and display it again after we (possibly) restart the emulator
             ArrayList<String> checkEventList = new ArrayList<String>();
             String tmp = "";
 
             for (int i = 0; i < myDataNameList.length; i++) {
-                // Handle the case when string is empty
+
                 if (checkEventList.contains(myDataNameList[i]))
                 {
                     continue;
                 }
+
                 checkEventList.add(myDataNameList[i]);
+
+
+                // Handle the case when string is empty
                 if ( tmp == "")
                 {
                     tmp = myDataNameList[i] + " : " +  myDataDateList[i];

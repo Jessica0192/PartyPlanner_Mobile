@@ -177,15 +177,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center">
-        <TextView
-            android:id="@+id/guestsAsterisk"
-            android:layout_marginTop="22sp"
-            android:layout_width="wrap_content"
-            android:layout_marginEnd="4sp"
-            android:layout_height="wrap_content"
-            android:text="*"
-            android:textSize="30sp"
-            android:textColor="#B22222"/>
         <Button
             android:id="@+id/btnAddGuests"
             android:layout_marginTop="30sp"
@@ -207,7 +198,6 @@
         android:layout_marginTop="5sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/list_of_guests"
         android:textSize="17sp"
         android:textColor="#696969"
         android:gravity="center_horizontal"/>
@@ -234,7 +224,6 @@
         android:layout_marginTop="5sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List of Menu"
         android:textSize="17sp"
         android:textColor="#696969"
         android:gravity="center_horizontal"/>
@@ -260,7 +249,6 @@
         android:layout_marginTop="5sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List of Supplies"
         android:textSize="17sp"
         android:textColor="#696969"
         android:gravity="center_horizontal"/>

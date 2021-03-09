@@ -12,10 +12,13 @@
 package com.example.assignment1;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -59,6 +62,10 @@ public class CreateEventActivity extends MainActivity{
     private final DatePickerDialog.OnDateSetListener callbackMethod = null;
     private SharedPreferences savedValues = null;
     private SharedPreferences menuValues = null;
+
+    SQLiteOpenHelper dbHelper = null;
+    SQLiteDatabase db = null;
+
     /*
      * FUNCTION: onCreate
      * DESCRIPTION:
@@ -146,7 +153,9 @@ public class CreateEventActivity extends MainActivity{
                     Toast.makeText(getApplicationContext(), "Please provide all the necessary fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.d(TAG, "Create Eventr Activity -- put string");
+                Log.d(TAG, "Create Event Activity -- put string");
+
+                //editor
                 editor.putString("eventName", eventName.getText().toString());
                 editor.putString("eventType", eventTypeSpinner.getSelectedItem().toString());
                 editor.putString("date", date.getText().toString());
@@ -155,6 +164,14 @@ public class CreateEventActivity extends MainActivity{
                 editor.putString("menu", menu.getText().toString());
                 editor.putString("supplies", supplies.getText().toString());
                 editor.apply();
+
+                db = dbHelper.getWritableDatabase();
+
+                //insert date and address values in plannerInfo
+                ContentValues values= new ContentValues();
+                values.put("date", date.getText().toString());
+                values.put("address", address.getText().toString());
+                db.insert("plannerInfo", null, values);
 
                 finish();
             }
@@ -366,8 +383,8 @@ public class CreateEventActivity extends MainActivity{
         date.setText(savedValues.getString("date", cal.get(Calendar.YEAR) + " / " + (cal.get(Calendar.MONTH) + 1) + " / " + cal.get(Calendar.DATE)));
         address.setText(savedValues.getString("address", ""));
         guests.setText(guestsls.toString());           //instead of savedValues, put something from different page
-        menu.setText(menuSp.getString("MenuItems", "List of Menu"));              //instead of savedValues, put something from different page
-        supplies.setText(suppliesSp.getString("SupplyItems", "List of Supplies"));  //instead of savedValues, put something from different page
+        menu.setText(menuSp.getString("MenuItems", ""));              //instead of savedValues, put something from different page
+        supplies.setText(suppliesSp.getString("SupplyItems", ""));  //instead of savedValues, put something from different page
 
     }
 

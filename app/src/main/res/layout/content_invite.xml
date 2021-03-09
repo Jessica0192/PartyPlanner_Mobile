@@ -15,16 +15,21 @@
  * invitation and/or go back to the list of possible guests.
  */
 -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backColor">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InviteActivity"
-    android:background="@color/backColor"
     >
-
-
 
     <EditText
         android:id="@+id/inviteEditText"
@@ -197,3 +202,4 @@
         app:backgroundTint="@color/greenish" />
 
 </RelativeLayout>
+</ScrollView>

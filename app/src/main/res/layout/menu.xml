@@ -121,6 +121,17 @@
         android:layout_marginTop="140dp"
         app:srcCompat="@drawable/drink" />
 
+    <TextView
+        android:id="@+id/linkTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="530dp"
+        android:text="Order your menu from Sobeys"
+        android:textColor="#00F"
+        android:textSize="18sp"
+        android:onClick="onLinkClick"/>
+
 
 </RelativeLayout>
 </ScrollView>

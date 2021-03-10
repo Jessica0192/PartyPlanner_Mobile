@@ -13,6 +13,7 @@ package com.example.assignment1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -118,6 +119,34 @@ public class Supplies extends AppCompatActivity{
         });
     }
 
+    /*  -- Function Header Comment
+    Name	:   onLinkClick(View v)
+    Purpose :   To go to the link to make an order
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    public void onLinkClick(View v)
+    {
+        // get the intent
+        Intent intent = getIntent();
+
+        // get the Uri for the link
+        //String link = intent.getStringExtra("link");
+        String link = "https://www.amazon.ca/s?k=party+suplies&ref=nb_sb_noss_2";
+        Uri viewUri = Uri.parse(link);
+
+        // create the intent and start it
+        Intent viewIntent = new Intent(Intent.ACTION_VIEW, viewUri);
+        startActivity(viewIntent);
+
+        // This code uses a WebView widget to open the browser within the app
+        /*
+        Intent out = new Intent(getApplicationContext(), ItemWebView.class);
+        out.putExtra("link", in.getStringExtra("link"));
+        startActivity(out);
+        */
+    }
 
     /*  -- Function Header Comment
     Name	:   backToEvent()

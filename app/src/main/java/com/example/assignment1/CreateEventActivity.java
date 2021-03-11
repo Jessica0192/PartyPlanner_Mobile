@@ -167,10 +167,42 @@ public class CreateEventActivity extends MainActivity{
 
                 db = dbHelper.getWritableDatabase();
 
-                //insert date and address values in plannerInfo
+                StringBuilder guestsls = new StringBuilder();
+                SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+                SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+                SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+                if (!guestSp.getString("guest1", "").equals("")){
+                    guestsls.append(guestSp.getString("guest1", ""));
+                    guestsls.append("\n");
+                }
+                if (!guestSp.getString("guest2", "").equals("")){
+                    guestsls.append(guestSp.getString("guest2", ""));
+                    guestsls.append("\n");
+                }
+                if (!guestSp.getString("guest3", "").equals("")){
+                    guestsls.append(guestSp.getString("guest3", ""));
+                    guestsls.append("\n");
+                }
+                if (!guestSp.getString("guest4", "").equals("")){
+                    guestsls.append(guestSp.getString("guest4", ""));
+                    guestsls.append("\n");
+                }
+                if (!guestSp.getString("guest5", "").equals("")){
+                    guestsls.append(guestSp.getString("guest5", ""));
+                    guestsls.append("\n");
+                }
+
+                //insert all data values in plannerInfo
                 ContentValues values= new ContentValues();
+
+                values.put("eventName", eventName.getText().toString());
+                values.put("eventType", eventTypeSpinner.getSelectedItem().toString());
                 values.put("date", date.getText().toString());
                 values.put("address", address.getText().toString());
+                values.put("guests", guestsls.toString());
+                values.put("menu", menuSp.getString("MenuItems", ""));
+                values.put("supplies", suppliesSp.getString("SupplyItems", ""));
+
                 db.insert("plannerInfo", null, values);
 
                 finish();

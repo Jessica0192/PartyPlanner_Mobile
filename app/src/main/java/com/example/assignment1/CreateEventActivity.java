@@ -66,6 +66,8 @@ public class CreateEventActivity extends MainActivity{
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
+    DatabaseHelper dbhelper = null;
+
     /*
      * FUNCTION: onCreate
      * DESCRIPTION:
@@ -165,7 +167,7 @@ public class CreateEventActivity extends MainActivity{
                 editor.putString("supplies", supplies.getText().toString());
                 editor.apply();
 
-                db = dbHelper.getWritableDatabase();
+                //db = dbHelper.getWritableDatabase();
 
                 StringBuilder guestsls = new StringBuilder();
                 SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
@@ -193,17 +195,21 @@ public class CreateEventActivity extends MainActivity{
                 }
 
                 //insert all data values in plannerInfo
-                ContentValues values= new ContentValues();
+                //ContentValues values= new ContentValues();
 
-                values.put("eventName", eventName.getText().toString());
-                values.put("eventType", eventTypeSpinner.getSelectedItem().toString());
-                values.put("date", date.getText().toString());
-                values.put("address", address.getText().toString());
-                values.put("guests", guestsls.toString());
-                values.put("menu", menuSp.getString("MenuItems", ""));
-                values.put("supplies", suppliesSp.getString("SupplyItems", ""));
+                //values.put("eventName", eventName.getText().toString());
+                //values.put("eventType", eventTypeSpinner.getSelectedItem().toString());
+                //values.put("date", date.getText().toString());
+                //values.put("address", address.getText().toString());
+                //values.put("guests", guestsls.toString());
+                //values.put("menu", menuSp.getString("MenuItems", ""));
+                //values.put("supplies", suppliesSp.getString("SupplyItems", ""));
 
-                db.insert("plannerInfo", null, values);
+                dbhelper.insertInfo(eventName.getText().toString(), eventTypeSpinner.getSelectedItem().toString(), date.getText().toString(),
+                        address.getText().toString(), guestsls.toString(), menuSp.getString("MenuItems", ""),
+                        suppliesSp.getString("SupplyItems", ""));
+
+                //db.insert("plannerInfo", null, values);
 
                 finish();
             }

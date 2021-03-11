@@ -43,6 +43,9 @@ public class Menu extends AppCompatActivity {
     SharedPreferences menuStorage;
     public static final String TAG = "menu";
 
+    //create an instance of database
+   // DatabaseHelper menuDb;
+
 
     /*  -- Function Header Comment
 	Name	:   onCreate()
@@ -100,6 +103,13 @@ public class Menu extends AppCompatActivity {
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = menuStorage.edit();
+
+//                boolean isInseted = menuDb.insertInfo(result.toString());
+//
+//                if (isInseted == true)
+//                    Toast.makeText (getApplicationContext(), "Menu inserted to the database! ", Toast.LENGTH_LONG).show();
+//                else
+//                    Toast.makeText (getApplicationContext(), "Menu NOT inserted to the database! ", Toast.LENGTH_LONG).show();
 
                 editor.putString("MenuItems", result.toString());
                 editor.apply();

@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,6 +33,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     Button btnLogin = null;
+    public static final String TAG = "EventListActivity";
 
     /*
      * FUNCTION: onCreate
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
+                Log.d(TAG, "'=============================================================777777777777");
                 startActivity(eventListIntent);
             }
         });

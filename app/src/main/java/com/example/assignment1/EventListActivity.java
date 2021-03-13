@@ -45,6 +45,9 @@ public class EventListActivity extends MainActivity {
     Button clearEventsBtn = null;
     ArrayList<String> checkEventList = new ArrayList<String>();
 
+    PartyPlannerDB db = new PartyPlannerDB(this);
+
+
     /*
      * FUNCTION: onCreate
      * DESCRIPTION:

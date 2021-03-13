@@ -36,16 +36,17 @@ public class EventListActivity extends MainActivity {
     public static final String TAG = "EventListActivity";
     private TextView eventItem=null;
     private SharedPreferences savedEvents;
+    private String eventID;///////////////////////
     private String eventNameList;
     private String eventDateList;
     private String eventname = "";
     private String eventdate = "";
     private SharedPreferences savedValues;
+    Button viewEventBtn = null;/////////////////////////////////
     Button addEventBtn = null;
     Button clearEventsBtn = null;
     ArrayList<String> checkEventList = new ArrayList<String>();
 
-    PartyPlannerDB db = new PartyPlannerDB(this);
 
 
     /*
@@ -62,6 +63,7 @@ public class EventListActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // Log state of the page
         Log.d(TAG, "'Event List' Page onCreate");
+
         // Retrieve value from shared preferences
         savedEvents = getSharedPreferences("Saved Events", MODE_PRIVATE);
         savedValues = getSharedPreferences("Saved Values", MODE_PRIVATE);
@@ -154,78 +156,16 @@ public class EventListActivity extends MainActivity {
         Log.d(TAG, "'Event List' Page Resumed");
         super.onResume();
 
-        boolean notdisplayed = true;
-        // Display data in text view
-        eventname = savedValues.getString("eventName", "");
-        eventdate = savedValues.getString("date", "");
-        eventNameList = savedEvents.getString("eventNameList", "");
-        eventDateList = savedEvents.getString("eventDateList", "");
-        // Handle the case when there is no event name entered yet
-        if (eventname.equals(""))
+        // Display data
+        PartyPlannerDB db = new PartyPlannerDB(this);
+        String tmp = db.getFormattedEventsSummary();
+        if ( tmp == "<NO DATA>")
         {
-            // Handle the case when there is no saved event name entered yet
-            if (eventNameList.equals(""))
-            {
-                // Display default message
-                eventItem.setText("There is no event yet");
-                notdisplayed = false;
-            }
+            eventItem.setText("There is no event yet");
         }
-        // Handle the case when there is newly entered event name
         else
         {
-            SharedPreferences.Editor editor = savedEvents.edit();
-            // Handle the case when there is no saved data yet
-            if (eventNameList.equals(""))
-            {
-                // Add entered data
-                editor.putString("eventNameList", eventname);
-                editor.putString("eventDateList", eventdate);
-            }
-            // Handle the case when there is saved data yet
-            else
-            {
-                // Append entered data
-                editor.putString("eventNameList", eventNameList + ";" + eventname);
-                editor.putString("eventDateList", eventDateList + ";" + eventdate);
-            }
-            editor.apply();
-        }
-
-        if (notdisplayed)
-        {
-            eventNameList = savedEvents.getString("eventNameList", "");
-            eventDateList = savedEvents.getString("eventDateList", "");
-            // Store data to string array with a separator
-            String[] myDataNameList = eventNameList.split(";");
-            String[] myDataDateList = eventDateList.split(";");
-
-            String tmp = "";
             checkEventList.clear();
-            for (int i = 0; i < myDataNameList.length; i++) {
-
-                //if some event already exists - we don't need to duplicate it
-                //and display it again after we (possibly) restart the emulator
-                if (checkEventList.contains(myDataNameList[i]))
-                {
-                    continue;
-                }
-
-                checkEventList.add(myDataNameList[i]);
-
-
-                // Handle the case when string is empty
-                if ( tmp == "")
-                {
-                    tmp = myDataNameList[i] + " : " +  myDataDateList[i];
-                }
-                // Handle the case when string is not empty
-                else
-                {
-                    tmp = tmp + ";" + myDataNameList[i] + " : " +  myDataDateList[i];
-                }
-            }
-            // Display data
             eventItem.setText(tmp.replace(";", System.getProperty("line.separator")));
         }
         getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();

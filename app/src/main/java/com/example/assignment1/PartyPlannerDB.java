@@ -74,10 +74,20 @@ public class PartyPlannerDB {
             super(context, name, factory, version);
         }
 
+        public void reset(SQLiteDatabase db){
+            db.execSQL(PartyPlannerDB.DROP_TABLE);
+            onCreate(db);
+        }
+
         @Override
         public void onCreate(SQLiteDatabase db) {
             // create tables
             db.execSQL(CREATE_TABLE);
+            ////////////////TEST EVENTS//////////////////
+            db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType','eventDate','eventAddress','eventGuest','eventMenu','eventSupply')");
+            db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType','eventDate','eventAddress','eventGuest','eventMenu','eventSupply')");
+            db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType','eventDate','eventAddress','eventGuest','eventMenu','eventSupply')");
+            /////////////////////////////////////////////////
         }
 
         @Override
@@ -142,6 +152,27 @@ public class PartyPlannerDB {
         closeCursor(cursor);
         closeDB();
         return lists;
+    }
+
+    public String getFormattedEventsSummary() {
+        dbHelper.reset(dbHelper.getWritableDatabase());
+        ArrayList<List> events = getEvents();
+        if (events.size() == 0)
+        {
+            return "<NO DATA>";
+        }
+        String rtnEvents = "";
+        for (int eventCount = 0; eventCount < events.size() ; ) {
+            if (eventCount != 0)
+            {
+                rtnEvents += ";";
+            }
+            rtnEvents += "" +
+                    events.get(eventCount).get(COL_NAME_INDEX) + " : " +
+                    events.get(eventCount).get(COL_DATE_INDEX);
+            eventCount++;
+        }
+        return rtnEvents;
     }
 
     public long insertEvent(

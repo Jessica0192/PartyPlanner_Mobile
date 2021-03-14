@@ -43,6 +43,7 @@ public class ViewEventActivity extends EventListActivity {
     private EditText eventID = null;
     Button viewDetailsBtn = null;
     Button deleteEventBtn = null;
+    Button backBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +107,27 @@ public class ViewEventActivity extends EventListActivity {
 //                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
             }
         });
+
+
+        // Back to Event List
+        backBtn = (Button) findViewById(R.id.btnBack);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when View Details button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
+                startActivity(eventListIntent);
+            }
+        });
     }
-
-
 
 
     /*

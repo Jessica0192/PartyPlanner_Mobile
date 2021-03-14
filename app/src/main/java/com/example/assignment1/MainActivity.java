@@ -37,6 +37,8 @@ import android.view.KeyEvent;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private static final String USER_NAME = "herd";
+    private static final String PASS_WORD =  "set";
     private EditText username = null;
     private EditText password = null;
     Button btnLogin = null;
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 String pswVal= password.getText().toString();
 //                Log.d(TAG, "=====name=======" + nameVal);
 //                Log.d(TAG, "=====psw========" + pswVal);
-                if (nameVal.equals("herd") && pswVal.equals("set")) {
+                if (nameVal.equals(USER_NAME) && pswVal.equals(PASS_WORD)) {
                     Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
                     startActivity(eventListIntent);
                 }

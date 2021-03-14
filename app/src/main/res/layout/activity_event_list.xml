@@ -8,6 +8,8 @@
                    When the user is presented with this screen, they had a list view of existing
                    events, and can add new event or delete all the events.
 -->
+
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,6 +17,8 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/event_list"
     android:layout_width="match_parent"

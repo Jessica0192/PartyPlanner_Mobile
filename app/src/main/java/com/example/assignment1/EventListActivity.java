@@ -188,10 +188,10 @@ public class EventListActivity extends MainActivity {
         }
         else
         {
-            checkEventList.clear();
+//            checkEventList.clear();
             eventItem.setText(tmp.replace(";", System.getProperty("line.separator")));
         }
-        getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
+//        getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
     }
 
 

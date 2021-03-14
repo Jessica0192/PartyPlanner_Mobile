@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,6 +22,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -96,18 +99,65 @@ public class ViewEventActivity extends EventListActivity {
                 String value= eventID.getText().toString();
                 int eventNum=Integer.parseInt(value) - 1;
                 String tmp = db.getEventDetails(eventNum);
+//                String regexStr = "^[0-9]*$";
+                boolean digitsOnly = TextUtils.isDigitsOnly(value);
                 if ( tmp == "<NO DATA>")
                 {
                     eventDetails.setText("There is no event yet");
                 }
+                else if ( tmp == "<INVALID ID>" )
+                {
+                    Toast.makeText(getApplicationContext(), "Invalid Event ID", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+//                else if (!digitsOnly)
+//                {
+//                    Toast.makeText(getApplicationContext(), "Event ID Must Be An Integer", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 else
                 {
                     eventDetails.setText(tmp);
                 }
-//                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
             }
         });
 
+        // View event details
+        deleteEventBtn = (Button) findViewById(R.id.btnDeleteEvent);
+        deleteEventBtn.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when View Details button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                PartyPlannerDB db = new PartyPlannerDB(v.getContext());
+                String value= eventID.getText().toString();
+                String eventNum=String.valueOf(Integer.parseInt(value) - 1);
+                int tmp = db.deleteEvent(eventNum);
+                if(tmp == -1)
+                {
+                    Toast.makeText(getApplicationContext(), "There is no event yet", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(tmp == -2)
+                {
+                    Toast.makeText(getApplicationContext(), "Invalid Event ID", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Event has been deleted", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+        });
 
         // Back to Event List
         backBtn = (Button) findViewById(R.id.btnBack);

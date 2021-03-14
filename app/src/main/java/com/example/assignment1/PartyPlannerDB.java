@@ -157,6 +157,7 @@ public class PartyPlannerDB {
     public String getFormattedEventsSummary() {
         dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
+
         if (events.size() == 0)
         {
             return "<NO DATA>";
@@ -167,7 +168,6 @@ public class PartyPlannerDB {
             {
                 rtnEvents += ";";
             }
-
             rtnEvents += "" + (eventCount+1) + " . " +
                     events.get(eventCount).get(COL_NAME_INDEX) + " : " +
                     events.get(eventCount).get(COL_DATE_INDEX);
@@ -182,6 +182,14 @@ public class PartyPlannerDB {
         if (events.size() == 0)
         {
             return "<NO DATA>";
+        }
+        for (int eventCount = 0; eventCount < events.size() ; )
+        {
+            if( eventID> eventCount || eventID < 0)
+            {
+                return "<INVALID ID>";
+            }
+            eventCount ++;
         }
         String rtnDetails = "";
         rtnDetails += "" +
@@ -249,9 +257,37 @@ public class PartyPlannerDB {
         return rowCount;
     }
 
+//    public int deleteEvent(
+//            String eventId
+//    ) {
+//        String where = COL_ID + "= ?";
+//        String[] whereArgs = { eventId };
+//
+//        this.openWriteableDB();
+//        int rowCount = db.delete(TABLE_NAME, where, whereArgs);
+//        this.closeDB();
+//
+//        return rowCount;
+//    }
+
     public int deleteEvent(
             String eventId
     ) {
+        int eventNum = Integer.parseInt(eventId);
+        ArrayList<List> events = getEvents();
+        if (events.size() == 0)
+        {
+            return -1;
+        }
+        for (int eventCount = 0; eventCount < events.size() ; )
+        {
+            if( eventNum> eventCount || eventNum < 0)
+            {
+                return -2;
+            }
+            eventCount ++;
+        }
+
         String where = COL_ID + "= ?";
         String[] whereArgs = { eventId };
 
@@ -261,4 +297,5 @@ public class PartyPlannerDB {
 
         return rowCount;
     }
+
 }

@@ -84,9 +84,9 @@ public class PartyPlannerDB {
             // create tables
             db.execSQL(CREATE_TABLE);
             ////////////////TEST EVENTS//////////////////
-            db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType','eventDate','eventAddress','eventGuest','eventMenu','eventSupply')");
-            db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType','eventDate','eventAddress','eventGuest','eventMenu','eventSupply')");
-            db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType','eventDate','eventAddress','eventGuest','eventMenu','eventSupply')");
+            db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1','eventMenu1','eventSupply1')");
+            db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
+            db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
             /////////////////////////////////////////////////
         }
 
@@ -167,12 +167,32 @@ public class PartyPlannerDB {
             {
                 rtnEvents += ";";
             }
-            rtnEvents += "" +
+
+            rtnEvents += "" + (eventCount+1) + " . " +
                     events.get(eventCount).get(COL_NAME_INDEX) + " : " +
                     events.get(eventCount).get(COL_DATE_INDEX);
             eventCount++;
         }
         return rtnEvents;
+    }
+
+    public String getEventDetails(int eventID) {
+        dbHelper.reset(dbHelper.getWritableDatabase());
+        ArrayList<List> events = getEvents();
+        if (events.size() == 0)
+        {
+            return "<NO DATA>";
+        }
+        String rtnDetails = "";
+        rtnDetails += "" +
+                events.get(eventID).get(COL_NAME_INDEX) + "\r\n" +
+                events.get(eventID).get(COL_TYPE_INDEX) + "\r\n" +
+                events.get(eventID).get(COL_DATE_INDEX) + "\r\n" +
+                events.get(eventID).get(COL_ADDRESS_INDEX) + "\r\n" +
+                events.get(eventID).get(COL_GUEST_INDEX) + "\r\n" +
+                events.get(eventID).get(COL_MENU_INDEX) + "\r\n" +
+                events.get(eventID).get(COL_SUPPLY_INDEX);
+        return rtnDetails;
     }
 
     public long insertEvent(

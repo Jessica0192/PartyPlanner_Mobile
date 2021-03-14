@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,15 +37,14 @@ public class EventListActivity extends MainActivity {
     public static final String TAG = "EventListActivity";
     private TextView eventItem=null;
     private SharedPreferences savedEvents;
-    private String eventID;///////////////////////
     private String eventNameList;
     private String eventDateList;
     private String eventname = "";
     private String eventdate = "";
     private SharedPreferences savedValues;
-    Button viewEventBtn = null;/////////////////////////////////
+    Button viewEventBtn = null;
     Button addEventBtn = null;
-    Button clearEventsBtn = null;
+//    Button clearEventsBtn = null;
     ArrayList<String> checkEventList = new ArrayList<String>();
 
 
@@ -64,13 +64,34 @@ public class EventListActivity extends MainActivity {
         // Log state of the page
         Log.d(TAG, "'Event List' Page onCreate");
 
-        // Retrieve value from shared preferences
-        savedEvents = getSharedPreferences("Saved Events", MODE_PRIVATE);
-        savedValues = getSharedPreferences("Saved Values", MODE_PRIVATE);
+//        // Retrieve value from shared preferences
+//        savedEvents = getSharedPreferences("Saved Events", MODE_PRIVATE);
+//        savedValues = getSharedPreferences("Saved Values", MODE_PRIVATE);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
         eventItem = findViewById(R.id.txtEventItem);
+
+        // View event
+        viewEventBtn = (Button) findViewById(R.id.btnViewEvent);
+        viewEventBtn.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when View Event Details button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                Intent viewEventIntent = new Intent(v.getContext(), ViewEventActivity.class);
+                startActivity(viewEventIntent);
+            }
+        });
+
+        // Add event
         addEventBtn = (Button) findViewById(R.id.btnAddEvent);
         addEventBtn.setOnClickListener(new View.OnClickListener() {
             /*
@@ -86,38 +107,40 @@ public class EventListActivity extends MainActivity {
             public void onClick(View v) {
                 Intent createEventIntent = new Intent(v.getContext(), CreateEventActivity.class);
                 // Retrieve date from shared preferences and clear data
-                getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE).edit().clear().apply();
-                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();;
-                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();;
-                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();;
+//                getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE).edit().clear().apply();
+//                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();;
+//                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();;
+//                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();;
                 startActivity(createEventIntent);
             }
         });
-        // Clear events
-        clearEventsBtn = (Button) findViewById(R.id.btnClearEvents);
-        clearEventsBtn.setOnClickListener(new View.OnClickListener() {
-            /*
-             * FUNCTION: onClick
-             * DESCRIPTION:
-             *      This function is called when Clear Events button is clicked
-             * PARAMETER:
-             *      View v: the view within the AdapterView that was clicked
-             * RETURNS:
-             *      void: there's no return value
-             */
-            @Override
-            public void onClick(View v) {
-                // Retrieve date from shared preferences and clear data
-                getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE).edit().clear().apply();
-                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();
-                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();
-                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
-                getApplicationContext().getSharedPreferences("Saved Events", Context.MODE_PRIVATE).edit().clear().apply();
-                checkEventList.clear();
-                // Refresh the page
-                startActivity(new Intent(v.getContext(), EventListActivity.class));
-            }
-        });
+
+//        // Clear events
+//        clearEventsBtn = (Button) findViewById(R.id.btnClearEvents);
+//        clearEventsBtn.setOnClickListener(new View.OnClickListener() {
+//            /*
+//             * FUNCTION: onClick
+//             * DESCRIPTION:
+//             *      This function is called when Clear Events button is clicked
+//             * PARAMETER:
+//             *      View v: the view within the AdapterView that was clicked
+//             * RETURNS:
+//             *      void: there's no return value
+//             */
+//            @Override
+//            public void onClick(View v) {
+////                // Retrieve date from shared preferences and clear data
+////                getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE).edit().clear().apply();
+////                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();
+////                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();
+////                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
+////                getApplicationContext().getSharedPreferences("Saved Events", Context.MODE_PRIVATE).edit().clear().apply();
+////                checkEventList.clear();
+//
+//                // Refresh the page
+//                startActivity(new Intent(v.getContext(), EventListActivity.class));
+//            }
+//        });
     }
 
 

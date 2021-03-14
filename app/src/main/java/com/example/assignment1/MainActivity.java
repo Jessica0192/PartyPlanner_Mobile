@@ -1,8 +1,8 @@
 /*
  * FILE          : MainActivity.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #2
  * PROGRAMMER    : Hoda Akrami, Maria Malinina, Jessica Sim, Suka Sun
- * FIRST VERSION : 2020-02-10
+ * FIRST VERSION : 2020-03-19
  * DESCRIPTION   : This file contains the start page of the Perfect Party app.
  *                 Perfect Party app: This app is used to plan parties. The user can review
  *                 existing events, add event, and delete all the existing events. When creating

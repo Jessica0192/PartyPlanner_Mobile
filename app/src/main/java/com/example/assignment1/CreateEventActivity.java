@@ -158,21 +158,11 @@ public class CreateEventActivity extends MainActivity {
                 }
                 Log.d(TAG, "Create Event Activity -- put string");
 
-                //editor
-                editor.putString("eventName", eventName.getText().toString());
-                editor.putString("eventType", eventTypeSpinner.getSelectedItem().toString());
-                editor.putString("date", date.getText().toString());
-                editor.putString("address", address.getText().toString());
-                editor.putString("guests", guests.getText().toString());
-                editor.putString("menu", menu.getText().toString());
-                editor.putString("supplies", supplies.getText().toString());
-                editor.apply();
-
-                //db = dbHelper.getWritableDatabase();
+                //clear out shared preference
+                editor.clear();
+                editor.commit();
 
                 StringBuilder guestsls = new StringBuilder();
-                SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
-                SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
                 SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
                 if (!guestSp.getString("guest1", "").equals("")){
                     guestsls.append(guestSp.getString("guest1", ""));
@@ -195,10 +185,6 @@ public class CreateEventActivity extends MainActivity {
                     guestsls.append(guestSp.getString("guest5", ""));
                 }
 
-                //insert all data values in plannerInfo
-                //ContentValues values= new ContentValues();
-
-
                 Log.d(TAG, eventName.getText().toString());
                 Log.d(TAG, eventTypeSpinner.getSelectedItem().toString());
                 Log.d(TAG, date.getText().toString());
@@ -207,21 +193,9 @@ public class CreateEventActivity extends MainActivity {
                 Log.d(TAG, supplies.getText().toString());
 
 
-                //values.put("eventName", eventName.getText().toString());
-                //values.put("eventType", eventTypeSpinner.getSelectedItem().toString());
-                //values.put("date", date.getText().toString());
-                //values.put("address", address.getText().toString());
-                //values.put("guests", guestsls.toString());
-                //values.put("menu", menuSp.getString("MenuItems", ""));
-                //values.put("supplies", suppliesSp.getString("SupplyItems", ""));
-
-
                 dbhelper.insertEvent(eventName.getText().toString(), eventTypeSpinner.getSelectedItem().toString(), date.getText().toString(),
-                        address.getText().toString(), guestsls.toString(), menuSp.getString("MenuItems", "No values"),
-                        suppliesSp.getString("SupplyItems", "No values"));
-                //dbhelper.insertEvent("1", "2", "3", "4", "5", "6", "7");
-
-                //db.insert("plannerInfo", null, values);
+                        address.getText().toString(), guestsls.toString(), menu.getText().toString(),
+                        supplies.getText().toString());
 
                 finish();
             }

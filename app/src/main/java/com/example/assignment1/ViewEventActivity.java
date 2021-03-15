@@ -60,6 +60,8 @@ public class ViewEventActivity extends EventListActivity {
         setContentView(R.layout.activity_view_delete_events);
         eventDetails = findViewById(R.id.txtEventDetails);
         eventID = findViewById(R.id.txtEventID);
+//        String value= eventID.getText().toString();
+//        int eventNum=Integer.parseInt(value) - 1;
 
         eventID.setOnKeyListener(new View.OnKeyListener() {
             /*
@@ -175,13 +177,13 @@ public class ViewEventActivity extends EventListActivity {
             }
         });
 
-        // Back to Event List
-        updateGuestBtn = (Button) findViewById(R.id.btnUpdateGuests);
-        updateGuestBtn.setOnClickListener(new View.OnClickListener() {
+        // Update Menu
+        updateMenuBtn = (Button) findViewById(R.id.btnUpdateMenu);
+        updateMenuBtn.setOnClickListener(new View.OnClickListener() {
             /*
              * FUNCTION: onClick
              * DESCRIPTION:
-             *      This function is called when View Details button is clicked
+             *      This function is called when Update Menu button is clicked
              * PARAMETER:
              *      View v: the view within the AdapterView that was clicked
              * RETURNS:
@@ -189,10 +191,57 @@ public class ViewEventActivity extends EventListActivity {
              */
             @Override
             public void onClick(View v) {
-                Intent updateGuestIntent = new Intent(v.getContext(), GuestActivity.class);
+                Intent updateMenuIntent = new Intent(ViewEventActivity.this, Menu.class);
+                String value= eventID.getText().toString();
+                String eventNum=String.valueOf(Integer.parseInt(value) - 1);
+                updateMenuIntent.putExtra("eventid", eventNum);
+                startActivity(updateMenuIntent);
+            }
+        });
+
+        // Update Supply
+        updateSupplyBtn = (Button) findViewById(R.id.btnUpdateSupply);
+        updateSupplyBtn.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when Update Supply button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                Intent updateSupplyIntent = new Intent(ViewEventActivity.this, Supplies.class);
+                String value= eventID.getText().toString();
+                String eventNum=String.valueOf(Integer.parseInt(value) - 1);
+                updateSupplyIntent.putExtra("eventid", eventNum);
+                startActivity(updateSupplyIntent);
+            }
+        });
+
+        // Update Guests
+        updateGuestBtn = (Button) findViewById(R.id.btnUpdateGuests);
+        updateGuestBtn.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when Update Guest button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                Intent updateGuestIntent = new Intent(ViewEventActivity.this, GuestActivity.class);
                 startActivity(updateGuestIntent);
             }
         });
+
+
+
     }
 
 

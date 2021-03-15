@@ -63,6 +63,12 @@ public class Menu extends AppCompatActivity {
         mainDish = findViewById(R.id.checkbox_mainDish);
         dessert = findViewById(R.id.checkbox_dessert);
 
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateMenuIntent = getIntent();
+        String eventID = updateMenuIntent.getStringExtra("eventid");
+        Log.d(TAG, "'Menu' =========event ID===========" + eventID); // test log msg
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
 
         menuStorage.edit().clear().apply();

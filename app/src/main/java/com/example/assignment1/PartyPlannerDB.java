@@ -103,8 +103,10 @@ public class PartyPlannerDB {
     }
 
     // database and database helper objects
-    private SQLiteDatabase db;
-    private DBHelper dbHelper;
+    private SQLiteDatabase db = null;
+    private DBHelper dbHelper = null;
+
+
 
     // constructor
     public PartyPlannerDB(Context context) {

@@ -30,6 +30,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 /*
  * FILE          : GuestActivity.java
@@ -96,6 +98,12 @@ public class GuestActivity extends AppCompatActivity {
     SQLiteDatabase db = null;
 
     DatabaseHelper dbhelper = null;
+    PartyPlannerDB party_db = new PartyPlannerDB(this);
+    int id_counter = 0;
+    //private static String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";
+
+    private static String DB_NAME = "PartyPlanner.db";
+    public static  String COL_GUEST = "eventGuest";
     //END OF NEW THING
 
     /*
@@ -109,12 +117,6 @@ public class GuestActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //String query;
-        //query = "CREATE TABLE Guests ( id INTEGER PRIMARY KEY, guest_name TEXT)";
-        //db.execSQL(query);
-        //Log.d(LOG_TAG,"Guests Created");
-
 
 
 
@@ -136,7 +138,22 @@ public class GuestActivity extends AppCompatActivity {
          guestList.setAdapter(arrayAdapter);
 
 
-        db = dbHelper.getWritableDatabase();
+       // db = dbHelper.getWritableDatabase();
+
+
+
+
+        //String query;
+        //query = "CREATE TABLE Guests ( id INTEGER PRIMARY KEY, guest_name TEXT)";
+        //db.execSQL(query);
+        //Log.d(LOG_TAG,"Guests Created");
+
+        db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        //  db = openOrCreateDatabase( "PartyPlanner.db", null, SQLiteDatabase.CREATE_IF_NECESSARY        );
+
+
+
+
          //set a listener when we click on item to handle the on click event
          guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
              /*
@@ -153,6 +170,8 @@ public class GuestActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //add selected guest to the list of guests
                 selectedGuests.add(guestList.getItemAtPosition(i).toString());
+
+
 
 
                  }
@@ -268,7 +287,27 @@ public class GuestActivity extends AppCompatActivity {
             //we are going need to know which guest we are sending invitation
             // to in out InviteActivity
             editor.putString("cur_guest", selectedGuests.get(arraySize - 1));
+            Text sel_guest = null;
+            sel_guest.setData(selectedGuests.get(arraySize - 1));
+            id_counter++;
 
+            try {
+                final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "+ COL_GUEST +" ("
+                        + "ID INTEGER primary key AUTOINCREMENT,"
+                        + "NAME TEXT,"
+                        + "EVENTNAME TEXT,"
+                        + "INVITATION_STATUS_CODE INTEGER"+");";
+                //   + "AMOUNT TEXT,"
+                //  + "TRNS TEXT," + "isdefault TEXT);";
+                db.execSQL(CREATE_TABLE);
+                //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
+                String sql =
+                        "INSERT or replace INTO "+ COL_GUEST +" (ID, NAME) VALUES(id_counter,sel_guest)" ;
+                db.execSQL(sql);
+            }
+            catch (Exception e) {
+                //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
+            }
             //apply changes
             editor.apply();
             //redirecting to the content_invite.xml screen for invitation

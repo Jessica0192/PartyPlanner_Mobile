@@ -97,7 +97,7 @@ public class GuestActivity extends AppCompatActivity {
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-    DatabaseHelper dbhelper = null;
+    // DatabaseHelper dbhelper = null;
     PartyPlannerDB party_db = new PartyPlannerDB(this);
     int id_counter = 0;
     //private static String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FILE          : activity_event_list.xml
+    PROJECT       : PROG3150 - Assignment #1
+    PROGRAMMER    : Suka Sun
+    FIRST VERSION : 2020-02-10
+    DESCRIPTION   : This file contains the user interface of the EventListActivity.java file.
+                   When the user is presented with this screen, they had a list view of existing
+                   events, and can add new event or delete all the events.
+-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/event_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pink_background"
+        tools:context=".ViewEventActivityActivity">
+
+        <TextView
+            android:id="@+id/txt_event_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="82dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="628dp"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="Event Details"
+            android:textColor="@color/purple_btn"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <TextView
+            android:id="@+id/txtEventDetails"
+            android:layout_width="389dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center|top"
+            android:textColor="@color/grey"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnShowDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_event_list"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/txtEventID"
+            android:layout_width="296dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="196dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/event_id"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColorHint="#808080"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnShowDetails"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="Show Details"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@color/purple_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.81" />
+
+        <Button
+            android:id="@+id/btnDeleteEvent"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="Delete Event"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@color/purple_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.89" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="Back To Event List"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@color/purple_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.97" />/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

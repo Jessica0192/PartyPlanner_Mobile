@@ -7,6 +7,7 @@
     DESCRIPTION   : Describes essential information about party app
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.assignment1">
 
     <supports-screens
@@ -30,6 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name = ".EventListActivity"/>
+        <activity android:name = ".ViewEventActivity"/>
         <activity android:name = ".CreateEventActivity"/>
         <activity android:name = ".GuestActivity"/>
         <activity android:name = ".InviteActivity"/>

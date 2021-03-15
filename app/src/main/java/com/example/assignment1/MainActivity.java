@@ -1,8 +1,8 @@
 /*
  * FILE          : MainActivity.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #2
  * PROGRAMMER    : Hoda Akrami, Maria Malinina, Jessica Sim, Suka Sun
- * FIRST VERSION : 2020-02-10
+ * FIRST VERSION : 2020-03-19
  * DESCRIPTION   : This file contains the start page of the Perfect Party app.
  *                 Perfect Party app: This app is used to plan parties. The user can review
  *                 existing events, add event, and delete all the existing events. When creating
@@ -17,12 +17,17 @@ package com.example.assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import android.view.KeyEvent;
 
 
 /*
@@ -32,6 +37,10 @@ import android.widget.Button;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private static final String USER_NAME = "herd";
+    private static final String PASS_WORD =  "set";
+    private EditText username = null;
+    private EditText password = null;
     Button btnLogin = null;
     public static final String TAG = "EventListActivity";
 
@@ -49,6 +58,54 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        username = (EditText)findViewById(R.id.txtUsername);
+        password = (EditText)findViewById(R.id.txtPassword);
+
+        username.setOnKeyListener(new View.OnKeyListener() {
+            /*
+             * FUNCTION: onKey
+             * DESCRIPTION:
+             *      This function is for hiding the keyboard when ENTER button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             *      int keyCode: this represents which key is pressed
+             *      KeyEvent keyEvent: it has several events related to keyevent
+             * RETURNS:
+             *      boolean: return true or false depends on the result
+             */
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent keyEvent) {
+                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER))
+                {
+                    hideKeyboard((EditText) username);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        password.setOnKeyListener(new View.OnKeyListener() {
+            /*
+             * FUNCTION: onKey
+             * DESCRIPTION:
+             *      This function is for hiding the keyboard when ENTER button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             *      int keyCode: this represents which key is pressed
+             *      KeyEvent keyEvent: it has several events related to keyevent
+             * RETURNS:
+             *      boolean: return true or false depends on the result
+             */
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent keyEvent) {
+                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER))
+                {
+                    hideKeyboard((EditText) password);
+                    return true;
+                }
+                return false;
+            }
+        });
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             /*
@@ -62,10 +119,34 @@ public class MainActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View v) {
-                Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
-                Log.d(TAG, "'=============================================================777777777777");
-                startActivity(eventListIntent);
+                String nameVal= username.getText().toString();
+                String pswVal= password.getText().toString();
+//                Log.d(TAG, "=====name=======" + nameVal);
+//                Log.d(TAG, "=====psw========" + pswVal);
+                if (nameVal.equals(USER_NAME) && pswVal.equals(PASS_WORD)) {
+                    Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
+                    startActivity(eventListIntent);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Incorrect Username/Password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
+    }
+
+    /*
+     * FUNCTION: hideKeyboard
+     * DESCRIPTION:
+     *      This function is called to hide the keyboard
+     * PARAMETER:
+     *      EditText et: EditText widget is passed
+     * RETURNS:
+     *      void: there's no return value
+     */
+    private void hideKeyboard(EditText et)
+    {
+        InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(et.getWindowToken(), 0);
     }
 }

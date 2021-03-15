@@ -24,6 +24,9 @@
     <string name="list_of_supplies">List of Supplies</string>
     <string name="event_type">Event Type:</string>
     <string name="event_name">Event Name</string>
+    <string name="event_id">Event ID</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
     <string-array name="event_type_spinner">
         <item>Birthday</item>
         <item>New Year</item>

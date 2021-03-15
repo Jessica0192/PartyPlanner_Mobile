@@ -47,6 +47,9 @@ public class ViewEventActivity extends EventListActivity {
     Button viewDetailsBtn = null;
     Button deleteEventBtn = null;
     Button backBtn = null;
+    Button updateGuestBtn = null;
+    Button updateMenuBtn = null;
+    Button updateSupplyBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +161,7 @@ public class ViewEventActivity extends EventListActivity {
             /*
              * FUNCTION: onClick
              * DESCRIPTION:
-             *      This function is called when View Details button is clicked
+             *      This function is called when Back to Events button is clicked
              * PARAMETER:
              *      View v: the view within the AdapterView that was clicked
              * RETURNS:
@@ -169,6 +172,25 @@ public class ViewEventActivity extends EventListActivity {
                 finish();
                 //Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
                 //startActivity(eventListIntent);
+            }
+        });
+
+        // Back to Event List
+        updateGuestBtn = (Button) findViewById(R.id.btnUpdateGuests);
+        updateGuestBtn.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when View Details button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                Intent updateGuestIntent = new Intent(v.getContext(), GuestActivity.class);
+                startActivity(updateGuestIntent);
             }
         });
     }

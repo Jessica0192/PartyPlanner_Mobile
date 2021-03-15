@@ -51,30 +51,28 @@ public class PartyPlannerDB {
     public static final String COL_SUPPLY = "eventSupply";
     public static final int COL_SUPPLY_INDEX = index++;
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    // plannerInfo Table
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-    public static final String TAG = "EventListActivity";
-
-
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
-        "CREATE TABLE " + TABLE_NAME + " (" +
-                COL_ID   + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-                COL_NAME + " TEXT    NOT NULL, " +
-                COL_TYPE + " TEXT    NOT NULL, " +
-                COL_DATE + " TEXT    NOT NULL, " +
-                COL_ADDRESS + " TEXT    NOT NULL, " +
-                COL_GUEST + " TEXT    NOT NULL, " +
-                COL_MENU + " TEXT    NOT NULL, " +
-                COL_SUPPLY + " TEXT    NOT NULL" +
-        ");";
+            "CREATE TABLE " + TABLE_NAME + " (" +
+                    COL_ID   + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                    COL_NAME + " TEXT    NOT NULL, " +
+                    COL_TYPE + " TEXT    NOT NULL, " +
+                    COL_DATE + " TEXT    NOT NULL, " +
+                    COL_ADDRESS + " TEXT    NOT NULL, " +
+                    COL_GUEST + " TEXT    NOT NULL, " +
+                    COL_MENU + " TEXT    NOT NULL, " +
+                    COL_SUPPLY + " TEXT    NOT NULL" +
+                    ");";
 
     // DROP TABLE statement
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // plannerInfo Table
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static final String TAG = "EventListActivity";
     private static class DBHelper extends SQLiteOpenHelper {
 
         public DBHelper(

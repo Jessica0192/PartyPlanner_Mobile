@@ -2,11 +2,15 @@ package com.example.assignment1;
 
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,15 +19,18 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +91,12 @@ public class InviteActivity extends AppCompatActivity {
     //have to be able to hide the keyboard once the user
     //entered all the info
     EditText eventName;
+
+    SQLiteDatabase db = null;
+    private static String DB_NAME = "PartyPlanner.db";
+    public static  String COL_GUEST = "eventGuest";
+    private Button btnThread,btntask;
+    private ProgressDialog progressDialog;
 
 
     /*
@@ -261,10 +274,30 @@ public class InviteActivity extends AppCompatActivity {
         t1.setText("Invitation to: "+curGuest);
 
         //find the button that sends the invitation by id
-        Button button = findViewById(R.id.sendBtn);
+       // Button button = findViewById(R.id.sendBtn);
+
+
+
+        btnThread=(Button)findViewById(R.id.sendBtn);
+       // btntask=(Button)findViewById(R.id.btntsk);
+
+      //  btntask.setOnClickListener(new OnClickListener() {
+//
+  //          @Override
+    //        public void onClick(View arg0) {
+///
+
+                //start myTast
+
+   //             new MyTask(MainActivity.this).execute();
+
+
+     //       }
+      //  });
+
 
         //set a listener when we click on item to handle the on click event
-        button.setOnClickListener(new View.OnClickListener() {
+        btnThread.setOnClickListener(new View.OnClickListener() {
             /*
              * FUNCTION   : onClick()
              * DESCRIPTION: This function is to inform the user his
@@ -274,7 +307,33 @@ public class InviteActivity extends AppCompatActivity {
              * RETURNS    : NONE
              */
             @Override
-            public void onClick(View view) {
+            public void onClick(View arg0) {
+
+
+                //progress
+                //progress dialog
+                progressDialog = new ProgressDialog(InviteActivity.this);
+                progressDialog.setMessage("Sending Invitation..."); // Setting Message
+                progressDialog.setTitle("ProgressDialog"); // Setting Title
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                progressDialog.show(); // Display Progress Dialog
+                progressDialog.setCancelable(false);
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Thread.sleep(10000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                    }
+                }).start();
+
+
+                //new
+
+                db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
 
@@ -295,8 +354,24 @@ public class InviteActivity extends AppCompatActivity {
                 //apply changes
                 editor.apply();
 
+
+                try {
+
+                    //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
+                  //  String sql =
+                    //        "INSERT or replace INTO "+ COL_GUEST +" (INVITATION_STATUS_CODE) VALUES(1) WHERE NAME=''" ;
+                    db.execSQL("UPDATE "+COL_GUEST+" SET INVITATION_STATUS_CODE = 1"+ "WHERE NAME = "+ curGuest);
+                   // db.execSQL(sql);
+                }
+                catch (Exception e) {
+                    //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
+                }
+
+                //task here
+              //  new Task_for_invitation_activity().execute();
+                new Task_for_invitation_activity(InviteActivity.this).execute();
                 //inform the user that the invitation has been sent
-                Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -425,6 +500,124 @@ public class InviteActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+    }
+
+
+
+
+
+
+
+
+
+
+    // new class
+
+    public class Task_for_invitation_activity extends AsyncTask<Void, Integer, Void> {
+
+        Context context;
+        Handler handler;
+        Dialog dialog;
+        TextView txtprogrss;
+        ProgressBar progress;
+        Button btnCancel;
+
+        Task_for_invitation_activity(Context context, Handler handler){
+            this.context=context;
+            this.handler=handler;
+
+        }
+
+        Task_for_invitation_activity(Context context){
+            this.context=context;
+            this.handler=handler;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            //progress dialog
+
+            progressDialog = new ProgressDialog( InviteActivity.this);
+
+            super.onPreExecute();
+            // create dialog
+            dialog=new Dialog(context);
+            dialog.setCancelable(true);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+          //  dialog.addContentView(progressDialog, InviteActivity.this);
+           // dialog.setContentView(progressDialog);
+           // txtprogrss=(TextView) dialog.findViewById(R.id.txtProgress);
+            progress=(ProgressBar)dialog.findViewById(R.id.pr_bar);
+            btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+
+
+                    Task_for_invitation_activity.this.cancel(true);
+                }
+            });
+
+            //where to show the dialog???
+            dialog.show();
+
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+
+            for (int i = 0; i < 100; i++) {
+                if(isCancelled()){
+                    break;
+                }else{
+                    Log.e("In Background","current value;"+ i);
+                    publishProgress(i);
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                       //dont forget the catch block
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+
+            super.onProgressUpdate(values);
+
+
+            progress.setProgress(values[0]);
+            txtprogrss.setText("progress update"+ values[0]+"%");
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+
+            dialog.dismiss();
+            Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+
+        }
+
+
+
+
 
     }
 }

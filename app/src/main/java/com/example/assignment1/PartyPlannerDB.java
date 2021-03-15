@@ -15,11 +15,15 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 public class PartyPlannerDB {
+//    public static final String TAG = "DB";
 
     // database constants
     public static final String DB_NAME = "PartyPlanner.db";
     public static final int    DB_VERSION = 1;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // plannerInfo Table
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     public static int index = 0;
     public static final String TABLE_NAME = "plannerInfo";
     //
@@ -47,6 +51,9 @@ public class PartyPlannerDB {
     public static final String COL_SUPPLY = "eventSupply";
     public static final int COL_SUPPLY_INDEX = index++;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // plannerInfo Table
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final String TAG = "EventListActivity";
 
@@ -88,11 +95,19 @@ public class PartyPlannerDB {
         public void onCreate(SQLiteDatabase db) {
             // create tables
             db.execSQL(CREATE_TABLE);
+<<<<<<< HEAD
             ////////////////TEST EVENTS/////////////////
             //db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1a, eventGuest1a ','eventMenu1, eventMenu2','eventSupply1')");
             //db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
             //db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
             /////////////////////////////////////////////////
+=======
+//            ////////////////TEST DB SQL Exec//////////////////
+//            db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1a, eventGuest1a ','eventMenu1, eventMenu2','eventSupply1')");
+//            db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
+//            db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
+//            /////////////////////////////////////////////////
+>>>>>>> 81e5d969c8a68935b0db3f97d3e8581718719985
         }
 
         @Override
@@ -115,6 +130,18 @@ public class PartyPlannerDB {
     // constructor
     public PartyPlannerDB(Context context) {
         dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
+
+//        // Validate insertEvent Function
+//        insertEvent(
+//            "eventName1",
+//            "eventType1",
+//            "eventDate1",
+//            "eventAddress1",
+//            "eventGuest1",
+//            "eventMenu1",
+//            "eventSupply1"
+//        );
+
         Log.d(TAG, "==================================================== DB constructor ...");
     }
 
@@ -161,7 +188,7 @@ public class PartyPlannerDB {
     }
 
     public String getFormattedEventsSummary() {
-        dbHelper.reset(dbHelper.getWritableDatabase());
+//        dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
 
         if (events.size() == 0)
@@ -219,8 +246,12 @@ public class PartyPlannerDB {
             String eventMenu,
             String eventSupply
     ) {
+<<<<<<< HEAD
         db = dbHelper.getWritableDatabase();
 
+=======
+        Log.d(TAG, "==================================================== INSERT EVENT ...");
+>>>>>>> 81e5d969c8a68935b0db3f97d3e8581718719985
         ContentValues cv = new ContentValues();
 //        cv.put(TASK_LIST_ID, task.getListId());
         cv.put(COL_NAME, eventName);

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -89,6 +91,13 @@ public class GuestActivity extends AppCompatActivity {
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
 
 
+    //NEW THING
+    SQLiteOpenHelper dbHelper = null;
+    SQLiteDatabase db = null;
+
+    DatabaseHelper dbhelper = null;
+    //END OF NEW THING
+
     /*
      * FUNCTION   : onCreate()
      * DESCRIPTION: This function is called when the page is loaded, so here
@@ -100,6 +109,15 @@ public class GuestActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //String query;
+        //query = "CREATE TABLE Guests ( id INTEGER PRIMARY KEY, guest_name TEXT)";
+        //db.execSQL(query);
+        //Log.d(LOG_TAG,"Guests Created");
+
+
+
+
         super.onCreate(savedInstanceState);
         //set the content of what we see
         setContentView(R.layout.choose_guests);
@@ -118,6 +136,7 @@ public class GuestActivity extends AppCompatActivity {
          guestList.setAdapter(arrayAdapter);
 
 
+        db = dbHelper.getWritableDatabase();
          //set a listener when we click on item to handle the on click event
          guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
              /*
@@ -134,6 +153,7 @@ public class GuestActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //add selected guest to the list of guests
                 selectedGuests.add(guestList.getItemAtPosition(i).toString());
+
 
                  }
             });

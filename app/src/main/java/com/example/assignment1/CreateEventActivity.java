@@ -66,7 +66,7 @@ public class CreateEventActivity extends MainActivity{
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-    DatabaseHelper dbhelper = null;
+    PartyPlannerDB dbhelper = null;
 
     /*
      * FUNCTION: onCreate
@@ -205,7 +205,7 @@ public class CreateEventActivity extends MainActivity{
                 //values.put("menu", menuSp.getString("MenuItems", ""));
                 //values.put("supplies", suppliesSp.getString("SupplyItems", ""));
 
-                dbhelper.insertInfo(eventName.getText().toString(), eventTypeSpinner.getSelectedItem().toString(), date.getText().toString(),
+                dbhelper.insertEvent(eventName.getText().toString(), eventTypeSpinner.getSelectedItem().toString(), date.getText().toString(),
                         address.getText().toString(), guestsls.toString(), menuSp.getString("MenuItems", ""),
                         suppliesSp.getString("SupplyItems", ""));
 

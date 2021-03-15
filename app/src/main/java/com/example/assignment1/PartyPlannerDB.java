@@ -179,17 +179,18 @@ public class PartyPlannerDB {
     public String getEventDetails(int eventID) {
         dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
+        int eventCount;
         if (events.size() == 0)
         {
             return "<NO DATA>";
         }
-        for (int eventCount = 0; eventCount < events.size() ; )
+        for (eventCount = 0; eventCount < events.size() ; )
         {
-            if( eventID> eventCount || eventID < 0)
-            {
-                return "<INVALID ID>";
-            }
             eventCount ++;
+        }
+        if( eventID> eventCount || eventID < 0)
+        {
+            return "<INVALID ID>";
         }
         String rtnDetails = "";
         rtnDetails += "" +
@@ -275,17 +276,18 @@ public class PartyPlannerDB {
     ) {
         int eventNum = Integer.parseInt(eventId);
         ArrayList<List> events = getEvents();
+        int eventCount;
         if (events.size() == 0)
         {
             return -1;
         }
-        for (int eventCount = 0; eventCount < events.size() ; )
+        for (eventCount = 0; eventCount < events.size() ; )
         {
-            if( eventNum> eventCount || eventNum < 0)
-            {
-                return -2;
-            }
             eventCount ++;
+        }
+        if( eventNum> eventCount || eventNum < 0)
+        {
+            return -2;
         }
 
         String where = COL_ID + "= ?";

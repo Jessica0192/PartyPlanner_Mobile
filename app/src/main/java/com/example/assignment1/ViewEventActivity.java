@@ -99,8 +99,6 @@ public class ViewEventActivity extends EventListActivity {
                 String value= eventID.getText().toString();
                 int eventNum=Integer.parseInt(value) - 1;
                 String tmp = db.getEventDetails(eventNum);
-//                String regexStr = "^[0-9]*$";
-                boolean digitsOnly = TextUtils.isDigitsOnly(value);
                 if ( tmp == "<NO DATA>")
                 {
                     eventDetails.setText("There is no event yet");
@@ -110,11 +108,6 @@ public class ViewEventActivity extends EventListActivity {
                     Toast.makeText(getApplicationContext(), "Invalid Event ID", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                else if (!digitsOnly)
-//                {
-//                    Toast.makeText(getApplicationContext(), "Event ID Must Be An Integer", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
                 else
                 {
                     eventDetails.setText(tmp);
@@ -122,13 +115,13 @@ public class ViewEventActivity extends EventListActivity {
             }
         });
 
-        // View event details
+        // Delete event
         deleteEventBtn = (Button) findViewById(R.id.btnDeleteEvent);
         deleteEventBtn.setOnClickListener(new View.OnClickListener() {
             /*
              * FUNCTION: onClick
              * DESCRIPTION:
-             *      This function is called when View Details button is clicked
+             *      This function is called when Delete Event button is clicked
              * PARAMETER:
              *      View v: the view within the AdapterView that was clicked
              * RETURNS:
@@ -265,4 +258,16 @@ public class ViewEventActivity extends EventListActivity {
         InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(et.getWindowToken(), 0);
     }
+
+//    public static boolean isNumeric(String strEditText) {
+//        if (strEditText == null) {
+//            return false;
+//        }
+//        try {
+//            double d = Double.parseDouble(strEditText);
+//        } catch (NumberFormatException nfe) {
+//            return false;
+//        }
+//        return true;
+//    }
 }

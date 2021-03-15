@@ -8,7 +8,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.Telephony;
 import android.util.Log;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class PartyPlannerDB {
 
@@ -45,6 +49,7 @@ public class PartyPlannerDB {
 
 
     public static final String TAG = "EventListActivity";
+
 
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
@@ -83,10 +88,10 @@ public class PartyPlannerDB {
         public void onCreate(SQLiteDatabase db) {
             // create tables
             db.execSQL(CREATE_TABLE);
-            ////////////////TEST EVENTS//////////////////
-            db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1a, eventGuest1a ','eventMenu1, eventMenu2','eventSupply1')");
-            db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
-            db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
+            ////////////////TEST EVENTS/////////////////
+            //db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1a, eventGuest1a ','eventMenu1, eventMenu2','eventSupply1')");
+            //db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
+            //db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
             /////////////////////////////////////////////////
         }
 
@@ -103,8 +108,9 @@ public class PartyPlannerDB {
     }
 
     // database and database helper objects
-    private SQLiteDatabase db;
-    private DBHelper dbHelper;
+    private SQLiteDatabase db = null;
+    private DBHelper dbHelper = null;
+
 
     // constructor
     public PartyPlannerDB(Context context) {
@@ -213,6 +219,8 @@ public class PartyPlannerDB {
             String eventMenu,
             String eventSupply
     ) {
+        db = dbHelper.getWritableDatabase();
+
         ContentValues cv = new ContentValues();
 //        cv.put(TASK_LIST_ID, task.getListId());
         cv.put(COL_NAME, eventName);
@@ -222,12 +230,24 @@ public class PartyPlannerDB {
         cv.put(COL_GUEST, eventGuest);
         cv.put(COL_MENU, eventMenu);
         cv.put(COL_SUPPLY, eventSupply);
-        this.openWriteableDB();
+        //this.openWriteableDB();
         long rowID = db.insert(TABLE_NAME, null, cv);
+
+
+//        String selectQuery = "SELECT * FROM plannerInfo;";
+//        String value = null;
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//        if(cursor.moveToFirst()){
+//            value = cursor.getString(5);
+//        }
+//
+//        Log.d(TAG, "HERE: "+value);
+
         this.closeDB();
 
         return rowID;
     }
+
 
     public int updateEvent(
             String eventId,

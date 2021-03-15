@@ -166,8 +166,9 @@ public class ViewEventActivity extends EventListActivity {
              */
             @Override
             public void onClick(View v) {
-                Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
-                startActivity(eventListIntent);
+                finish();
+                //Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
+                //startActivity(eventListIntent);
             }
         });
     }

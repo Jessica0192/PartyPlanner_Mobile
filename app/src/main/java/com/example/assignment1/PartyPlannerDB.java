@@ -210,7 +210,6 @@ public class PartyPlannerDB {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-
         //Cursor cursor = db.query(TABLE_NAME,
                 //null, null, null, null, null, null);
         cursor.moveToFirst();
@@ -233,7 +232,7 @@ public class PartyPlannerDB {
     }
 
     public String getFormattedEventsSummary() {
-        dbHelper.reset(dbHelper.getWritableDatabase());
+        //dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
 
         if (events.size() == 0)
@@ -255,7 +254,7 @@ public class PartyPlannerDB {
     }
 
     public String getEventDetails(int eventID) {
-//        dbHelper.reset(dbHelper.getWritableDatabase());
+        //dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
         int eventCount;
         if (events.size() == 0)
@@ -304,7 +303,7 @@ public class PartyPlannerDB {
         cv.put(COL_MENU, eventMenu);
         cv.put(COL_SUPPLY, eventSupply);
         //this.openWriteableDB();
-        long rowID = db.insert("plannerInfo", null, cv);
+        long rowID = db.insert(TABLE_NAME, null, cv);
         Log.d(TAG, cv.toString());
 
 

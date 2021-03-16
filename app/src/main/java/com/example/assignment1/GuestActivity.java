@@ -92,10 +92,6 @@ public class GuestActivity extends AppCompatActivity {
     //LOG_TAG that we'll use for logging
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
 
-    //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
-    Intent updateGuestIntent = getIntent();
-    String eventID = updateGuestIntent.getStringExtra("eventID");
-    ////////////////////////////////////////////////////////////////////////////////////////
 
 
     //NEW THING
@@ -140,6 +136,11 @@ public class GuestActivity extends AppCompatActivity {
 
         //make the list view display the array of possible guests
         guestList.setAdapter(arrayAdapter);
+
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateGuestIntent = getIntent();
+        String eventID = updateGuestIntent.getStringExtra("eventID");
+        ////////////////////////////////////////////////////////////////////////////////////////
 
 
         // db = dbHelper.getWritableDatabase();

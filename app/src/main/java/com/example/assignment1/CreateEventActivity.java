@@ -12,7 +12,6 @@
 package com.example.assignment1;
 
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,8 +21,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,19 +33,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.appcompat.app.AlertDialog;
+
 /*
  * NAME     :    CreateEventActivity
  * PURPOSE :    CreateEventActivity class contains the functionality behind the activity_create_event.xml file.
  *              It contains functions for taking event name, event type, date, address, name of guests, menus
  *              and supplies.
  */
-public class CreateEventActivity extends MainActivity{
+public class CreateEventActivity extends MainActivity {
 
     public static final String TAG = "CreateEventActivity";
     private Button addGuests = null;
@@ -66,7 +66,9 @@ public class CreateEventActivity extends MainActivity{
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-    PartyPlannerDB dbhelper = null;
+//    PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
+
+
 
     /*
      * FUNCTION: onCreate
@@ -80,8 +82,10 @@ public class CreateEventActivity extends MainActivity{
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
 
         savedValues = getSharedPreferences("Saved Values", MODE_PRIVATE);
         eventName = findViewById(R.id.txtEventName);
@@ -157,59 +161,53 @@ public class CreateEventActivity extends MainActivity{
                 }
                 Log.d(TAG, "Create Event Activity -- put string");
 
-                //editor
-                editor.putString("eventName", eventName.getText().toString());
-                editor.putString("eventType", eventTypeSpinner.getSelectedItem().toString());
-                editor.putString("date", date.getText().toString());
-                editor.putString("address", address.getText().toString());
-                editor.putString("guests", guests.getText().toString());
-                editor.putString("menu", menu.getText().toString());
-                editor.putString("supplies", supplies.getText().toString());
-                editor.apply();
-
-                //db = dbHelper.getWritableDatabase();
+                //clear out shared preference
+                editor.clear();
+                editor.commit();
 
                 StringBuilder guestsls = new StringBuilder();
-                SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
-                SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
                 SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
                 if (!guestSp.getString("guest1", "").equals("")){
                     guestsls.append(guestSp.getString("guest1", ""));
-                    guestsls.append("\n");
                 }
                 if (!guestSp.getString("guest2", "").equals("")){
+                    guestsls.append("/");
                     guestsls.append(guestSp.getString("guest2", ""));
-                    guestsls.append("\n");
+
                 }
                 if (!guestSp.getString("guest3", "").equals("")){
+                    guestsls.append("/");
                     guestsls.append(guestSp.getString("guest3", ""));
-                    guestsls.append("\n");
                 }
                 if (!guestSp.getString("guest4", "").equals("")){
+                    guestsls.append("/");
                     guestsls.append(guestSp.getString("guest4", ""));
-                    guestsls.append("\n");
                 }
                 if (!guestSp.getString("guest5", "").equals("")){
+                    guestsls.append("/");
                     guestsls.append(guestSp.getString("guest5", ""));
-                    guestsls.append("\n");
                 }
 
-                //insert all data values in plannerInfo
-                //ContentValues values= new ContentValues();
+                Log.d(TAG, eventName.getText().toString());
+                Log.d(TAG, eventTypeSpinner.getSelectedItem().toString());
+                Log.d(TAG, date.getText().toString());
+                Log.d(TAG, guestsls.toString());
+                Log.d(TAG, menu.getText().toString());
+                Log.d(TAG, supplies.getText().toString());
 
-                //values.put("eventName", eventName.getText().toString());
-                //values.put("eventType", eventTypeSpinner.getSelectedItem().toString());
-                //values.put("date", date.getText().toString());
-                //values.put("address", address.getText().toString());
-                //values.put("guests", guestsls.toString());
-                //values.put("menu", menuSp.getString("MenuItems", ""));
-                //values.put("supplies", suppliesSp.getString("SupplyItems", ""));
-
+                PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
                 dbhelper.insertEvent(eventName.getText().toString(), eventTypeSpinner.getSelectedItem().toString(), date.getText().toString(),
-                        address.getText().toString(), guestsls.toString(), menuSp.getString("MenuItems", ""),
-                        suppliesSp.getString("SupplyItems", ""));
+                        address.getText().toString(), guestsls.toString(), menu.getText().toString(),
+                        supplies.getText().toString());
 
-                //db.insert("plannerInfo", null, values);
+                PartyGuestDB partyGuestDB = new PartyGuestDB(CreateEventActivity.this);
+                partyGuestDB.insertGuest(guestsls.toString());
+
+                PartyMenuDB partyMenuDB = new PartyMenuDB(CreateEventActivity.this);
+                partyMenuDB.insertMenuItem(menu.getText().toString());
+
+                PartySupplyDB partySupplyDB = new PartySupplyDB(CreateEventActivity.this);
+                partySupplyDB.insertSupply(supplies.getText().toString());
 
                 finish();
             }
@@ -249,7 +247,7 @@ public class CreateEventActivity extends MainActivity{
              */
             @Override
             public void onClick(View v) {
-                Intent menuIntent = new Intent(v.getContext(), Menu.class);
+                Intent menuIntent = new Intent(v.getContext(), com.example.assignment1.Menu.class);
                 startActivity(menuIntent);
             }
         });
@@ -345,6 +343,59 @@ public class CreateEventActivity extends MainActivity{
         });
 
 
+    }
+
+    /*
+     * FUNCTION: onCreateOptionsMenu
+     * DESCRIPTION:
+     *      This function is called to show the menu fragment
+     * PARAMETER:
+     *      Menu menu: get Menu instance
+     * RETURNS:
+     *      boolean: returns if succeeded to create menu fragment
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu1,  menu);
+        return super.onCreateOptionsMenu( menu);
+    }
+
+    /*
+     * FUNCTION: onOptionsItemSelected
+     * DESCRIPTION:
+     *      This function is called when one of the options is selected in the menu
+     * PARAMETER:
+     *      MenuItem item: get Menu item instance
+     * RETURNS:
+     *      boolean: returns if succeeded
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.logout:
+                Intent logOut = new Intent(CreateEventActivity.this, MainActivity.class);
+                startActivity(logOut);
+                break;
+
+            case R.id.about:
+                //show about information
+                new AlertDialog.Builder(this)
+                        .setTitle("About")
+                        .setMessage("\nThis is Party Planner application where you can plan and " +
+                                "create exciting events!!!\n\n Have Fun:)\n")
+                        .setNeutralButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

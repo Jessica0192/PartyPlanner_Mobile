@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -98,7 +97,7 @@ public class GuestActivity extends AppCompatActivity {
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-    //DatabaseHelper dbhelper = null;
+    // DatabaseHelper dbhelper = null;
     PartyPlannerDB party_db = new PartyPlannerDB(this);
     int id_counter = 0;
     //private static String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";
@@ -149,7 +148,7 @@ public class GuestActivity extends AppCompatActivity {
         //db.execSQL(query);
         //Log.d(LOG_TAG,"Guests Created");
 
-      //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         //  db = openOrCreateDatabase( "PartyPlanner.db", null, SQLiteDatabase.CREATE_IF_NECESSARY        );
 
 
@@ -288,34 +287,27 @@ public class GuestActivity extends AppCompatActivity {
             //we are going need to know which guest we are sending invitation
             // to in out InviteActivity
             editor.putString("cur_guest", selectedGuests.get(arraySize - 1));
-       //     Text sel_guest = null;
-        //    sel_guest.setData(selectedGuests.get(arraySize - 1));
+            Text sel_guest = null;
+            sel_guest.setData(selectedGuests.get(arraySize - 1));
             id_counter++;
-//
-//            try {
-//                final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "+ COL_GUEST +" ("
-//                        + "ID INTEGER primary key AUTOINCREMENT,"
-//                        + "NAME TEXT,"
-//                        + "EVENTNAME TEXT,"
-//                        + "INVITATION_STATUS_CODE INTEGER"+");";
-//                //   + "AMOUNT TEXT,"
-//                //  + "TRNS TEXT," + "isdefault TEXT);";
-//                db.execSQL(CREATE_TABLE);
-//                //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
-//                String sql =
-//                        "INSERT or replace INTO "+ COL_GUEST +" (ID, NAME) VALUES(id_counter,sel_guest)" ;
-//                db.execSQL(sql);
-//                db.execSQL("SELECT * FROM plannerInfo;");
-//
-//                String selectQuery = "SELECT * FROM plannerInfo;";
-//                Cursor cursor = db.rawQuery(selectQuery, null);
-//                if(cursor.moveToFirst()){
-//                    String value = cursor.getString(1);
-//                }
-//            }
-//            catch (Exception e) {
-//                //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
-//            }
+
+            try {
+                final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "+ COL_GUEST +" ("
+                        + "ID INTEGER primary key AUTOINCREMENT,"
+                        + "NAME TEXT,"
+                        + "EVENTNAME TEXT,"
+                        + "INVITATION_STATUS_CODE INTEGER"+");";
+                //   + "AMOUNT TEXT,"
+                //  + "TRNS TEXT," + "isdefault TEXT);";
+                db.execSQL(CREATE_TABLE);
+                //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
+                String sql =
+                        "INSERT or replace INTO "+ COL_GUEST +" (ID, NAME) VALUES(id_counter,sel_guest)" ;
+                db.execSQL(sql);
+            }
+            catch (Exception e) {
+                //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
+            }
             //apply changes
             editor.apply();
             //redirecting to the content_invite.xml screen for invitation

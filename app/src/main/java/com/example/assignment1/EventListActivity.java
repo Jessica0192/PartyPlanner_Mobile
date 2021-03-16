@@ -10,14 +10,18 @@
 package com.example.assignment1;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -71,6 +75,12 @@ public class EventListActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
         eventItem = findViewById(R.id.txtEventItem);
+
+        /////////////////////////////////////////////////////////////////////
+        Intent eventListIntent = getIntent();
+        String username = eventListIntent.getStringExtra("username");
+        Log.d(TAG, "'Event List' =========username===========" + username);
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         // View event
         viewEventBtn = (Button) findViewById(R.id.btnViewEvent);
@@ -146,6 +156,60 @@ public class EventListActivity extends MainActivity {
 
 
     /*
+     * FUNCTION: onCreateOptionsMenu
+     * DESCRIPTION:
+     *      This function is called to show the menu fragment
+     * PARAMETER:
+     *      Menu menu: get Menu instance
+     * RETURNS:
+     *      boolean: returns if succeeded to create menu fragment
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu1,  menu);
+        return super.onCreateOptionsMenu( menu);
+    }
+
+    /*
+     * FUNCTION: onOptionsItemSelected
+     * DESCRIPTION:
+     *      This function is called when one of the options is selected in the menu
+     * PARAMETER:
+     *      MenuItem item: get Menu item instance
+     * RETURNS:
+     *      boolean: returns if succeeded
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.logout:
+                Intent logOut = new Intent(EventListActivity.this, MainActivity.class);
+                startActivity(logOut);
+                break;
+
+            case R.id.about:
+                //show about information
+                new AlertDialog.Builder(this)
+                        .setTitle("About")
+                        .setMessage("\nThis is Party Planner application where you can plan and " +
+                                "create exciting events!!!\n\n Have Fun:)\n")
+                        .setNeutralButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /*
      * FUNCTION: onPause
      * DESCRIPTION:
      *      This function is called the current page is in the state of Pause and it saves all the data
@@ -182,6 +246,9 @@ public class EventListActivity extends MainActivity {
 
         // Display data
         PartyPlannerDB db = new PartyPlannerDB(this);
+        PartyMenuDB dbMenu = new PartyMenuDB(this);
+//        SupplyDB dbSupply = new SupplyDB(this);
+//        GuestDB dbGuest = new GuestDB(this);
         String tmp = db.getFormattedEventsSummary();
         if ( tmp == "<NO DATA>")
         {

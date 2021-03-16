@@ -64,6 +64,12 @@ public class Supplies extends AppCompatActivity{
         candle = findViewById(R.id.checkbox_candle);
         invitations = findViewById(R.id.checkbox_invitations);
 
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateSupplyIntent = getIntent();
+        String eventID = updateSupplyIntent.getStringExtra("eventID");
+        Log.d(TAG, "'Supply' =========event ID===========" + eventID); // test log msg
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         supplyStorage = getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
         supplyStorage.edit().clear().apply();
 
@@ -84,27 +90,33 @@ public class Supplies extends AppCompatActivity{
 
                 StringBuilder result = new StringBuilder();
                 //to store the selected items
-                result.append("Selected Items:");
+                //result.append("Selected Items:");
                 if (balloons.isChecked()) {
-                    result.append("\nballoons");
+                    result.append("balloons");
                 }
                 if (cake.isChecked()) {
-                    result.append("\ncake");
+                    result.append("/");
+                    result.append("cake");
                 }
                 if (flowers.isChecked()) {
-                    result.append("\nflowers");
+                    result.append("/");
+                    result.append("flowers");
                 }
                 if (cups.isChecked()) {
-                    result.append("\ncups");
+                    result.append("/");
+                    result.append("cups");
                 }
                 if (cutlery.isChecked()) {
-                    result.append("\ncutlery");
+                    result.append("/");
+                    result.append("cutlery");
                 }
                 if (candle.isChecked()) {
-                    result.append("\ncandle");
+                    result.append("/");
+                    result.append("candle");
                 }
                 if (invitations.isChecked()) {
-                    result.append("\ninvitations");
+                    result.append("/");
+                    result.append("invitations");
                 }
                 //Displaying the message on the toast
                 Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();

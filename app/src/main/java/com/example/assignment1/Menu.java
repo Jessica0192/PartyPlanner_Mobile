@@ -63,6 +63,12 @@ public class Menu extends AppCompatActivity {
         mainDish = findViewById(R.id.checkbox_mainDish);
         dessert = findViewById(R.id.checkbox_dessert);
 
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateMenuIntent = getIntent();
+        String eventID = updateMenuIntent.getStringExtra("eventID");
+        Log.d(TAG, "'Menu' =========event ID===========" + eventID); // test log msg
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
 
         menuStorage.edit().clear().apply();
@@ -84,18 +90,21 @@ public class Menu extends AppCompatActivity {
 
                 StringBuilder result = new StringBuilder();
                 //to store the selected items
-                result.append("Selected Items:");
+                //result.append("Selected Items:");
                 if (drink.isChecked()) {
-                    result.append("\ndrink");
+                    result.append("drink");
                 }
                 if (appetizer.isChecked()) {
-                    result.append("\nappetizer");
+                    result.append("/");
+                    result.append("appetizer");
                 }
                 if (mainDish.isChecked()) {
-                    result.append("\nmainDish");
+                    result.append("/");
+                    result.append("mainDish");
                 }
                 if (dessert.isChecked()) {
-                    result.append("\ndessert");
+                    result.append("/");
+                    result.append("dessert");
                 }
                 //Displaying the message on the toast
                 Toast.makeText(getApplicationContext(), "Menu item  selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();

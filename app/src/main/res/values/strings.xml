@@ -52,6 +52,8 @@
     <string name="checkbox_invitations">Invitations</string>
     <string name="linkTextView">Order your menu from Sobeys</string>
     <string name="suppliesLinkTextView">Order your supplies from Amazon</string>
+    <string name="log_out">Log Out</string>
+    <string name="about">About</string>
 
 
 </resources>

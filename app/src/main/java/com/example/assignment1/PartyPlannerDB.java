@@ -141,12 +141,12 @@ public class PartyPlannerDB {
 
     // database and database helper objects
     private SQLiteDatabase db = null;
-    private DBHelper dbHelper = null;
+    private PartyPlannerDB.DBHelper dbHelper = null;
 
 
     // constructor
     public PartyPlannerDB(Context context) {
-        dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
+        dbHelper = new PartyPlannerDB.DBHelper(context, DB_NAME, null, DB_VERSION);
 
         // Validate insertEvent Function
         openWriteableDB();
@@ -193,11 +193,18 @@ public class PartyPlannerDB {
     // public methods
     public ArrayList<List> getEvents() {
         ArrayList<List> lists = new ArrayList<List>();
-        openReadableDB();
-        Cursor cursor = db.query(TABLE_NAME,
-                null, null, null, null, null, null);
+        db = dbHelper.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM plannerInfo;";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+
+        //Cursor cursor = db.query(TABLE_NAME,
+                //null, null, null, null, null, null);
+        cursor.moveToFirst();
+        List<String> list = new ArrayList<>();
         while (cursor.moveToNext()) {
-            List<String> list = new ArrayList<>();
             list.add(String.valueOf(cursor.getInt(COL_ID_INDEX)));
             list.add(cursor.getString(COL_NAME_INDEX));
             list.add(cursor.getString(COL_TYPE_INDEX));
@@ -208,6 +215,7 @@ public class PartyPlannerDB {
             list.add(cursor.getString(COL_SUPPLY_INDEX));
             lists.add(list);
         }
+
         closeCursor(cursor);
         closeDB();
         return lists;
@@ -285,21 +293,23 @@ public class PartyPlannerDB {
         cv.put(COL_MENU, eventMenu);
         cv.put(COL_SUPPLY, eventSupply);
         //this.openWriteableDB();
-        long rowID = db.insert(TABLE_NAME, null, cv);
+        long rowID = db.insert("plannerInfo", null, cv);
+        Log.d(TAG, cv.toString());
+
+
 
 
         ////////////To check if the data is inserted into database/////////////////
-        //String selectQuery = "SELECT * FROM plannerInfo;";
-        //String value = null;
-        //Cursor cursor = db.rawQuery(selectQuery, null);
-        //if(cursor.moveToFirst()){
-         //   value = cursor.getString(5);
-        //}
+        String selectQuery = "SELECT * FROM plannerInfo;";
+        String value = null;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()){
+           value = cursor.getString(3);
+        }
 
-        //Log.d(TAG, "HERE: "+value);
+        Log.d(TAG, "HERE: "+value);
 
         this.closeDB();
-
         return rowID;
     }
 

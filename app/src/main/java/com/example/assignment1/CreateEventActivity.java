@@ -66,7 +66,6 @@ public class CreateEventActivity extends MainActivity {
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-//    PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
 
 
 
@@ -163,7 +162,7 @@ public class CreateEventActivity extends MainActivity {
 
                 //clear out shared preference
                 editor.clear();
-                editor.commit();
+                editor.apply();
 
                 StringBuilder guestsls = new StringBuilder();
                 SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);

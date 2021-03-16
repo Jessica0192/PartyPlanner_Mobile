@@ -148,7 +148,7 @@ public class GuestActivity extends AppCompatActivity {
         //db.execSQL(query);
         //Log.d(LOG_TAG,"Guests Created");
 
-        db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        //db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         //  db = openOrCreateDatabase( "PartyPlanner.db", null, SQLiteDatabase.CREATE_IF_NECESSARY        );
 
 

@@ -235,7 +235,7 @@ public class CreateEventActivity extends MainActivity {
              */
             @Override
             public void onClick(View v) {
-                Intent menuIntent = new Intent(v.getContext(), Menu.class);
+                Intent menuIntent = new Intent(v.getContext(), com.example.assignment1.Menu.class);
                 startActivity(menuIntent);
             }
         });
@@ -345,7 +345,7 @@ public class CreateEventActivity extends MainActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.menu,  menu);
+        getMenuInflater().inflate(R.menu.menu1,  menu);
         return super.onCreateOptionsMenu( menu);
     }
 

@@ -160,7 +160,7 @@ public class EventListActivity extends MainActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.menu,  menu);
+        getMenuInflater().inflate(R.menu.menu1,  menu);
         return super.onCreateOptionsMenu( menu);
     }
 

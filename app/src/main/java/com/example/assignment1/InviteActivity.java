@@ -96,7 +96,7 @@ public class InviteActivity extends AppCompatActivity {
     private static String DB_NAME = "PartyPlanner.db";
     public static  String COL_GUEST = "eventGuest";
     private Button btnThread,btntask;
-    private ProgressDialog progressDialog;
+   // private ProgressDialog progressDialog;
 
 
     /*
@@ -311,28 +311,28 @@ public class InviteActivity extends AppCompatActivity {
 
 
                 //progress
-                //progress dialog
-                progressDialog = new ProgressDialog(InviteActivity.this);
-                progressDialog.setMessage("Sending Invitation..."); // Setting Message
-                progressDialog.setTitle("ProgressDialog"); // Setting Title
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-                progressDialog.show(); // Display Progress Dialog
-                progressDialog.setCancelable(false);
-                new Thread(new Runnable() {
-                    public void run() {
-                        try {
-                            Thread.sleep(10000);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        progressDialog.dismiss();
-                    }
-                }).start();
+//                //progress dialog
+//                progressDialog = new ProgressDialog(InviteActivity.this);
+//                progressDialog.setMessage("Sending Invitation..."); // Setting Message
+//                progressDialog.setTitle("ProgressDialog"); // Setting Title
+//                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+//                progressDialog.show(); // Display Progress Dialog
+//                progressDialog.setCancelable(false);
+//                new Thread(new Runnable() {
+//                    public void run() {
+//                        try {
+//                            Thread.sleep(10000);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                        progressDialog.dismiss();
+//                    }
+//                }).start();
 
 
                 //new
 
-                db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+              //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
@@ -355,20 +355,20 @@ public class InviteActivity extends AppCompatActivity {
                 editor.apply();
 
 
-                try {
-
-                    //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
-                  //  String sql =
-                    //        "INSERT or replace INTO "+ COL_GUEST +" (INVITATION_STATUS_CODE) VALUES(1) WHERE NAME=''" ;
-                    db.execSQL("UPDATE "+COL_GUEST+" SET INVITATION_STATUS_CODE = 1"+ "WHERE NAME = "+ curGuest);
-                   // db.execSQL(sql);
-                }
-                catch (Exception e) {
-                    //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
-                }
+//                try {
+//
+//                    //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
+//                  //  String sql =
+//                    //        "INSERT or replace INTO "+ COL_GUEST +" (INVITATION_STATUS_CODE) VALUES(1) WHERE NAME=''" ;
+//                    db.execSQL("UPDATE "+COL_GUEST+" SET INVITATION_STATUS_CODE = 1"+ "WHERE NAME = "+ curGuest);
+//                   // db.execSQL(sql);
+//                }
+//                catch (Exception e) {
+//                    //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
+//                }
 
                 //task here
-              //  new Task_for_invitation_activity().execute();
+         //       new Task_for_invitation_activity().execute();
                 new Task_for_invitation_activity(InviteActivity.this).execute();
                 //inform the user that the invitation has been sent
                 //Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
@@ -520,7 +520,7 @@ public class InviteActivity extends AppCompatActivity {
         Handler handler;
         Dialog dialog;
         TextView txtprogrss;
-        ProgressBar progress;
+        ProgressBar progressDialog;
         Button btnCancel;
 
         Task_for_invitation_activity(Context context, Handler handler){
@@ -538,29 +538,30 @@ public class InviteActivity extends AppCompatActivity {
         protected void onPreExecute() {
 
             //progress dialog
-
-            progressDialog = new ProgressDialog( InviteActivity.this);
+//just commented this out
+            progressDialog = new ProgressBar(InviteActivity.this);
 
             super.onPreExecute();
             // create dialog
             dialog=new Dialog(context);
             dialog.setCancelable(true);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-          //  dialog.addContentView(progressDialog, InviteActivity.this);
-           // dialog.setContentView(progressDialog);
-           // txtprogrss=(TextView) dialog.findViewById(R.id.txtProgress);
-            progress=(ProgressBar)dialog.findViewById(R.id.pr_bar);
+           // dialog.addContentView(progressDialog, InviteActivity.this);
+           dialog.setContentView(progressDialog);
+            txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
+          //  progress=(ProgressBar)dialog.findViewById(progress);
+
             btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
-
-            btnCancel.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-
-                    Task_for_invitation_activity.this.cancel(true);
-                }
-            });
+//
+//            btnCancel.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View arg0) {
+//
+//
+//                    Task_for_invitation_activity.this.cancel(true);
+//                }
+//            });
 
             //where to show the dialog???
             dialog.show();
@@ -600,8 +601,8 @@ public class InviteActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
 
 
-            progress.setProgress(values[0]);
-            txtprogrss.setText("progress update"+ values[0]+"%");
+  //          progressDialog.setProgress(values[0]);
+//            txtprogrss.setText("progress update"+ values[0]+"%");
 
         }
 

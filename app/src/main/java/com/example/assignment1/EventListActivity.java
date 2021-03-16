@@ -98,6 +98,7 @@ public class EventListActivity extends MainActivity {
             public void onClick(View v) {
                 Intent viewEventIntent = new Intent(v.getContext(), ViewEventActivity.class);
                 startActivity(viewEventIntent);
+
             }
         });
 

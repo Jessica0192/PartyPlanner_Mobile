@@ -143,11 +143,30 @@ public class PartyPlannerDB {
     private SQLiteDatabase db = null;
     private PartyPlannerDB.DBHelper dbHelper = null;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> bb62564a23b7e8615cc43b9190ad6ce0c4b07caf
 
     // constructor
     public PartyPlannerDB(Context context) {
         dbHelper = new PartyPlannerDB.DBHelper(context, DB_NAME, null, DB_VERSION);
 
+<<<<<<< HEAD
+
+
+
+//        // Validate insertEvent Function
+//        insertEvent(
+//            "eventName1",
+//            "eventType1",
+//            "eventDate1",
+//            "eventAddress1",
+//            "eventGuest1",
+//            "eventMenu1",
+//            "eventSupply1"
+//        )
+=======
         // Validate insertEvent Function
         openWriteableDB();
         dbHelper.onCreate(db);
@@ -155,6 +174,7 @@ public class PartyPlannerDB {
 //            "eventName1", "eventType1", "eventDate1", "eventAddress1",
 //            "eventGuest1", "eventMenu1", "eventSupply1"
 //        );
+>>>>>>> bb62564a23b7e8615cc43b9190ad6ce0c4b07caf
 
         Log.d(TAG, "==================================================== DB constructor ...");
     }

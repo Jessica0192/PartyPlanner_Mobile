@@ -98,7 +98,7 @@ public class GuestActivity extends AppCompatActivity {
     SQLiteDatabase db = null;
 
     // DatabaseHelper dbhelper = null;
-//    PartyPlannerDB party_db = new PartyPlannerDB(this);
+    PartyPlannerDB party_db = new PartyPlannerDB(this);
     int id_counter = 0;
     //private static String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";
 
@@ -148,7 +148,7 @@ public class GuestActivity extends AppCompatActivity {
         //db.execSQL(query);
         //Log.d(LOG_TAG,"Guests Created");
 
-        //db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         //  db = openOrCreateDatabase( "PartyPlanner.db", null, SQLiteDatabase.CREATE_IF_NECESSARY        );
 
 

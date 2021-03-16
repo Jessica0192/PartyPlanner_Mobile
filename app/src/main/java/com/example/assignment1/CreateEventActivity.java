@@ -228,7 +228,7 @@ public class CreateEventActivity extends MainActivity {
             @Override
             public void onClick(View v){
                 Intent guestIntent = new Intent(CreateEventActivity.this, GuestActivity.class);
-                startActivity(guestIntent);
+               startActivity(guestIntent);
         }
         });
 

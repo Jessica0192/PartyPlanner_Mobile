@@ -238,6 +238,9 @@ public class ViewEventActivity extends EventListActivity {
             @Override
             public void onClick(View v) {
                 Intent updateGuestIntent = new Intent(ViewEventActivity.this, GuestActivity.class);
+                String value= eventID.getText().toString();
+                String eventNum=String.valueOf(Integer.parseInt(value) - 1);
+                updateGuestIntent.putExtra("eventID", eventNum);
                 startActivity(updateGuestIntent);
             }
         });

@@ -93,6 +93,7 @@ public class GuestActivity extends AppCompatActivity {
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
 
 
+
     //NEW THING
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
@@ -135,6 +136,11 @@ public class GuestActivity extends AppCompatActivity {
 
         //make the list view display the array of possible guests
         guestList.setAdapter(arrayAdapter);
+
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateGuestIntent = getIntent();
+        String eventID = updateGuestIntent.getStringExtra("eventID");
+        ////////////////////////////////////////////////////////////////////////////////////////
 
 
         // db = dbHelper.getWritableDatabase();

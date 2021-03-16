@@ -51,30 +51,28 @@ public class PartyPlannerDB {
     public static final String COL_SUPPLY = "eventSupply";
     public static final int COL_SUPPLY_INDEX = index++;
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    // plannerInfo Table
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-    public static final String TAG = "EventListActivity";
-
-
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
-        "CREATE TABLE " + TABLE_NAME + " (" +
-                COL_ID   + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-                COL_NAME + " TEXT    NOT NULL, " +
-                COL_TYPE + " TEXT    NOT NULL, " +
-                COL_DATE + " TEXT    NOT NULL, " +
-                COL_ADDRESS + " TEXT    NOT NULL, " +
-                COL_GUEST + " TEXT    NOT NULL, " +
-                COL_MENU + " TEXT    NOT NULL, " +
-                COL_SUPPLY + " TEXT    NOT NULL" +
-        ");";
+            "CREATE TABLE " + TABLE_NAME + " (" +
+                    COL_ID   + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                    COL_NAME + " TEXT    NOT NULL, " +
+                    COL_TYPE + " TEXT    NOT NULL, " +
+                    COL_DATE + " TEXT    NOT NULL, " +
+                    COL_ADDRESS + " TEXT    NOT NULL, " +
+                    COL_GUEST + " TEXT    NOT NULL, " +
+                    COL_MENU + " TEXT    NOT NULL, " +
+                    COL_SUPPLY + " TEXT    NOT NULL" +
+                    ");";
 
     // DROP TABLE statement
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // plannerInfo Table
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static final String TAG = "EventListActivity";
     private static class DBHelper extends SQLiteOpenHelper {
 
         public DBHelper(
@@ -84,6 +82,7 @@ public class PartyPlannerDB {
                 int version
         ) {
             super(context, name, factory, version);
+            getWritableDatabase();
         }
 
         public void reset(SQLiteDatabase db){
@@ -93,13 +92,19 @@ public class PartyPlannerDB {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            // create tables
-            db.execSQL(CREATE_TABLE);
+            Log.d(TAG, "==================================================== DB onCreate ...");
+
             ////////////////TEST EVENTS/////////////////
-            db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1a, eventGuest1a ','eventMenu1, eventMenu2','eventSupply1')");
-            db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
-            db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
-            /////////////////////////////////////////////////
+            //db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1a, eventGuest1a ','eventMenu1, eventMenu2','eventSupply1')");
+            //db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
+            //db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
+
+            if (!isTableExists(TABLE_NAME, db))
+            {
+                db = getWritableDatabase();
+                db.execSQL(CREATE_TABLE);
+            }
+
         }
 
         @Override
@@ -112,6 +117,26 @@ public class PartyPlannerDB {
             db.execSQL(PartyPlannerDB.DROP_TABLE);
             onCreate(db);
         }
+
+        public boolean isTableExists(String tableName, SQLiteDatabase db) {
+            if(db == null || !db.isOpen()) {
+                db = getReadableDatabase();
+            }
+            if(!db.isReadOnly()) {
+                db.close();
+                db = getReadableDatabase();
+            }
+
+            String query = "select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'";
+            try (Cursor cursor = db.rawQuery(query, null)) {
+                if(cursor!=null) {
+                    if(cursor.getCount()>0) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
     }
 
     // database and database helper objects
@@ -123,15 +148,12 @@ public class PartyPlannerDB {
     public PartyPlannerDB(Context context) {
         dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
 
-//        // Validate insertEvent Function
+        // Validate insertEvent Function
+        openWriteableDB();
+        dbHelper.onCreate(db);
 //        insertEvent(
-//            "eventName1",
-//            "eventType1",
-//            "eventDate1",
-//            "eventAddress1",
-//            "eventGuest1",
-//            "eventMenu1",
-//            "eventSupply1"
+//            "eventName1", "eventType1", "eventDate1", "eventAddress1",
+//            "eventGuest1", "eventMenu1", "eventSupply1"
 //        );
 
         Log.d(TAG, "==================================================== DB constructor ...");
@@ -139,11 +161,23 @@ public class PartyPlannerDB {
 
     // private methods
     private void openReadableDB() {
-        db = dbHelper.getReadableDatabase();
+        if(db == null || !db.isOpen()) {
+            db = dbHelper.getReadableDatabase();
+        }
+        if(!db.isReadOnly()) {
+            db.close();
+            db = dbHelper.getReadableDatabase();
+        }
     }
 
     private void openWriteableDB() {
-        db = dbHelper.getWritableDatabase();
+        if(db == null || !db.isOpen()) {
+            db = dbHelper.getWritableDatabase();
+        }
+        if(db.isReadOnly()) {
+            db.close();
+            db = dbHelper.getWritableDatabase();
+        }
     }
 
     public void closeDB() {
@@ -180,7 +214,7 @@ public class PartyPlannerDB {
     }
 
     public String getFormattedEventsSummary() {
-//        dbHelper.reset(dbHelper.getWritableDatabase());
+        dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
 
         if (events.size() == 0)
@@ -202,7 +236,7 @@ public class PartyPlannerDB {
     }
 
     public String getEventDetails(int eventID) {
-        dbHelper.reset(dbHelper.getWritableDatabase());
+//        dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
         int eventCount;
         if (events.size() == 0)
@@ -254,6 +288,7 @@ public class PartyPlannerDB {
         long rowID = db.insert(TABLE_NAME, null, cv);
 
 
+        ////////////To check if the data is inserted into database/////////////////
         //String selectQuery = "SELECT * FROM plannerInfo;";
         //String value = null;
         //Cursor cursor = db.rawQuery(selectQuery, null);

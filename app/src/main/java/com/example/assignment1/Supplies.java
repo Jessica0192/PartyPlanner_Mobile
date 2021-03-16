@@ -64,6 +64,12 @@ public class Supplies extends AppCompatActivity{
         candle = findViewById(R.id.checkbox_candle);
         invitations = findViewById(R.id.checkbox_invitations);
 
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateSupplyIntent = getIntent();
+        String eventID = updateSupplyIntent.getStringExtra("eventID");
+        Log.d(TAG, "'Supply' =========event ID===========" + eventID); // test log msg
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         supplyStorage = getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
         supplyStorage.edit().clear().apply();
 

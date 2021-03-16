@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
 //                Log.d(TAG, "=====psw========" + pswVal);
                 if (nameVal.equals(USER_NAME) && pswVal.equals(PASS_WORD)) {
                     Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
+                    //////////////////////////////////////////////////////
+                    eventListIntent.putExtra("username", nameVal);
+                    //////////////////////////////////////////////////////
                     startActivity(eventListIntent);
                 }
                 else{

@@ -76,6 +76,12 @@ public class EventListActivity extends MainActivity {
         setContentView(R.layout.activity_event_list);
         eventItem = findViewById(R.id.txtEventItem);
 
+        /////////////////////////////////////////////////////////////////////
+        Intent eventListIntent = getIntent();
+        String username = eventListIntent.getStringExtra("username");
+        Log.d(TAG, "'Event List' =========username===========" + username);
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         // View event
         viewEventBtn = (Button) findViewById(R.id.btnViewEvent);
         viewEventBtn.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +245,9 @@ public class EventListActivity extends MainActivity {
 
         // Display data
         PartyPlannerDB db = new PartyPlannerDB(this);
+        PartyMenuDB dbMenu = new PartyMenuDB(this);
+//        SupplyDB dbSupply = new SupplyDB(this);
+//        GuestDB dbGuest = new GuestDB(this);
         String tmp = db.getFormattedEventsSummary();
         if ( tmp == "<NO DATA>")
         {

@@ -66,7 +66,7 @@ public class Supplies extends AppCompatActivity{
 
         //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
         Intent updateSupplyIntent = getIntent();
-        String eventID = updateSupplyIntent.getStringExtra("eventid");
+        String eventID = updateSupplyIntent.getStringExtra("eventID");
         Log.d(TAG, "'Supply' =========event ID===========" + eventID); // test log msg
         ////////////////////////////////////////////////////////////////////////////////////////
 

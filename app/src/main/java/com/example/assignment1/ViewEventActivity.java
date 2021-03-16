@@ -101,9 +101,11 @@ public class ViewEventActivity extends EventListActivity {
             @Override
             public void onClick(View v) {
                 PartyPlannerDB db = new PartyPlannerDB(v.getContext());
+//                MenuDB dbMenu = new MenuDB(v.getContext());
                 String value= eventID.getText().toString();
                 int eventNum=Integer.parseInt(value) - 1;
                 String tmp = db.getEventDetails(eventNum);
+//                String tmp = dbMenu.getEventDetails(eventNum);
                 if ( tmp == "<NO DATA>")
                 {
                     eventDetails.setText("There is no event yet");
@@ -194,7 +196,7 @@ public class ViewEventActivity extends EventListActivity {
                 Intent updateMenuIntent = new Intent(ViewEventActivity.this, Menu.class);
                 String value= eventID.getText().toString();
                 String eventNum=String.valueOf(Integer.parseInt(value) - 1);
-                updateMenuIntent.putExtra("eventid", eventNum);
+                updateMenuIntent.putExtra("eventID", eventNum);
                 startActivity(updateMenuIntent);
             }
         });
@@ -216,7 +218,7 @@ public class ViewEventActivity extends EventListActivity {
                 Intent updateSupplyIntent = new Intent(ViewEventActivity.this, Supplies.class);
                 String value= eventID.getText().toString();
                 String eventNum=String.valueOf(Integer.parseInt(value) - 1);
-                updateSupplyIntent.putExtra("eventid", eventNum);
+                updateSupplyIntent.putExtra("eventID", eventNum);
                 startActivity(updateSupplyIntent);
             }
         });

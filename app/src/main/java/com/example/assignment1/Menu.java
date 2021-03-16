@@ -65,7 +65,7 @@ public class Menu extends AppCompatActivity {
 
         //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
         Intent updateMenuIntent = getIntent();
-        String eventID = updateMenuIntent.getStringExtra("eventid");
+        String eventID = updateMenuIntent.getStringExtra("eventID");
         Log.d(TAG, "'Menu' =========event ID===========" + eventID); // test log msg
         ////////////////////////////////////////////////////////////////////////////////////////
 

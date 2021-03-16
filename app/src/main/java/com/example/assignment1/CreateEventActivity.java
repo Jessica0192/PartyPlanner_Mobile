@@ -66,7 +66,9 @@ public class CreateEventActivity extends MainActivity {
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-    PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
+//    PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
+
+
 
     /*
      * FUNCTION: onCreate
@@ -80,6 +82,7 @@ public class CreateEventActivity extends MainActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
@@ -192,7 +195,7 @@ public class CreateEventActivity extends MainActivity {
                 Log.d(TAG, menu.getText().toString());
                 Log.d(TAG, supplies.getText().toString());
 
-
+                PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
                 dbhelper.insertEvent(eventName.getText().toString(), eventTypeSpinner.getSelectedItem().toString(), date.getText().toString(),
                         address.getText().toString(), guestsls.toString(), menu.getText().toString(),
                         supplies.getText().toString());

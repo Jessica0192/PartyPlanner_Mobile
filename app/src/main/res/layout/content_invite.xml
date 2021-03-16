@@ -201,11 +201,16 @@
         android:textColor="@color/sendBtnColor"
         app:backgroundTint="@color/greenish" />
 
-    <ProgressBar
-        android:id="@+id/pr_bar"
+<!--    <ProgressBar-->
+<!--        android:id="@+id/pr_bar"-->
+<!--        android:layout_width="170dp"-->
+<!--        android:layout_height="65dp"-->
+<!--        />-->
+
+    <TextView
+        android:id="@+id/txtProgress"
         android:layout_width="170dp"
         android:layout_height="65dp"
-        />
-
-</RelativeLayout>
-</ScrollView>
+            />
+    </RelativeLayout>
+    </ScrollView>

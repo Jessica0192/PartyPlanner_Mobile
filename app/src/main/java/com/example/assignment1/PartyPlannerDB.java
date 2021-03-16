@@ -119,6 +119,9 @@ public class PartyPlannerDB {
     public PartyPlannerDB(Context context) {
         dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
 
+
+
+
 //        // Validate insertEvent Function
 //        insertEvent(
 //            "eventName1",
@@ -128,7 +131,7 @@ public class PartyPlannerDB {
 //            "eventGuest1",
 //            "eventMenu1",
 //            "eventSupply1"
-//        );
+//        )
 
         Log.d(TAG, "==================================================== DB constructor ...");
     }

@@ -96,7 +96,7 @@ public class InviteActivity extends AppCompatActivity {
     private static String DB_NAME = "PartyPlanner.db";
     public static  String COL_GUEST = "eventGuest";
     private Button btnThread,btntask;
-   // private ProgressDialog progressDialog;
+    // private ProgressDialog progressDialog;
 
 
     /*
@@ -274,26 +274,26 @@ public class InviteActivity extends AppCompatActivity {
         t1.setText("Invitation to: "+curGuest);
 
         //find the button that sends the invitation by id
-       // Button button = findViewById(R.id.sendBtn);
+        // Button button = findViewById(R.id.sendBtn);
 
 
 
         btnThread=(Button)findViewById(R.id.sendBtn);
-       // btntask=(Button)findViewById(R.id.btntsk);
+        // btntask=(Button)findViewById(R.id.btntsk);
 
-      //  btntask.setOnClickListener(new OnClickListener() {
+        //  btntask.setOnClickListener(new OnClickListener() {
 //
-  //          @Override
-    //        public void onClick(View arg0) {
+        //          @Override
+        //        public void onClick(View arg0) {
 ///
 
-                //start myTast
+        //start myTast
 
-   //             new MyTask(MainActivity.this).execute();
+        //             new MyTask(MainActivity.this).execute();
 
 
-     //       }
-      //  });
+        //       }
+        //  });
 
 
         //set a listener when we click on item to handle the on click event
@@ -332,7 +332,7 @@ public class InviteActivity extends AppCompatActivity {
 
                 //new
 
-              //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+                //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
@@ -340,7 +340,7 @@ public class InviteActivity extends AppCompatActivity {
                 // fil the "GuestPrefs" object with all the possible guests -
                 // we allow up to 5 guests
                 if (sp.getString("guest1", "") == ""){
-                     editor.putString("guest1", curGuest);
+                    editor.putString("guest1", curGuest);
                 }else if (sp.getString("guest2", "") == ""){
                     editor.putString("guest2", curGuest);
                 } else if (sp.getString("guest3", "") == ""){
@@ -368,7 +368,7 @@ public class InviteActivity extends AppCompatActivity {
 //                }
 
                 //task here
-         //       new Task_for_invitation_activity().execute();
+                //       new Task_for_invitation_activity().execute();
                 new Task_for_invitation_activity(InviteActivity.this).execute();
                 //inform the user that the invitation has been sent
                 //Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
@@ -543,13 +543,14 @@ public class InviteActivity extends AppCompatActivity {
 
             super.onPreExecute();
             // create dialog
+            progressDialog.setMax(10);
             dialog=new Dialog(context);
             dialog.setCancelable(true);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-           // dialog.addContentView(progressDialog, InviteActivity.this);
-           dialog.setContentView(progressDialog);
+            // dialog.addContentView(progressDialog, InviteActivity.this);
+            dialog.setContentView(progressDialog);
             txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
-          //  progress=(ProgressBar)dialog.findViewById(progress);
+            //  progress=(ProgressBar)dialog.findViewById(progress);
 
             btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
 //
@@ -566,6 +567,19 @@ public class InviteActivity extends AppCompatActivity {
             //where to show the dialog???
             dialog.show();
 
+//            try {
+//                Thread.sleep(5 * 1000);
+//            } catch (InterruptedException ie) {
+//                Thread.currentThread().interrupt();
+//            }
+//            final Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Do something after 5s = 5000ms
+//                }
+//            }, 5000);
+            //         dialog.dismiss();
         }
 
 
@@ -583,7 +597,7 @@ public class InviteActivity extends AppCompatActivity {
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
-                       //dont forget the catch block
+                        //dont forget the catch block
                         e.printStackTrace();
                     }
 
@@ -601,7 +615,7 @@ public class InviteActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
 
 
-  //          progressDialog.setProgress(values[0]);
+            //          progressDialog.setProgress(values[0]);
 //            txtprogrss.setText("progress update"+ values[0]+"%");
 
         }

@@ -51,6 +51,10 @@ public class PartyPlannerDB {
     public static final String COL_SUPPLY = "eventSupply";
     public static final int COL_SUPPLY_INDEX = index++;
 
+    // database and database helper objects
+    private SQLiteDatabase db = null;
+    private PartyPlannerDB.DBHelper dbHelper = null;
+
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -139,9 +143,7 @@ public class PartyPlannerDB {
         }
     }
 
-    // database and database helper objects
-    private SQLiteDatabase db = null;
-    private PartyPlannerDB.DBHelper dbHelper = null;
+
 
     // constructor
     public PartyPlannerDB(Context context) {

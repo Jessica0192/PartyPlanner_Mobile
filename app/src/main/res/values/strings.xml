@@ -54,6 +54,8 @@
     <string name="suppliesLinkTextView">Order your supplies from Amazon</string>
     <string name="log_out">Log Out</string>
     <string name="about">About</string>
+    <string name="backDetailsBtn">EVENT DETAILS</string>
+    <string name="saveUpdateBtn">SAVE UPDATE</string>
 
 
 </resources>

@@ -184,8 +184,8 @@ public class PartySupplyDB {
     }
 
     public int updateSupply(
-        String eventId,
-        String supplyItem
+            String eventId,
+            String supplyItem
     ) {
         ContentValues cv = new ContentValues();
         cv.put(COL_ITEM, supplyItem);

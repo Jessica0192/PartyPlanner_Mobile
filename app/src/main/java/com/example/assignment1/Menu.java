@@ -10,13 +10,20 @@
 
 package com.example.assignment1;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,12 +47,14 @@ public class Menu extends AppCompatActivity {
     private CheckBox dessert = null;
     private Button save = null;
     private SharedPreferences savedValues = null;
+    private String eventID = "";
+    private String myMenuUpdateItems = "";
     SharedPreferences menuStorage;
     public static final String TAG = "menu";
 
-    //create an instance of database
-   // DatabaseHelper menuDb;
-
+    //instantiate the database
+    PartyMenuDB dbHelper = null;
+    PartyMenuDB db = null;
 
     /*  -- Function Header Comment
 	Name	:   onCreate()
@@ -65,7 +74,7 @@ public class Menu extends AppCompatActivity {
 
         //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
         Intent updateMenuIntent = getIntent();
-        String eventID = updateMenuIntent.getStringExtra("eventID");
+        eventID = updateMenuIntent.getStringExtra("eventID");
         Log.d(TAG, "'Menu' =========event ID===========" + eventID); // test log msg
         ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,32 +102,28 @@ public class Menu extends AppCompatActivity {
                 //result.append("Selected Items:");
                 if (drink.isChecked()) {
                     result.append("drink");
+                    myMenuUpdateItems = myMenuUpdateItems + drink + ", ";
                 }
                 if (appetizer.isChecked()) {
                     result.append("/");
                     result.append("appetizer");
+                    myMenuUpdateItems = myMenuUpdateItems + appetizer + ", ";
                 }
                 if (mainDish.isChecked()) {
                     result.append("/");
                     result.append("mainDish");
+                    myMenuUpdateItems = myMenuUpdateItems + mainDish + ", ";
                 }
                 if (dessert.isChecked()) {
                     result.append("/");
                     result.append("dessert");
+                    myMenuUpdateItems = myMenuUpdateItems + dessert + ", ";
                 }
                 //Displaying the message on the toast
-                Toast.makeText(getApplicationContext(), "Menu item  selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
-
+                //Toast.makeText(getApplicationContext(), "Menu item  selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = menuStorage.edit();
-
-//                boolean isInseted = menuDb.insertInfo(result.toString());
-//
-//                if (isInseted == true)
-//                    Toast.makeText (getApplicationContext(), "Menu inserted to the database! ", Toast.LENGTH_LONG).show();
-//                else
-//                    Toast.makeText (getApplicationContext(), "Menu NOT inserted to the database! ", Toast.LENGTH_LONG).show();
 
                 editor.putString("MenuItems", result.toString());
                 editor.apply();
@@ -166,6 +171,32 @@ public class Menu extends AppCompatActivity {
     {
         //go back to creation event
         finish();
+    }
+
+    /*  -- Function Header Comment
+    Name	:   backToEventDetails(View view)
+    Purpose :   To let the user back to the event details page
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    public void backToEventDetails(View view)
+    {
+        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
+        startActivity(eventDetailsIntent);
+    }
+
+    /*  -- Function Header Comment
+    Name	:   saveUpdate(View view)
+    Purpose :   To save the update
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    public void saveUpdate(View view)
+    {
+        //to update the menu items
+       db.updateMenuItem(eventID, myMenuUpdateItems);
     }
 
     /*  -- Function Header Comment
@@ -226,4 +257,94 @@ public class Menu extends AppCompatActivity {
     }
 
 
+    // new class
+    public class Task_for_menu extends AsyncTask<Void, Integer, Void>
+    {
+
+        Context context;
+        Handler handler;
+        Dialog dialog;
+        TextView txtprogrss;
+        ProgressBar progressDialog;
+        Button btnCancel;
+
+        Task_for_menu(Context context, Handler handler)
+        {
+            this.context=context;
+            this.handler=handler;
+
+        }
+
+        Task_for_menu(Context context)
+        {
+            this.context=context;
+            this.handler=handler;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            progressDialog = new ProgressBar(Menu.this);
+
+            super.onPreExecute();
+            // create dialog
+            progressDialog.setMax(10);
+            dialog=new Dialog(context);
+            dialog.setCancelable(true);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            // dialog.addContentView(progressDialog, InviteActivity.this);
+            dialog.setContentView(progressDialog);
+            txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
+            //  progress=(ProgressBar)dialog.findViewById(progress);
+
+            btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
+
+            dialog.show();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... arg0)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if(isCancelled())
+                {
+                    break;
+                }
+                else
+                {
+                    Log.e("In Background","current value;"+ i);
+                    publishProgress(i);
+
+                    try
+                    {
+                        Thread.sleep(500);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        //don't forget the catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values)
+        {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            dialog.dismiss();
+            Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+        }
+    }
 }
+

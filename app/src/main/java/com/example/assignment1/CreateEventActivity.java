@@ -67,8 +67,6 @@ public class CreateEventActivity extends MainActivity {
     SQLiteDatabase db = null;
 
 
-
-
     /*
      * FUNCTION: onCreate
      * DESCRIPTION:

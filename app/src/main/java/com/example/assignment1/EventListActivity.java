@@ -40,16 +40,16 @@ public class EventListActivity extends MainActivity {
 
     public static final String TAG = "EventListActivity";
     private TextView eventItem=null;
-    private SharedPreferences savedEvents;
-    private String eventNameList;
-    private String eventDateList;
-    private String eventname = "";
-    private String eventdate = "";
-    private SharedPreferences savedValues;
+//    private SharedPreferences savedEvents;
+//    private String eventNameList;
+//    private String eventDateList;
+//    private String eventname = "";
+//    private String eventdate = "";
+//    private SharedPreferences savedValues;
     Button viewEventBtn = null;
     Button addEventBtn = null;
 //    Button clearEventsBtn = null;
-    ArrayList<String> checkEventList = new ArrayList<String>();
+//    ArrayList<String> checkEventList = new ArrayList<String>();
 
 
 

@@ -1,3 +1,12 @@
+/*
+ * FILE          : PartyPlannerDB.java
+ * PROJECT       : PROG3150 - Assignment #2
+ * PROGRAMMER    : Suka Sun
+ * FIRST VERSION : 2020-03-19
+ * DESCRIPTION   : This file contains the definition and functions of the plannerInfo table
+ *                 in the PartyPlanner database
+ */
+
 package com.example.assignment1;
 
 import java.util.ArrayList;
@@ -14,16 +23,18 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class PartyPlannerDB {
-//    public static final String TAG = "DB";
 
-    // database constants
+/*
+ * NAME     :   PartyPlannerDB
+ * PURPOSE :    PartyPlannerDB class contains the definition and functions of the menuInfo table
+ *              in the PartyPlanner database
+ */
+public class PartyPlannerDB {
+
+    // Database constants
     public static final String DB_NAME = "PartyPlanner.db";
     public static final int    DB_VERSION = 1;
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    // plannerInfo Table
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     public static int index = 0;
     public static final String TABLE_NAME = "plannerInfo";
     //
@@ -50,11 +61,12 @@ public class PartyPlannerDB {
     //
     public static final String COL_SUPPLY = "eventSupply";
     public static final int COL_SUPPLY_INDEX = index++;
-    //
+
+    // Constants for error code
     private static final int ERROR_EMPTY =  -1;
     private static final int ERROR_INVALID =  -2;
 
-    // database and database helper objects
+    // Database and database helper objects
     private SQLiteDatabase db = null;
     private PartyPlannerDB.DBHelper dbHelper = null;
 
@@ -74,11 +86,6 @@ public class PartyPlannerDB {
     // DROP TABLE statement
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    // plannerInfo Table
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
     public static final String TAG = "EventListActivity";
     private static class DBHelper extends SQLiteOpenHelper {
 
@@ -97,23 +104,34 @@ public class PartyPlannerDB {
             onCreate(db);
         }
 
+        /*
+         * FUNCTION: onCreate
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onCreate(SQLiteDatabase db) {
-            Log.d(TAG, "==================================================== DB onCreate ...");
-
-            ////////////////TEST EVENTS/////////////////
-            //db.execSQL("INSERT INTO plannerInfo VALUES (1, 'eventName1','eventType1','eventDate1','eventAddress1','eventGuest1a, eventGuest1a ','eventMenu1, eventMenu2','eventSupply1')");
-            //db.execSQL("INSERT INTO plannerInfo VALUES (2, 'eventName2','eventType2','eventDate2','eventAddress2','eventGuest2','eventMenu2','eventSupply2')");
-            //db.execSQL("INSERT INTO plannerInfo VALUES (3, 'eventName3','eventType3','eventDate3','eventAddress3','eventGuest3','eventMenu3','eventSupply3')");
-
+            // Create tables
             if (!isTableExists(TABLE_NAME, db))
             {
                 db = getWritableDatabase();
                 db.execSQL(CREATE_TABLE);
             }
-
         }
 
+        /*
+         * FUNCTION: onUpgrade
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onUpgrade(SQLiteDatabase db,
                               int oldVersion, int newVersion) {
@@ -125,6 +143,15 @@ public class PartyPlannerDB {
             onCreate(db);
         }
 
+        /*
+         * FUNCTION: isTableExists
+         * DESCRIPTION:
+         *      This function is going to be called to check an existence of a table
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         public boolean isTableExists(String tableName, SQLiteDatabase db) {
             if(db == null || !db.isOpen()) {
                 db = getReadableDatabase();
@@ -148,34 +175,23 @@ public class PartyPlannerDB {
 
 
 
-    // constructor
+    // Constructor
     public PartyPlannerDB(Context context) {
         dbHelper = new PartyPlannerDB.DBHelper(context, DB_NAME, null, DB_VERSION);
-
-
-
-//        // Validate insertEvent Function
-//        insertEvent(
-//            "eventName1",
-//            "eventType1",
-//            "eventDate1",
-//            "eventAddress1",
-//            "eventGuest1",
-//            "eventMenu1",
-//            "eventSupply1"
-//        )
-        // Validate insertEvent Function
         openWriteableDB();
         dbHelper.onCreate(db);
-//        insertEvent(
-//            "eventName1", "eventType1", "eventDate1", "eventAddress1",
-//            "eventGuest1", "eventMenu1", "eventSupply1"
-//        );
-
         Log.d(TAG, "==================================================== DB constructor ...");
     }
 
-    // private methods
+    /*
+     * FUNCTION: openReadableDB
+     * DESCRIPTION:
+     *      This function is going to be called to read info from the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openReadableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getReadableDatabase();
@@ -186,6 +202,15 @@ public class PartyPlannerDB {
         }
     }
 
+    /*
+     * FUNCTION: openWriteableDB
+     * DESCRIPTION:
+     *      This function is going to be called to edit info in the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openWriteableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getWritableDatabase();
@@ -196,17 +221,43 @@ public class PartyPlannerDB {
         }
     }
 
+    /*
+     * FUNCTION: closeDB
+     * DESCRIPTION:
+     *      This function is going to be called to close the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     public void closeDB() {
         if (db != null)
             db.close();
     }
 
+    /*
+     * FUNCTION: closeCursor
+     * DESCRIPTION:
+     *      This function is going to be called to close the cursor
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void closeCursor(Cursor cursor) {
         if (cursor != null)
             cursor.close();
     }
 
-    // public methods
+    /*
+     * FUNCTION: getEvents
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of the table
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      list: list of details
+     */
     public ArrayList<List> getEvents() {
         ArrayList<List> lists = new ArrayList<List>();
         //db = dbHelper.getReadableDatabase();
@@ -232,6 +283,15 @@ public class PartyPlannerDB {
         return lists;
     }
 
+    /*
+     * FUNCTION: getFormattedEventsSummary
+     * DESCRIPTION:
+     *      This function is going to be called to get the info of event name and date
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      list: info of event name and date
+     */
     public String getFormattedEventsSummary() {
         //dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
@@ -254,6 +314,15 @@ public class PartyPlannerDB {
         return rtnEvents;
     }
 
+    /*
+     * FUNCTION: getEventDetails
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of an event
+     * PARAMETER:
+     *      int: eventID
+     * RETURNS:
+     *      list: details of event
+     */
     public String getEventDetails(int eventID) {
         //dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
@@ -282,6 +351,15 @@ public class PartyPlannerDB {
         return rtnDetails;
     }
 
+    /*
+     * FUNCTION: insertEvent
+     * DESCRIPTION:
+     *      This function is going to be called to insert event to the table
+     * PARAMETER:
+     *      string: eventName, eventType, eventDate, eventAddress, eventGuest, menuItem, eventSupply
+     * RETURNS:
+     *      long: rowID
+     */
     public long insertEvent(
             String eventName,
             String eventType,
@@ -315,6 +393,15 @@ public class PartyPlannerDB {
         return rowID;
     }
 
+    /*
+     * FUNCTION: updateEvent
+     * DESCRIPTION:
+     *      This function is going to be called to update an event in the table
+     * PARAMETER:
+     *      list: record
+     * RETURNS:
+     *      long: rowID
+     */
     public int updateEvent(
         List<String> record
     ) {
@@ -337,6 +424,15 @@ public class PartyPlannerDB {
         return rowCount;
     }
 
+    /*
+     * FUNCTION: updateEvent
+     * DESCRIPTION:
+     *      This function is going to be called to update an event in the table
+     * PARAMETER:
+     *      string: eventName, eventType, eventDate, eventAddress, eventGuest, menuItem, eventSupply
+     * RETURNS:
+     *      long: rowID
+     */
     public int updateEvent(
             String eventId,
             String eventName,
@@ -366,19 +462,15 @@ public class PartyPlannerDB {
         return rowCount;
     }
 
-//    public int deleteEvent(
-//            String eventId
-//    ) {
-//        String where = COL_ID + "= ?";
-//        String[] whereArgs = { eventId };
-//
-//        this.openWriteableDB();
-//        int rowCount = db.delete(TABLE_NAME, where, whereArgs);
-//        this.closeDB();
-//
-//        return rowCount;
-//    }
-
+    /*
+     * FUNCTION: deleteEvent
+     * DESCRIPTION:
+     *      This function is going to be called to delete an event in the table
+     * PARAMETER:
+     *      string: eventId
+     * RETURNS:
+     *      int: rowID
+     */
     public int deleteEvent(
             String eventId
     ) {

@@ -1,3 +1,12 @@
+/*
+ * FILE          : PartySupplyDB.java
+ * PROJECT       : PROG3150 - Assignment #2
+ * PROGRAMMER    : Suka Sun
+ * FIRST VERSION : 2020-03-19
+ * DESCRIPTION   : This file contains the definition and functions of the supplyInfo table
+ *                 in the PartyPlanner database
+ */
+
 package com.example.assignment1;
 
 import android.content.ContentValues;
@@ -10,9 +19,15 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+ * NAME     :   PartySupplyDB
+ * PURPOSE :    PartySupplyDB class contains the definition and functions of the menuInfo table
+ *              in the PartyPlanner database
+ */
 public class PartySupplyDB {
 
-    // database constants
+    // Database constants
     public static final String DB_NAME = "PartyPlanner.db";
     public static final int    DB_VERSION = 1;
 
@@ -22,8 +37,11 @@ public class PartySupplyDB {
     public static final int COL_ID_INDEX = index++;
     public static final String COL_ITEM = "supplyItem";
     public static final int COL_ITEM_INDEX = index++;
+    // Constants for error code
+    private static final int ERROR_EMPTY =  -1;
+    private static final int ERROR_INVALID =  -2;
 
-        // database and database helper objects
+    // Database and database helper objects
     private SQLiteDatabase db = null;
     private PartySupplyDB.DBHelper dbHelper = null;
 
@@ -55,6 +73,15 @@ public class PartySupplyDB {
             onCreate(db);
         }
 
+        /*
+         * FUNCTION: onCreate
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onCreate(SQLiteDatabase db) {
             // create tables
@@ -65,6 +92,15 @@ public class PartySupplyDB {
             }
         }
 
+        /*
+         * FUNCTION: onUpgrade
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onUpgrade(
             SQLiteDatabase db,
@@ -95,18 +131,22 @@ public class PartySupplyDB {
         }
     }
 
-//    // database and database helper objects
-//    private SQLiteDatabase db = null;
-//    private PartySupplyDB.DBHelper dbHelper = null;
-
-    // constructor
+    // Constructor
     public PartySupplyDB(Context context) {
         dbHelper = new PartySupplyDB.DBHelper(context, DB_NAME, null, DB_VERSION);
         openWriteableDB();
         dbHelper.onCreate(db);
     }
 
-    // private methods
+    /*
+     * FUNCTION: openReadableDB
+     * DESCRIPTION:
+     *      This function is going to be called to read info from the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openReadableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getReadableDatabase();
@@ -117,6 +157,15 @@ public class PartySupplyDB {
         }
     }
 
+    /*
+     * FUNCTION: openWriteableDB
+     * DESCRIPTION:
+     *      This function is going to be called to edit info in the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openWriteableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getWritableDatabase();
@@ -127,17 +176,44 @@ public class PartySupplyDB {
         }
     }
 
+    /*
+     * FUNCTION: closeDB
+     * DESCRIPTION:
+     *      This function is going to be called to close the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     public void closeDB() {
         if (db != null)
             db.close();
     }
 
+    /*
+     * FUNCTION: closeCursor
+     * DESCRIPTION:
+     *      This function is going to be called to close the cursor
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void closeCursor(Cursor cursor) {
         if (cursor != null)
             cursor.close();
     }
 
-    // public methods
+
+    /*
+     * FUNCTION: getSupplies
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of the table
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      list: list of details
+     */
     public ArrayList<List> getSupplies() {
         ArrayList<List> lists = new ArrayList<List>();
         openReadableDB();
@@ -153,6 +229,15 @@ public class PartySupplyDB {
         return lists;
     }
 
+    /*
+     * FUNCTION: getSupplyDetails
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of an event
+     * PARAMETER:
+     *      int: eventID
+     * RETURNS:
+     *      list: details of event
+     */
     public String getSupplyDetails(
         int eventID
     ) {
@@ -176,6 +261,15 @@ public class PartySupplyDB {
         return rtnDetails;
     }
 
+    /*
+     * FUNCTION: insertSupply
+     * DESCRIPTION:
+     *      This function is going to be called to insert item the table
+     * PARAMETER:
+     *      string: supplyItem
+     * RETURNS:
+     *      long: rowID
+     */
     public long insertSupply(
         String supplyItem
     ) {
@@ -187,6 +281,16 @@ public class PartySupplyDB {
         return rowID;
     }
 
+    /*
+     * FUNCTION: updateSupply
+     * DESCRIPTION:
+     *      This function is going to be called to update item the table
+     * PARAMETER:
+     *      string: eventId
+     *      string: supplyItem
+     * RETURNS:
+     *      long: rowID
+     */
     public int updateSupply(
             String eventId,
             String supplyItem
@@ -204,6 +308,15 @@ public class PartySupplyDB {
         return rowCount;
     }
 
+    /*
+     * FUNCTION: deleteSupply
+     * DESCRIPTION:
+     *      This function is going to be called to delete item the table
+     * PARAMETER:
+     *      string: eventId
+     * RETURNS:
+     *      int: rowID
+     */
     public int deleteSupply(
         String eventId
     ) {
@@ -212,7 +325,7 @@ public class PartySupplyDB {
         int eventCount;
         if (events.size() == 0)
         {
-            return -1;
+            return ERROR_EMPTY;
         }
         for (eventCount = 0; eventCount < events.size() ; )
         {
@@ -220,7 +333,7 @@ public class PartySupplyDB {
         }
         if( eventNum> eventCount || eventNum < 0)
         {
-            return -2;
+            return ERROR_INVALID;
         }
 
         String where = COL_ID + "= ?";

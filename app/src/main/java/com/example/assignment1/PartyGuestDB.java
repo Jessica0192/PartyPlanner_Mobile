@@ -1,3 +1,12 @@
+/*
+ * FILE          : PartyGuestDB.java
+ * PROJECT       : PROG3150 - Assignment #2
+ * PROGRAMMER    : Suka Sun
+ * FIRST VERSION : 2020-03-19
+ * DESCRIPTION   : This file contains the definition and functions of the guestInfo table
+ *                 in the PartyPlanner database
+ */
+
 package com.example.assignment1;
 
 import android.content.ContentValues;
@@ -10,9 +19,14 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * NAME     :   PartyGuestDB
+ * PURPOSE :    PartyGuestDB class contains the definition and functions of the menuInfo table
+ *              in the PartyPlanner database
+ */
 public class PartyGuestDB {
 
-    // database constants
+    // Database constants
     public static final String DB_NAME = "PartyPlanner.db";
     public static final int    DB_VERSION = 1;
     public static int index = 0;
@@ -21,6 +35,13 @@ public class PartyGuestDB {
     public static final int COL_ID_INDEX = index++;
     public static final String COL_NAME = "guestName";
     public static final int COL_NAME_INDEX = index++;
+    // Constants for error code
+    private static final int ERROR_EMPTY =  -1;
+    private static final int ERROR_INVALID =  -2;
+
+    // Database and database helper objects
+    private SQLiteDatabase db = null;
+    private PartyGuestDB.DBHelper dbHelper = null;
 
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
@@ -33,6 +54,7 @@ public class PartyGuestDB {
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     public static final String TAG = "EventListActivity";
+
     private static class DBHelper extends SQLiteOpenHelper {
 
         public DBHelper(
@@ -50,6 +72,15 @@ public class PartyGuestDB {
             onCreate(db);
         }
 
+        /*
+         * FUNCTION: onCreate
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onCreate(SQLiteDatabase db) {
             // create tables
@@ -60,6 +91,15 @@ public class PartyGuestDB {
             }
         }
 
+        /*
+         * FUNCTION: onUpgrade
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onUpgrade(SQLiteDatabase db,
                               int oldVersion, int newVersion) {
@@ -71,6 +111,15 @@ public class PartyGuestDB {
             onCreate(db);
         }
 
+        /*
+         * FUNCTION: isTableExists
+         * DESCRIPTION:
+         *      This function is going to be called to check an existence of a table
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         public boolean isTableExists(String tableName, SQLiteDatabase db) {
             if(db == null || !db.isOpen()) {
                 db = getReadableDatabase();
@@ -92,18 +141,26 @@ public class PartyGuestDB {
         }
     }
 
-    // database and database helper objects
-    private SQLiteDatabase db = null;
-    private PartyGuestDB.DBHelper dbHelper = null;
+//    // database and database helper objects
+//    private SQLiteDatabase db = null;
+//    private PartyGuestDB.DBHelper dbHelper = null;
 
-    // constructor
+    // Constructor
     public PartyGuestDB(Context context) {
         dbHelper = new PartyGuestDB.DBHelper(context, DB_NAME, null, DB_VERSION);
         openWriteableDB();
         dbHelper.onCreate(db);
     }
 
-    // private methods
+    /*
+     * FUNCTION: openReadableDB
+     * DESCRIPTION:
+     *      This function is going to be called to read info from the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openReadableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getReadableDatabase();
@@ -114,6 +171,15 @@ public class PartyGuestDB {
         }
     }
 
+    /*
+     * FUNCTION: openWriteableDB
+     * DESCRIPTION:
+     *      This function is going to be called to edit info in the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openWriteableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getWritableDatabase();
@@ -124,11 +190,29 @@ public class PartyGuestDB {
         }
     }
 
+    /*
+     * FUNCTION: closeDB
+     * DESCRIPTION:
+     *      This function is going to be called to close the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     public void closeDB() {
         if (db != null)
             db.close();
     }
 
+    /*
+     * FUNCTION: closeCursor
+     * DESCRIPTION:
+     *      This function is going to be called to close the cursor
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void closeCursor(Cursor cursor) {
         if (cursor != null)
         {
@@ -136,8 +220,16 @@ public class PartyGuestDB {
         }
     }
 
-    // public methods
-    public ArrayList<List> getEvents() {
+    /*
+     * FUNCTION: getGuests
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of the table
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      list: list of details
+     */
+    public ArrayList<List> getGuests() {
         ArrayList<List> lists = new ArrayList<List>();
         openReadableDB();
         Cursor cursor = db.query(TABLE_NAME,
@@ -153,8 +245,17 @@ public class PartyGuestDB {
         return lists;
     }
 
-    public String getEventDetails(int eventID) {
-        ArrayList<List> events = getEvents();
+    /*
+     * FUNCTION: getGuestDetails
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of an event
+     * PARAMETER:
+     *      int: eventID
+     * RETURNS:
+     *      list: details of event
+     */
+    public String getGuestDetails(int eventID) {
+        ArrayList<List> events = getGuests();
         int eventCount;
         if (events.size() == 0)
         {
@@ -174,6 +275,15 @@ public class PartyGuestDB {
         return rtnDetails;
     }
 
+    /*
+     * FUNCTION: insertGuest
+     * DESCRIPTION:
+     *      This function is going to be called to insert guest the table
+     * PARAMETER:
+     *      string: menuItem
+     * RETURNS:
+     *      long: rowID
+     */
     public long insertGuest(
         String guestName
     ) {
@@ -185,6 +295,16 @@ public class PartyGuestDB {
         return rowID;
     }
 
+    /*
+     * FUNCTION: updateGuest
+     * DESCRIPTION:
+     *      This function is going to be called to update guest the table
+     * PARAMETER:
+     *      string: eventId
+     *      string: menuItem
+     * RETURNS:
+     *      long: rowID
+     */
     public int updateGuest(
         String eventId,
         String guestName
@@ -202,15 +322,24 @@ public class PartyGuestDB {
         return rowCount;
     }
 
+    /*
+     * FUNCTION: deleteGuest
+     * DESCRIPTION:
+     *      This function is going to be called to delete guest the table
+     * PARAMETER:
+     *      string: eventId
+     * RETURNS:
+     *      int: rowID
+     */
     public int deleteGuest(
         String eventId
     ) {
         int eventNum = Integer.parseInt(eventId);
-        ArrayList<List> events = getEvents();
+        ArrayList<List> events = getGuests();
         int eventCount;
         if (events.size() == 0)
         {
-            return -1;
+            return ERROR_EMPTY;
         }
         for (eventCount = 0; eventCount < events.size() ; )
         {
@@ -218,7 +347,7 @@ public class PartyGuestDB {
         }
         if( eventNum> eventCount || eventNum < 0)
         {
-            return -2;
+            return ERROR_INVALID;
         }
 
         String where = COL_ID + "= ?";

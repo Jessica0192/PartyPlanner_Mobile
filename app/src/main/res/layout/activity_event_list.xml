@@ -3,10 +3,10 @@
     FILE          : activity_event_list.xml
     PROJECT       : PROG3150 - Assignment #1
     PROGRAMMER    : Suka Sun
-    FIRST VERSION : 2020-02-10
+    FIRST VERSION : 2020-03-19
     DESCRIPTION   : This file contains the user interface of the EventListActivity.java file.
                    When the user is presented with this screen, they had a list view of existing
-                   events, and can add new event or delete all the events.
+                   events, and can choose to add new event.
 -->
 
 
@@ -91,24 +91,7 @@
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <!--    <Button-->
-<!--        android:id="@+id/btnClearEvents"-->
-<!--        android:layout_width="400dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginBottom="10dp"-->
-<!--        android:text="Clear Events"-->
-<!--        android:textColor="@android:color/white"-->
-<!--        android:textStyle="bold"-->
-<!--        app:backgroundTint="@color/purple_btn"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.936" />-->
-    />
+        app:layout_constraintVertical_bias="1.0" />/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -55,7 +55,7 @@ public class PartyMenuDB {
     // DROP TABLE statement
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
-    public static final String TAG = "EventListActivity";
+//    public static final String TAG = "EventListActivity";
     private static class DBHelper extends SQLiteOpenHelper {
 
         public DBHelper(
@@ -168,7 +168,7 @@ public class PartyMenuDB {
     }
 
     /*
-     * FUNCTION: openReadableDB
+     * FUNCTION: openWriteableDB
      * DESCRIPTION:
      *      This function is going to be called to edit info in the database
      * PARAMETER:
@@ -240,7 +240,7 @@ public class PartyMenuDB {
     }
 
     /*
-     * FUNCTION: getMenuList
+     * FUNCTION: getMenuDetails
      * DESCRIPTION:
      *      This function is going to be called to get the details of an event
      * PARAMETER:

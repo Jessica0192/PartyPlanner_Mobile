@@ -85,10 +85,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         password.setOnKeyListener(new View.OnKeyListener() {
             /*
              * FUNCTION: onKey

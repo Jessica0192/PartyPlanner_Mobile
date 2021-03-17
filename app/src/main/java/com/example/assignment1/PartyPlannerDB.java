@@ -269,13 +269,13 @@ public class PartyPlannerDB {
         }
         String rtnDetails = "";
         rtnDetails += "" +
-                events.get(eventID).get(COL_NAME_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_TYPE_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_DATE_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_ADDRESS_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_GUEST_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_MENU_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_SUPPLY_INDEX);
+                "     NAME    : " + events.get(eventID).get(COL_NAME_INDEX) + "\r\n" +
+                "     TYPE    : " + events.get(eventID).get(COL_TYPE_INDEX) + "\r\n" +
+                "     DATE    : " + events.get(eventID).get(COL_DATE_INDEX) + "\r\n" +
+                "     ADDRESS : " + events.get(eventID).get(COL_ADDRESS_INDEX) + "\r\n" +
+                "     GUEST   : " + events.get(eventID).get(COL_GUEST_INDEX) + "\r\n" +
+                "     MENU    : " + events.get(eventID).get(COL_MENU_INDEX) + "\r\n" +
+                "     SUPPLY  : " + events.get(eventID).get(COL_SUPPLY_INDEX);
         return rtnDetails;
     }
 
@@ -303,14 +303,36 @@ public class PartyPlannerDB {
         //this.openWriteableDB();
         long rowID = db.insert(TABLE_NAME, null, cv);
 
+        Log.d(TAG, cv.toString());
+
         ////////////To check if the data is inserted into database/////////////////
         //Log.d(TAG, cv.toString());
-
 
         this.closeDB();
         return rowID;
     }
 
+    public int updateEvent(
+        List<String> record
+    ) {
+        ContentValues cv = new ContentValues();
+        cv.put(COL_NAME, record.get(PartyPlannerDB.COL_NAME_INDEX));
+        cv.put(COL_TYPE, record.get(PartyPlannerDB.COL_TYPE_INDEX));
+        cv.put(COL_DATE, record.get(PartyPlannerDB.COL_DATE_INDEX));
+        cv.put(COL_ADDRESS, record.get(PartyPlannerDB.COL_ADDRESS_INDEX));
+        cv.put(COL_GUEST, record.get(PartyPlannerDB.COL_GUEST_INDEX));
+        cv.put(COL_MENU, record.get(PartyPlannerDB.COL_MENU_INDEX));
+        cv.put(COL_SUPPLY, record.get(PartyPlannerDB.COL_SUPPLY_INDEX));
+
+        String where = COL_ID + "= ?";
+        String[] whereArgs = { record.get(PartyPlannerDB.COL_ID_INDEX) };
+
+        this.openWriteableDB();
+        int rowCount = db.update(TABLE_NAME, cv, where, whereArgs);
+        this.closeDB();
+
+        return rowCount;
+    }
 
     public int updateEvent(
             String eventId,

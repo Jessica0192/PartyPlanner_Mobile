@@ -184,9 +184,11 @@ public class PartyMenuDB {
     }
 
     public int updateMenuItem(
-            String eventId,
-            String menuItem
+        String eventId,
+        String menuItem
     ) {
+        Log.d(TAG, "===xx======eventId===========" + eventId);
+        Log.d(TAG, " ===xx======menuItem===========" + menuItem);
         ContentValues cv = new ContentValues();
         cv.put(COL_ITEM, menuItem);
 

@@ -246,9 +246,9 @@ public class EventListActivity extends MainActivity {
 
         // Display data
         PartyPlannerDB db = new PartyPlannerDB(this);
-        PartyMenuDB dbMenu = new PartyMenuDB(this);
-//        SupplyDB dbSupply = new SupplyDB(this);
-//        GuestDB dbGuest = new GuestDB(this);
+//        PartyMenuDB dbMenu = new PartyMenuDB(this);
+//        PartySupplyDB dbSupply = new PartySupplyDB(this);
+//        PartyGuestDB dbGuest = new PartyGuestDB(this);
         String tmp = db.getFormattedEventsSummary();
         if ( tmp == "<NO DATA>")
         {

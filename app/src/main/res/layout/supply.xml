@@ -171,6 +171,7 @@
         android:layout_marginStart="235dp"
         android:layout_marginTop="590sp"
         android:backgroundTint="#F48FB1"
+        android:onClick="saveUpdate"
         android:text="@string/saveUpdateBtn" />
 
     <Button

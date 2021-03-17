@@ -1,12 +1,15 @@
 package com.example.assignment1;
 
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,7 +21,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -35,6 +41,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -71,6 +83,7 @@ public class InviteActivity extends AppCompatActivity {
 
     //TAG variable indicating the current activity
     private static final String TAG = "InviteActivity";
+    public static int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION =1;
 
     //shared preferences object to store the guests we sent invitations to
     SharedPreferences shared_obj_guests;
@@ -82,6 +95,7 @@ public class InviteActivity extends AppCompatActivity {
 
     //dropdown list object
     private Spinner spinner;
+    private String item;
 
     //date picker object to make it easier for the user
     // to choose the date
@@ -95,9 +109,10 @@ public class InviteActivity extends AppCompatActivity {
     SQLiteDatabase db = null;
     private static String DB_NAME = "PartyPlanner.db";
     public static  String COL_GUEST = "eventGuest";
-    private Button btnThread,btntask;
-   // private ProgressDialog progressDialog;
+    private Button btnThread;//btntask;
+    // private ProgressDialog progressDialog;
 
+    private String sFileName = "Invitation_Card_For_"; //C:\\MAD\\a2\\Invitation_Card_For_"
 
     /*
      * FUNCTION   : onCreate()
@@ -162,7 +177,7 @@ public class InviteActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getItemAtPosition(position).equals("Choose Province"))
                 {
-                    String item = parent.getItemAtPosition(position).toString();
+                    item = parent.getItemAtPosition(position).toString();
 
                 }
             }
@@ -274,26 +289,26 @@ public class InviteActivity extends AppCompatActivity {
         t1.setText("Invitation to: "+curGuest);
 
         //find the button that sends the invitation by id
-       // Button button = findViewById(R.id.sendBtn);
+        // Button button = findViewById(R.id.sendBtn);
 
 
 
         btnThread=(Button)findViewById(R.id.sendBtn);
-       // btntask=(Button)findViewById(R.id.btntsk);
+        // btntask=(Button)findViewById(R.id.btntsk);
 
-      //  btntask.setOnClickListener(new OnClickListener() {
+        //  btntask.setOnClickListener(new OnClickListener() {
 //
-  //          @Override
-    //        public void onClick(View arg0) {
+        //          @Override
+        //        public void onClick(View arg0) {
 ///
 
-                //start myTast
+        //start myTast
 
-   //             new MyTask(MainActivity.this).execute();
+        //             new MyTask(MainActivity.this).execute();
 
 
-     //       }
-      //  });
+        //       }
+        //  });
 
 
         //set a listener when we click on item to handle the on click event
@@ -332,7 +347,7 @@ public class InviteActivity extends AppCompatActivity {
 
                 //new
 
-              //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+                //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
@@ -340,7 +355,7 @@ public class InviteActivity extends AppCompatActivity {
                 // fil the "GuestPrefs" object with all the possible guests -
                 // we allow up to 5 guests
                 if (sp.getString("guest1", "") == ""){
-                     editor.putString("guest1", curGuest);
+                    editor.putString("guest1", curGuest);
                 }else if (sp.getString("guest2", "") == ""){
                     editor.putString("guest2", curGuest);
                 } else if (sp.getString("guest3", "") == ""){
@@ -368,8 +383,171 @@ public class InviteActivity extends AppCompatActivity {
 //                }
 
                 //task here
-         //       new Task_for_invitation_activity().execute();
-                new Task_for_invitation_activity(InviteActivity.this).execute();
+                //       new Task_for_invitation_activity().execute();
+                Task_for_invitation_activity mytask = new Task_for_invitation_activity(InviteActivity.this);
+
+                mytask.execute();
+                // mytask.wait(10);
+                 sFileName +=curGuest + ".txt";
+                if (ContextCompat.checkSelfPermission(InviteActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                    // Permission is not granted
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(InviteActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        // Show an explanation to the user *asynchronously* -- don't block
+                        // this thread waiting for the user's response! After the user
+                        // sees the explanation, try again to request the permission.
+                    } else {
+                        // No explanation needed; request the permission
+                        ActivityCompat.requestPermissions(InviteActivity.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                    }
+                }
+
+                FileOutputStream fos = null;
+                try{
+                    fos = openFileOutput(sFileName, MODE_PRIVATE);
+                    String invitation = "\tInvitation to: "+curGuest;
+                    String ev_name = "\tEvent Name: " + eventName;
+                    fos.write(invitation.getBytes());
+
+                   fos.write("\n".getBytes());
+                    fos.write(ev_name.getBytes());
+                    fos.write("\n".getBytes());
+                    EditText description  = findViewById(R.id.descrEditText);
+
+                    String str_descr;
+                    if (description.getText().toString() == null)
+                    {
+                        str_descr = "*no description or message available*";
+                    }
+                    else
+                    {
+                        str_descr = description.getText().toString();
+                    }
+
+                    String full_descr = "\tEvent Description: " + str_descr;
+                    fos.write(full_descr.getBytes());
+                    fos.write("\n".getBytes());
+                    TextView sel_date  = findViewById(R.id.selectDate);
+                    String ev_date ="\tEvent Date: " + sel_date.getText().toString();
+                    fos.write(ev_date.getBytes());
+                    fos.write("\n".getBytes());
+                    EditText addr = findViewById(R.id.addr);
+                    EditText city = findViewById(R.id.city);
+                    String ev_addr = "\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + item;
+                    fos.write(ev_addr.getBytes());
+                    fos.write("\n".getBytes());
+                    System.out.println("File being processed, trying to save to " + getFilesDir() + "/" + sFileName);
+                }catch (FileNotFoundException e){
+                    e.printStackTrace();
+
+                }catch (IOException e){
+
+                    e.printStackTrace();
+                } finally{
+                    if (fos != null)
+                    {
+                        try {
+                            fos.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                //BEGINNING OF THE FILE NAME
+
+//                File file = new File("C:\\MAD\\music.txt"); //initialize File object and passing path as argument
+//                boolean result;
+//                try
+//                {
+//                    result = file.createNewFile();  //creates a new file
+//                    if(result)      // test if successfully created a new file
+//                    {
+//                        System.out.println("file created "+file.getCanonicalPath()); //returns the path string
+//                    }
+//                    else
+//                    {
+//                        System.out.println("File already exist at location: "+file.getCanonicalPath());
+//                    }
+//                }
+//                catch (IOException e)
+//                {
+//                    e.printStackTrace();    //prints exception if any
+//                    System.out.println("Error in file creation");
+//                }
+//
+//                try {
+//                    FileOutputStream fileout=openFileOutput(sFileName, MODE_PRIVATE);
+//                    OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+//                    outputWriter.write("HELLO");
+//                    outputWriter.close();
+//                    //display file saved message
+//                    Toast.makeText(getBaseContext(), "File saved successfully!",
+//                            Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//                try {
+//                    File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+//                    if (!root.exists()) {
+//                        root.mkdirs();
+//                    }
+//                    File gpxfile = new File(root, sFileName);
+//                    FileWriter writer = new FileWriter(gpxfile);
+//
+//                    writer.append("\tInvitation to: "+curGuest);
+//                    writer.append("\n");
+//                    writer.append("\tEvent Name: " + eventName);
+//                    writer.append("\n");
+//                    EditText description  = findViewById(R.id.descrEditText);
+//
+//                    String str_descr;
+//                    if (description.getText().toString() == null)
+//                    {
+//                        str_descr = "*no description or message available*";
+//                    }
+//                    else
+//                    {
+//                        str_descr = description.getText().toString();
+//                    }
+//
+//                    writer.append("\tEvent Description: " + str_descr);
+//                    writer.append("\n");
+//                    TextView sel_date  = findViewById(R.id.selectDate);
+//                    writer.append("\tEvent Date: " + sel_date.getText().toString());
+//                    writer.append("\n");
+//                    EditText addr = findViewById(R.id.addr);
+//                    EditText city = findViewById(R.id.city);
+//                    writer.append("\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + item);
+//                    writer.append("\n");
+//                    writer.flush();
+//                    writer.close();
+//                    Toast.makeText(InviteActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+                ////END OF FILE THING
+
+
+//                try {
+//                    Thread.sleep(5 * 1000);
+//                } catch (InterruptedException ie) {
+//                    Thread.currentThread().interrupt();
+//                }
+//                final Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        // Do something after 5s = 5000ms
+//                    }
+//                }, 5000);
+
+                //          mytask.cancel(true);
+                // mytask.onPostExecute();
+
+
                 //inform the user that the invitation has been sent
                 //Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
 
@@ -516,6 +694,7 @@ public class InviteActivity extends AppCompatActivity {
 
     public class Task_for_invitation_activity extends AsyncTask<Void, Integer, Void> {
 
+        private boolean isCancelled = false;
         Context context;
         Handler handler;
         Dialog dialog;
@@ -543,13 +722,14 @@ public class InviteActivity extends AppCompatActivity {
 
             super.onPreExecute();
             // create dialog
+            progressDialog.setMax(10);
             dialog=new Dialog(context);
             dialog.setCancelable(true);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-           // dialog.addContentView(progressDialog, InviteActivity.this);
-           dialog.setContentView(progressDialog);
+            // dialog.addContentView(progressDialog, InviteActivity.this);
+            dialog.setContentView(progressDialog);
             txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
-          //  progress=(ProgressBar)dialog.findViewById(progress);
+            //  progress=(ProgressBar)dialog.findViewById(progress);
 
             btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
 //
@@ -564,35 +744,82 @@ public class InviteActivity extends AppCompatActivity {
 //            });
 
             //where to show the dialog???
+
+
+            //dialog.setIndeterminate(true);
+            dialog.setCancelable(true);
+//            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                @Override
+//                public void onCancel(DialogInterface dialog) {
+//                    Task_for_invitation_activity.this.cancel(true);
+//                    Toast.makeText(InviteActivity.this,"AsyncTask is stopped",Toast.LENGTH_LONG).show();
+//                    dialog.dismiss();
+//                    Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+//
+//
+//                    // Hide the progress bar
+//                    progressDialog.setVisibility(ProgressBar.INVISIBLE);
+//                }
+//            });
+
             dialog.show();
 
+//            try {
+//                Thread.sleep(5 * 1000);
+//            } catch (InterruptedException ie) {
+//                Thread.currentThread().interrupt();
+//            }
+//            final Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Do something after 5s = 5000ms
+//                }
+//            }, 5000);
+            //         dialog.dismiss();
         }
 
 
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected Void doInBackground(Void... arg0) { //Void... arg0)
 
 
-            for (int i = 0; i < 100; i++) {
-                if(isCancelled()){
+            // while(true){
+            // int i = 0;
+            for ( int i = 0; i < 100; i++) {
+                // if(isCancelled()){
+                if (i == 10){
+                    isCancelled = true;
+                    dialog.dismiss();
+//                    Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+
+
+                    // Hide the progress bar
+                    progressDialog.setVisibility(ProgressBar.INVISIBLE);
+                    //  i = 0;
+                    //Task_for_invitation_activity.this.
                     break;
                 }else{
-                    Log.e("In Background","current value;"+ i);
-                    publishProgress(i);
+                    Log.e("In Background","current value;" + i); // + i
+                    // publishProgress(i);
+                    isCancelled = false;
 
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
-                       //dont forget the catch block
+                        //dont forget the catch block
+                        isCancelled = true;
                         e.printStackTrace();
                     }
 
                 }
-
             }
 
             return null;
+            // return isCancelled;
         }
+
+
 
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -601,7 +828,15 @@ public class InviteActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
 
 
-  //          progressDialog.setProgress(values[0]);
+            for (int i = 0; i < 10; i++)
+            {}
+            dialog.dismiss();
+            Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
+
+
+            // Hide the progress bar
+            progressDialog.setVisibility(ProgressBar.INVISIBLE);
+            //          progressDialog.setProgress(values[0]);
 //            txtprogrss.setText("progress update"+ values[0]+"%");
 
         }
@@ -612,7 +847,11 @@ public class InviteActivity extends AppCompatActivity {
 
 
             dialog.dismiss();
-            Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
+
+
+            // Hide the progress bar
+            progressDialog.setVisibility(ProgressBar.INVISIBLE);
 
         }
 

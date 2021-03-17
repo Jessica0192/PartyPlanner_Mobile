@@ -50,6 +50,9 @@ public class ViewEventActivity extends EventListActivity {
     Button updateGuestBtn = null;
     Button updateMenuBtn = null;
     Button updateSupplyBtn = null;
+    //
+    private static final int ERROR_EMPTY =  -1;
+    private static final int ERROR_INVALID =  -2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,12 +147,12 @@ public class ViewEventActivity extends EventListActivity {
                 String eventNum=String.valueOf(Integer.parseInt(value) - 1);
                 int tmp = db.deleteEvent(eventNum);
                 Log.d(TAG, String.valueOf(tmp));
-                if(tmp == -1)
+                if(tmp == ERROR_EMPTY)
                 {
                     Toast.makeText(getApplicationContext(), "There is no event yet", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else if(tmp == -2)
+                else if(tmp == ERROR_INVALID)
                 {
                     Toast.makeText(getApplicationContext(), "Invalid Event ID", Toast.LENGTH_SHORT).show();
                     return;

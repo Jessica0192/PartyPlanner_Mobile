@@ -174,7 +174,8 @@ public class ViewEventActivity extends EventListActivity {
                 else
                 {
                     Toast.makeText(getApplicationContext(), "Event has been deleted", Toast.LENGTH_SHORT).show();
-                    return;
+                    Intent viewEventIntent = new Intent(v.getContext(), ViewEventActivity.class);
+                    startActivity(viewEventIntent);
                 }
 
             }

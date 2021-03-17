@@ -2,9 +2,9 @@
  * FILE          : EventListActivity.java
  * PROJECT       : PROG3150 - Assignment #1
  * PROGRAMMER    : Suka Sun
- * FIRST VERSION : 2020-02-10
+ * FIRST VERSION : 2020-03-19
  * DESCRIPTION   : This file contains the functionality behind the activity_event_list.xml file.
- *                 The user can view existing events, add new event, and delete all events.
+ *                 The user can view summary of existing events and choose to add new event
  */
 
 package com.example.assignment1;
@@ -40,18 +40,8 @@ public class EventListActivity extends MainActivity {
 
     public static final String TAG = "EventListActivity";
     private TextView eventItem=null;
-//    private SharedPreferences savedEvents;
-//    private String eventNameList;
-//    private String eventDateList;
-//    private String eventname = "";
-//    private String eventdate = "";
-//    private SharedPreferences savedValues;
     Button viewEventBtn = null;
     Button addEventBtn = null;
-//    Button clearEventsBtn = null;
-//    ArrayList<String> checkEventList = new ArrayList<String>();
-
-
 
     /*
      * FUNCTION: onCreate
@@ -76,11 +66,9 @@ public class EventListActivity extends MainActivity {
         setContentView(R.layout.activity_event_list);
         eventItem = findViewById(R.id.txtEventItem);
 
-        /////////////////////////////////////////////////////////////////////
-        Intent eventListIntent = getIntent();
-        String username = eventListIntent.getStringExtra("username");
-        Log.d(TAG, "'Event List' =========username===========" + username);
-        ////////////////////////////////////////////////////////////////////////////////////////
+//        Intent eventListIntent = getIntent();
+//        String username = eventListIntent.getStringExtra("username");
+//        Log.d(TAG, "'Event List' =========username===========" + username);
 
         // View event
         viewEventBtn = (Button) findViewById(R.id.btnViewEvent);
@@ -117,41 +105,9 @@ public class EventListActivity extends MainActivity {
             @Override
             public void onClick(View v) {
                 Intent createEventIntent = new Intent(v.getContext(), CreateEventActivity.class);
-                // Retrieve date from shared preferences and clear data
-//                getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE).edit().clear().apply();
-//                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();;
-//                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();;
-//                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();;
                 startActivity(createEventIntent);
             }
         });
-
-//        // Clear events
-//        clearEventsBtn = (Button) findViewById(R.id.btnClearEvents);
-//        clearEventsBtn.setOnClickListener(new View.OnClickListener() {
-//            /*
-//             * FUNCTION: onClick
-//             * DESCRIPTION:
-//             *      This function is called when Clear Events button is clicked
-//             * PARAMETER:
-//             *      View v: the view within the AdapterView that was clicked
-//             * RETURNS:
-//             *      void: there's no return value
-//             */
-//            @Override
-//            public void onClick(View v) {
-////                // Retrieve date from shared preferences and clear data
-////                getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE).edit().clear().apply();
-////                getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE).edit().clear().apply();
-////                getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE).edit().clear().apply();
-////                getApplicationContext().getSharedPreferences("Saved Values", Context.MODE_PRIVATE).edit().clear().apply();
-////                getApplicationContext().getSharedPreferences("Saved Events", Context.MODE_PRIVATE).edit().clear().apply();
-////                checkEventList.clear();
-//
-//                // Refresh the page
-//                startActivity(new Intent(v.getContext(), EventListActivity.class));
-//            }
-//        });
     }
 
 

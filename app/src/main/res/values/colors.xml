@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     FILE          : AndroidManifest.xml
-    PROJECT       : PROG3150 - Assignment #1
+    PROJECT       : PROG3150 - Assignment #2
     PROGRAMMER    : Hoda Akrami, Jessica Sim, Maria Malinina, Suka Sun
-    FIRST VERSION : 2020-02-10
+    FIRST VERSION : 2020-03-19
     DESCRIPTION   : Describes essential information about app background colors
 -->
 <resources>
@@ -30,6 +30,8 @@
     <color name="greenish">#8FDEB4</color>
     <color name="pink">#FFA07A</color>>
     <color name="pink_background">#F2D7D5</color>
-    <color name="purple_btn">#A569BD </color>
     <color name="grey">#7B7D7D</color>
+    <color name="purple_btn">#A569BD </color>
+    <color name="pink_btn">#F48FB1</color>
+    <color name="grey_btn">#AEB6BF</color>
 </resources>

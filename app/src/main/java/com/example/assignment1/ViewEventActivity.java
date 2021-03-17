@@ -4,7 +4,8 @@
  * PROGRAMMER    : Suka Sun
  * FIRST VERSION : 2020-03-19
  * DESCRIPTION   : This file contains the functionality behind the activity_view_delete_events.xml file.
- *                 The user can select an event, view the event details or delete the event.
+ *                 The user can select an event, view event details, updated information for guests,
+ *                 menu items, and supply items, and delete the event.
  */
 
 package com.example.assignment1;
@@ -50,7 +51,21 @@ public class ViewEventActivity extends EventListActivity {
     Button updateGuestBtn = null;
     Button updateMenuBtn = null;
     Button updateSupplyBtn = null;
+    // Constants for error code
+    private static final int ERROR_EMPTY =  -1;
+    private static final int ERROR_INVALID =  -2;
 
+
+    /*
+     * FUNCTION: onCreate
+     * DESCRIPTION:
+     *      This function is going to be called as default when this page is loaded and there are
+     *      several functions and listeners that does some actions
+     * PARAMETER:
+     *      Bundle savedInstanceState: save instance state
+     * RETURNS:
+     *      void: there's no return value
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Log state of the page
@@ -60,8 +75,6 @@ public class ViewEventActivity extends EventListActivity {
         setContentView(R.layout.activity_view_delete_events);
         eventDetails = findViewById(R.id.txtEventDetails);
         eventID = findViewById(R.id.txtEventID);
-//        String value= eventID.getText().toString();
-//        int eventNum=Integer.parseInt(value) - 1;
 
         eventID.setOnKeyListener(new View.OnKeyListener() {
             /*
@@ -101,11 +114,11 @@ public class ViewEventActivity extends EventListActivity {
             @Override
             public void onClick(View v) {
                 PartyPlannerDB db = new PartyPlannerDB(v.getContext());
-//                MenuDB dbMenu = new MenuDB(v.getContext());
                 String value= eventID.getText().toString();
                 int eventNum=Integer.parseInt(value) - 1;
                 String tmp = db.getEventDetails(eventNum);
-//                String tmp = dbMenu.getEventDetails(eventNum);
+                Log.d(TAG, "eventNum: "+eventNum);
+                Log.d(TAG, tmp);
                 if ( tmp == "<NO DATA>")
                 {
                     eventDetails.setText("There is no event yet");
@@ -138,14 +151,16 @@ public class ViewEventActivity extends EventListActivity {
             public void onClick(View v) {
                 PartyPlannerDB db = new PartyPlannerDB(v.getContext());
                 String value= eventID.getText().toString();
+                Log.d(TAG, "value: "+value);
                 String eventNum=String.valueOf(Integer.parseInt(value) - 1);
                 int tmp = db.deleteEvent(eventNum);
-                if(tmp == -1)
+                Log.d(TAG, String.valueOf(tmp));
+                if(tmp == ERROR_EMPTY)
                 {
                     Toast.makeText(getApplicationContext(), "There is no event yet", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else if(tmp == -2)
+                else if(tmp == ERROR_INVALID)
                 {
                     Toast.makeText(getApplicationContext(), "Invalid Event ID", Toast.LENGTH_SHORT).show();
                     return;
@@ -173,9 +188,9 @@ public class ViewEventActivity extends EventListActivity {
              */
             @Override
             public void onClick(View v) {
-                finish();
-                //Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
-                //startActivity(eventListIntent);
+//                finish();
+                Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
+                startActivity(eventListIntent);
             }
         });
 
@@ -244,9 +259,6 @@ public class ViewEventActivity extends EventListActivity {
                 startActivity(updateGuestIntent);
             }
         });
-
-
-
     }
 
 
@@ -336,15 +348,4 @@ public class ViewEventActivity extends EventListActivity {
         im.hideSoftInputFromWindow(et.getWindowToken(), 0);
     }
 
-//    public static boolean isNumeric(String strEditText) {
-//        if (strEditText == null) {
-//            return false;
-//        }
-//        try {
-//            double d = Double.parseDouble(strEditText);
-//        } catch (NumberFormatException nfe) {
-//            return false;
-//        }
-//        return true;
-//    }
 }

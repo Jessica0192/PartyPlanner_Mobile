@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    FILE          : activity_event_list.xml
+    FILE          : activity_view_delete_event.xml
     PROJECT       : PROG3150 - Assignment #1
     PROGRAMMER    : Suka Sun
-    FIRST VERSION : 2020-02-10
-    DESCRIPTION   : This file contains the user interface of the EventListActivity.java file.
-                   When the user is presented with this screen, they had a list view of existing
-                   events, and can add new event or delete all the events.
+    FIRST VERSION : 2020-03-19
+    DESCRIPTION   : This file contains the user interface of the ViewEventActivity.java file.
+                   When the user is presented with this screen, they can view the details of
+                   an event, update info of guests, menu, and supplies, and delete an event.
 -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/txtEventDetails"
-            android:layout_width="300dp"
+            android:layout_width="370dp"
             android:layout_height="350dp"
             android:layout_marginTop="30dp"
             android:gravity="left|top"
@@ -98,7 +98,7 @@
             android:text="Update Guest"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            app:backgroundTint="@color/purple_btn"
+            app:backgroundTint="@color/pink_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
@@ -114,7 +114,7 @@
             android:text="Update Menu"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            app:backgroundTint="@color/purple_btn"
+            app:backgroundTint="@color/pink_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -130,7 +130,7 @@
             android:text="Update Supply"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            app:backgroundTint="@color/purple_btn"
+            app:backgroundTint="@color/pink_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
@@ -148,7 +148,7 @@
             android:text="Delete Event"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            app:backgroundTint="@color/purple_btn"
+            app:backgroundTint="@color/grey_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
@@ -164,7 +164,7 @@
             android:text="Back To Events"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            app:backgroundTint="@color/purple_btn"
+            app:backgroundTint="@color/grey_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"

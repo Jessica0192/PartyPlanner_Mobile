@@ -53,11 +53,6 @@ public class Menu extends AppCompatActivity {
     SharedPreferences menuStorage;
     public static final String TAG = "menu";
 
-    //instantiate the database
-//    PartyMenuDB dbHelper = null;
-//    PartyMenuDB db = null;
-
-
     /*  -- Function Header Comment
 	Name	:   onCreate()
 	Purpose :   This function is called when the page is loaded,
@@ -102,28 +97,24 @@ public class Menu extends AppCompatActivity {
                 StringBuilder result = new StringBuilder();
                 //to store the selected items
                 //result.append("Selected Items:");
-                if (drink.isChecked()) {
+                if (drink.isChecked())
+                {
                     result.append("drink");
-//                    myMenuUpdateItems = myMenuUpdateItems + drink + ", ";
-                    myMenuUpdateItems = ( myMenuUpdateItems == "") ? "drink" : myMenuUpdateItems + ",drink";
                 }
-                if (appetizer.isChecked()) {
+                if (appetizer.isChecked())
+                {
                     result.append("/");
                     result.append("appetizer");
-//                    myMenuUpdateItems = myMenuUpdateItems + appetizer + ", ";
-                    myMenuUpdateItems = ( myMenuUpdateItems == "") ? "appetizer" : myMenuUpdateItems + ",appetizer";
                 }
-                if (mainDish.isChecked()) {
+                if (mainDish.isChecked())
+                {
                     result.append("/");
                     result.append("mainDish");
-//                    myMenuUpdateItems = myMenuUpdateItems + mainDish + ", ";
-                    myMenuUpdateItems = ( myMenuUpdateItems == "") ? "mainDish" : myMenuUpdateItems + ",mainDish";
                 }
-                if (dessert.isChecked()) {
+                if (dessert.isChecked())
+                {
                     result.append("/");
                     result.append("dessert");
-//                    myMenuUpdateItems = myMenuUpdateItems + dessert + ", ";
-                    myMenuUpdateItems = ( myMenuUpdateItems == "") ? "dessert" : myMenuUpdateItems + ",dessert";
                 }
                 //Displaying the message on the toast
                 //Toast.makeText(getApplicationContext(), "Menu item  selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
@@ -135,6 +126,7 @@ public class Menu extends AppCompatActivity {
                 editor.apply();
             }
         });
+
     }
 
     /*  -- Function Header Comment
@@ -157,13 +149,6 @@ public class Menu extends AppCompatActivity {
         // create the intent and start it
         Intent viewIntent = new Intent(Intent.ACTION_VIEW, viewUri);
         startActivity(viewIntent);
-
-        // This code uses a WebView widget to open the browser within the app
-        /*
-        Intent out = new Intent(getApplicationContext(), ItemWebView.class);
-        out.putExtra("link", in.getStringExtra("link"));
-        startActivity(out);
-        */
     }
 
     /*  -- Function Header Comment
@@ -188,7 +173,7 @@ public class Menu extends AppCompatActivity {
     */
     public void backToEventDetails(View view)
     {
-        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
+        Intent eventDetailsIntent = new Intent(view.getContext(), ViewEventActivity.class);
         startActivity(eventDetailsIntent);
     }
 
@@ -201,6 +186,19 @@ public class Menu extends AppCompatActivity {
     */
     public void saveUpdate(View view)
     {
+        if (drink.isChecked()) {
+            myMenuUpdateItems = ( myMenuUpdateItems == "") ? "drink" : myMenuUpdateItems + ",drink";
+        }
+        if (appetizer.isChecked()) {
+            myMenuUpdateItems = ( myMenuUpdateItems == "") ? "appetizer" : myMenuUpdateItems + ",appetizer";
+        }
+        if (mainDish.isChecked()) {
+            myMenuUpdateItems = ( myMenuUpdateItems == "") ? "mainDish" : myMenuUpdateItems + ",mainDish";
+        }
+        if (dessert.isChecked()) {
+            myMenuUpdateItems = ( myMenuUpdateItems == "") ? "dessert" : myMenuUpdateItems + ",dessert";
+        }
+
         //to update the menu items
         PartyMenuDB menuDB = new PartyMenuDB(this);
         menuDB.updateMenuItem(eventID, myMenuUpdateItems);

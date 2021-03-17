@@ -37,15 +37,20 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -388,7 +393,7 @@ public class InviteActivity extends AppCompatActivity {
 
                 mytask.execute();
                 // mytask.wait(10);
-                 sFileName +=curGuest + ".txt";
+                sFileName +=curGuest + ".txt";
                 if (ContextCompat.checkSelfPermission(InviteActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
                     // Permission is not granted
                     if (ActivityCompat.shouldShowRequestPermissionRationale(InviteActivity.this,
@@ -403,14 +408,60 @@ public class InviteActivity extends AppCompatActivity {
                     }
                 }
 
+                String cur_email = null;
+                FileInputStream fis = null;
+                try {
+                    fis = openFileInput("emails.txt");
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader br = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    String txt;
+
+                    while ((txt = br.readLine()) !=null)
+                    {
+                        if (txt.contains(curGuest.toLowerCase()))
+                        {
+                            cur_email = txt;
+                            System.out.println("Current guest email found");
+                        }
+                        sb.append(txt).append("\n");
+                    }
+
+                    if (cur_email == null)
+                    {
+                        cur_email = "No email available";
+                    }
+
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
                 FileOutputStream fos = null;
+               // FileOutputStream fs = null;
                 try{
                     fos = openFileOutput(sFileName, MODE_PRIVATE);
+//                    fs = openFileOutput("emails.txt", MODE_PRIVATE);
+//                    fs.write(("maria@gmail.com\n" +
+//                            "suka@gmail.com\n" +
+//                            "hoda@gmail.com\n" +
+//                            "jessica@gmail.com\n" +
+//                            "troy@gmail.com\n" +
+//                            "norbert@gmail.com\n" +
+//                            "igor@gmail.com\n" +
+//                            "marianna@gmail.com\n" +
+//                            "yeji@gmail.com\n" +
+//                            "priyanka@gmail.com").getBytes());
                     String invitation = "\tInvitation to: "+curGuest;
                     String ev_name = "\tEvent Name: " + eventName;
                     fos.write(invitation.getBytes());
 
-                   fos.write("\n".getBytes());
+                    fos.write("\n".getBytes());
+                    fos.write(("\tGuest Email: " + cur_email).getBytes());
+                    fos.write("\n".getBytes());
                     fos.write(ev_name.getBytes());
                     fos.write("\n".getBytes());
                     EditText description  = findViewById(R.id.descrEditText);
@@ -454,6 +505,19 @@ public class InviteActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+
+
+                Toast.makeText(InviteActivity.this, "Sending Invitation to " + cur_email, Toast.LENGTH_LONG).show();
+
+
+
+
+//Find the view by its id
+               ////// TextView tv = (TextView)findViewById(R.id.text_view);
+
+//Set the text
+            //    tv.setText(text.toString());
                 //BEGINNING OF THE FILE NAME
 
 //                File file = new File("C:\\MAD\\music.txt"); //initialize File object and passing path as argument
@@ -728,7 +792,19 @@ public class InviteActivity extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             // dialog.addContentView(progressDialog, InviteActivity.this);
             dialog.setContentView(progressDialog);
-            txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
+          //  txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
+           // txtprogrss.setText("Sending Invitation...");
+           // txtprogrss.setVisibility(View.VISIBLE);
+           // progressDialog.setIndeterminate(true);
+           // ((RelativeLayout.LayoutParams) viewToLayout.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.below_id);
+          //  TextView up = new TextView(txtprogrss.getContext());
+           // up.setText("Sending...");
+           // dialog.setContentView(up);
+//            RelativeLayout.LayoutParams paramUp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+//            paramUp.addRule(RelativeLayout.CENTER_IN_PARENT);
+//            RelativeLayout layout= findViewById(R.id.mylayout);
+//            layout.addView(up,paramUp);
+
             //  progress=(ProgressBar)dialog.findViewById(progress);
 
             btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
@@ -831,7 +907,7 @@ public class InviteActivity extends AppCompatActivity {
             for (int i = 0; i < 10; i++)
             {}
             dialog.dismiss();
-            Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
 
 
             // Hide the progress bar

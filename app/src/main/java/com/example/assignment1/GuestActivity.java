@@ -98,7 +98,6 @@ public class GuestActivity extends AppCompatActivity {
     SQLiteDatabase db = null;
 
     // DatabaseHelper dbhelper = null;
-    PartyPlannerDB party_db = new PartyPlannerDB(this);
     int id_counter = 0;
     //private static String DB_PATH = "/data/data/YOUR_PACKAGE/databases/";
 
@@ -132,13 +131,13 @@ public class GuestActivity extends AppCompatActivity {
 
         //set a new array adapter to put the list of possible guests into it and adapt
         //it for the list view
-         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, nameList);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, android.R.id.text1, nameList);
 
-         //make the list view display the array of possible guests
-         guestList.setAdapter(arrayAdapter);
+        //make the list view display the array of possible guests
+        guestList.setAdapter(arrayAdapter);
 
 
-       // db = dbHelper.getWritableDatabase();
+        // db = dbHelper.getWritableDatabase();
 
 
 
@@ -148,24 +147,24 @@ public class GuestActivity extends AppCompatActivity {
         //db.execSQL(query);
         //Log.d(LOG_TAG,"Guests Created");
 
-        db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        // db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         //  db = openOrCreateDatabase( "PartyPlanner.db", null, SQLiteDatabase.CREATE_IF_NECESSARY        );
 
 
 
 
-         //set a listener when we click on item to handle the on click event
-         guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-             /*
-              * FUNCTION   : onItemClick()
-              * DESCRIPTION: If some guest from the listview is clicked, we
-              * simply add him to our array list of guests.
-              * PARAMETERS : AdapterView<?> adapterView,
-              *              View view,
-              *              int i,
-              *              long l
-              * RETURNS    : NONE
-              */
+        //set a listener when we click on item to handle the on click event
+        guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /*
+             * FUNCTION   : onItemClick()
+             * DESCRIPTION: If some guest from the listview is clicked, we
+             * simply add him to our array list of guests.
+             * PARAMETERS : AdapterView<?> adapterView,
+             *              View view,
+             *              int i,
+             *              long l
+             * RETURNS    : NONE
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //add selected guest to the list of guests
@@ -174,11 +173,11 @@ public class GuestActivity extends AppCompatActivity {
 
 
 
-                 }
-            });
+            }
+        });
 
 
-         //set on query listener to properly handle our search
+        //set on query listener to properly handle our search
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             /*
              * FUNCTION   : onQueryTextSubmit()
@@ -287,27 +286,27 @@ public class GuestActivity extends AppCompatActivity {
             //we are going need to know which guest we are sending invitation
             // to in out InviteActivity
             editor.putString("cur_guest", selectedGuests.get(arraySize - 1));
-            Text sel_guest = null;
-            sel_guest.setData(selectedGuests.get(arraySize - 1));
-            id_counter++;
-
-            try {
-                final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "+ COL_GUEST +" ("
-                        + "ID INTEGER primary key AUTOINCREMENT,"
-                        + "NAME TEXT,"
-                        + "EVENTNAME TEXT,"
-                        + "INVITATION_STATUS_CODE INTEGER"+");";
-                //   + "AMOUNT TEXT,"
-                //  + "TRNS TEXT," + "isdefault TEXT);";
-                db.execSQL(CREATE_TABLE);
-                //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
-                String sql =
-                        "INSERT or replace INTO "+ COL_GUEST +" (ID, NAME) VALUES(id_counter,sel_guest)" ;
-                db.execSQL(sql);
-            }
-            catch (Exception e) {
-                //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
-            }
+//            Text sel_guest = null;
+//            sel_guest.setData(selectedGuests.get(arraySize - 1));
+//            id_counter++;
+//
+//            try {
+//                final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "+ COL_GUEST +" ("
+//                        + "ID INTEGER primary key AUTOINCREMENT,"
+//                        + "NAME TEXT,"
+//                        + "EVENTNAME TEXT,"
+//                        + "INVITATION_STATUS_CODE INTEGER"+");";
+//                //   + "AMOUNT TEXT,"
+//                //  + "TRNS TEXT," + "isdefault TEXT);";
+//                db.execSQL(CREATE_TABLE);
+//                //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
+//                String sql =
+//                        "INSERT or replace INTO "+ COL_GUEST +" (ID, NAME) VALUES(id_counter,sel_guest)" ;
+//                db.execSQL(sql);
+//            }
+//            catch (Exception e) {
+//                //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
+//            }
             //apply changes
             editor.apply();
             //redirecting to the content_invite.xml screen for invitation

@@ -302,20 +302,10 @@ public class PartyPlannerDB {
         cv.put(COL_SUPPLY, eventSupply);
         //this.openWriteableDB();
         long rowID = db.insert(TABLE_NAME, null, cv);
-        Log.d(TAG, cv.toString());
-
-
-
 
         ////////////To check if the data is inserted into database/////////////////
-        String selectQuery = "SELECT * FROM plannerInfo;";
-        String value = null;
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()){
-           value = cursor.getString(3);
-        }
+        //Log.d(TAG, cv.toString());
 
-        Log.d(TAG, "HERE: "+value);
 
         this.closeDB();
         return rowID;

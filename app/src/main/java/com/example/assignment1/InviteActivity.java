@@ -753,7 +753,6 @@ public class InviteActivity extends AppCompatActivity {
 
 
 
-
     // new class
 
     public class Task_for_invitation_activity extends AsyncTask<Void, Integer, Void> {

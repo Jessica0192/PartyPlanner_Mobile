@@ -221,6 +221,19 @@ public class GuestActivity extends AppCompatActivity {
      * PARAMETERS : NONE
      * RETURNS    : NONE
      */
+    public void viewEvDets(View view){
+        //go to the invitation screen
+        Intent intent = new Intent(this, ViewEventActivity.class);
+        startActivity(intent);
+    }
+    /*
+     * FUNCTION   : goToInviteActivity()
+     * DESCRIPTION: This function simply redirects us to to the
+     * invitation screen - content_invite.xml, which corres-
+     * ponds with InviteActivity.
+     * PARAMETERS : NONE
+     * RETURNS    : NONE
+     */
     public void goToInviteActivity(){
         //go to the invitation screen
         Intent intent = new Intent(this, InviteActivity.class);

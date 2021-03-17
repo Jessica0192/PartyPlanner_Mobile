@@ -36,30 +36,41 @@
 
     </ListView>
 
-
-
+<Button
+    android:id="@+id/viewEvDets"
+    android:layout_height="145dp"
+    android:layout_width="140dp"
+    android:layout_marginLeft="117dp"
+    android:layout_marginTop="550dp"
+    android:onClick="viewEvDets"
+    android:text="event details"
+    android:textColor="@color/pink"
+    android:backgroundTint="@color/purple_200"
+    />
 
     <Button
         android:id="@+id/inviteBtn"
-        android:layout_width="206dp"
+        android:layout_width="156dp"
         android:layout_height="80dp"
-        android:layout_marginLeft="203dp"
+        android:layout_marginLeft="243dp"
         android:layout_marginTop="500dp"
         android:onClick="addToWaitList"
         android:layout_alignBottom="@id/guestList"
         android:text="Invite"
         app:backgroundTint="@color/light_gray_green" />
 
+
+
     <Button
         android:id="@+id/backToEventBtn"
-        android:layout_width="206dp"
+        android:layout_width="106dp"
         android:layout_height="80dp"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
 
         android:layout_alignBottom="@id/guestList"
         android:onClick="backToEventCreation"
-        android:text="Back to event creation"
+        android:text="Back"
         app:backgroundTint="@color/pink" />
 
 
@@ -95,5 +106,6 @@
 
 
     </com.google.android.material.appbar.AppBarLayout>
+
 
 </RelativeLayout>

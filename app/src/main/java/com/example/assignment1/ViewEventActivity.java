@@ -55,6 +55,17 @@ public class ViewEventActivity extends EventListActivity {
     private static final int ERROR_EMPTY =  -1;
     private static final int ERROR_INVALID =  -2;
 
+
+    /*
+     * FUNCTION: onCreate
+     * DESCRIPTION:
+     *      This function is going to be called as default when this page is loaded and there are
+     *      several functions and listeners that does some actions
+     * PARAMETER:
+     *      Bundle savedInstanceState: save instance state
+     * RETURNS:
+     *      void: there's no return value
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Log state of the page

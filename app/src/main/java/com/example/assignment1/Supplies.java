@@ -105,50 +105,42 @@ public class Supplies extends AppCompatActivity{
 
                 StringBuilder result = new StringBuilder();
                 //to store the selected items
-                //result.append("Selected Items:");
-                if (balloons.isChecked()) {
+                if (balloons.isChecked())
+                {
                     result.append("balloons");
-//                    mySuppliesUpdateItems = mySuppliesUpdateItems +  balloons + ", ";
-                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "balloons" : mySuppliesUpdateItems + ",balloons";
                 }
-                if (cake.isChecked()) {
+                if (cake.isChecked())
+                {
                     result.append("/");
                     result.append("cake");
-//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cake + ", ";
-                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cake" : mySuppliesUpdateItems + ",cake";
                 }
-                if (flowers.isChecked()) {
+                if (flowers.isChecked())
+                {
                     result.append("/");
                     result.append("flowers");
-//                    mySuppliesUpdateItems = mySuppliesUpdateItems + flowers + ", ";
-                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "flowers" : mySuppliesUpdateItems + ",flowers";
                 }
-                if (cups.isChecked()) {
+                if (cups.isChecked())
+                {
                     result.append("/");
                     result.append("cups");
-//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cups + ", ";
-                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cups" : mySuppliesUpdateItems + ",cups";
                 }
-                if (cutlery.isChecked()) {
+                if (cutlery.isChecked())
+                {
                     result.append("/");
                     result.append("cutlery");
-//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cutlery + ", ";
-                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cutlery" : mySuppliesUpdateItems + ",cutlery";
                 }
-                if (candle.isChecked()) {
+                if (candle.isChecked())
+                {
                     result.append("/");
                     result.append("candle");
-//                    mySuppliesUpdateItems = mySuppliesUpdateItems + candle + ", ";
-                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "candle" : mySuppliesUpdateItems + ",candle";
                 }
-                if (invitations.isChecked()) {
+                if (invitations.isChecked())
+                {
                     result.append("/");
                     result.append("invitations");
-//                    mySuppliesUpdateItems = mySuppliesUpdateItems + invitations + ", ";
-                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "invitations" : mySuppliesUpdateItems + ",invitations";
                 }
                 //Displaying the message on the toast
-//                Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = supplyStorage.edit();
@@ -180,13 +172,6 @@ public class Supplies extends AppCompatActivity{
         // create the intent and start it
         Intent viewIntent = new Intent(Intent.ACTION_VIEW, viewUri);
         startActivity(viewIntent);
-
-        // This code uses a WebView widget to open the browser within the app
-        /*
-        Intent out = new Intent(getApplicationContext(), ItemWebView.class);
-        out.putExtra("link", in.getStringExtra("link"));
-        startActivity(out);
-        */
     }
 
     /*  -- Function Header Comment
@@ -212,7 +197,6 @@ public class Supplies extends AppCompatActivity{
     */
     public void backToEventDetails(View view)
     {
-//        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
         Intent eventDetailsIntent = new Intent(view.getContext(), ViewEventActivity.class);
         startActivity(eventDetailsIntent);
     }
@@ -226,6 +210,34 @@ public class Supplies extends AppCompatActivity{
     */
     public void saveUpdate(View view)
     {
+        if (balloons.isChecked()) {
+
+            mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "balloons" : mySuppliesUpdateItems + ",balloons";
+        }
+        if (cake.isChecked()) {
+
+            mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cake" : mySuppliesUpdateItems + ",cake";
+        }
+        if (flowers.isChecked()) {
+
+            mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "flowers" : mySuppliesUpdateItems + ",flowers";
+        }
+        if (cups.isChecked()) {
+
+            mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cups" : mySuppliesUpdateItems + ",cups";
+        }
+        if (cutlery.isChecked()) {
+
+            mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cutlery" : mySuppliesUpdateItems + ",cutlery";
+        }
+        if (candle.isChecked()) {
+
+            mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "candle" : mySuppliesUpdateItems + ",candle";
+        }
+        if (invitations.isChecked()) {
+
+            mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "invitations" : mySuppliesUpdateItems + ",invitations";
+        }
         //to update the supplies items
         PartySupplyDB supplyDB = new PartySupplyDB(this);
         supplyDB.updateSupply(eventID, mySuppliesUpdateItems);
@@ -363,7 +375,6 @@ public class Supplies extends AppCompatActivity{
                     }
                     catch (InterruptedException e)
                     {
-                        //dont forget the catch block
                         e.printStackTrace();
                     }
                 }

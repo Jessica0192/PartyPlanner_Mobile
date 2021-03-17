@@ -4,7 +4,8 @@
  * PROGRAMMER    : Suka Sun
  * FIRST VERSION : 2020-03-19
  * DESCRIPTION   : This file contains the functionality behind the activity_view_delete_events.xml file.
- *                 The user can select an event, view the event details or delete the event.
+ *                 The user can select an event, view event details, updated information for guests,
+ *                 menu items, and supply items, and delete the event.
  */
 
 package com.example.assignment1;
@@ -50,7 +51,7 @@ public class ViewEventActivity extends EventListActivity {
     Button updateGuestBtn = null;
     Button updateMenuBtn = null;
     Button updateSupplyBtn = null;
-    //
+    // Constants for error code
     private static final int ERROR_EMPTY =  -1;
     private static final int ERROR_INVALID =  -2;
 
@@ -63,8 +64,6 @@ public class ViewEventActivity extends EventListActivity {
         setContentView(R.layout.activity_view_delete_events);
         eventDetails = findViewById(R.id.txtEventDetails);
         eventID = findViewById(R.id.txtEventID);
-//        String value= eventID.getText().toString();
-//        int eventNum=Integer.parseInt(value) - 1;
 
         eventID.setOnKeyListener(new View.OnKeyListener() {
             /*
@@ -104,11 +103,9 @@ public class ViewEventActivity extends EventListActivity {
             @Override
             public void onClick(View v) {
                 PartyPlannerDB db = new PartyPlannerDB(v.getContext());
-//                MenuDB dbMenu = new MenuDB(v.getContext());
                 String value= eventID.getText().toString();
                 int eventNum=Integer.parseInt(value) - 1;
                 String tmp = db.getEventDetails(eventNum);
-//                String tmp = dbMenu.getEventDetails(eventNum);
                 Log.d(TAG, "eventNum: "+eventNum);
                 Log.d(TAG, tmp);
                 if ( tmp == "<NO DATA>")
@@ -180,9 +177,9 @@ public class ViewEventActivity extends EventListActivity {
              */
             @Override
             public void onClick(View v) {
-                finish();
-                //Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
-                //startActivity(eventListIntent);
+//                finish();
+                Intent eventListIntent = new Intent(v.getContext(), EventListActivity.class);
+                startActivity(eventListIntent);
             }
         });
 
@@ -251,9 +248,6 @@ public class ViewEventActivity extends EventListActivity {
                 startActivity(updateGuestIntent);
             }
         });
-
-
-
     }
 
 
@@ -343,15 +337,4 @@ public class ViewEventActivity extends EventListActivity {
         im.hideSoftInputFromWindow(et.getWindowToken(), 0);
     }
 
-//    public static boolean isNumeric(String strEditText) {
-//        if (strEditText == null) {
-//            return false;
-//        }
-//        try {
-//            double d = Double.parseDouble(strEditText);
-//        } catch (NumberFormatException nfe) {
-//            return false;
-//        }
-//        return true;
-//    }
 }

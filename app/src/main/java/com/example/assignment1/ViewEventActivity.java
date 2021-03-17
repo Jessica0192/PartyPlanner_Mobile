@@ -106,6 +106,8 @@ public class ViewEventActivity extends EventListActivity {
                 int eventNum=Integer.parseInt(value) - 1;
                 String tmp = db.getEventDetails(eventNum);
 //                String tmp = dbMenu.getEventDetails(eventNum);
+                Log.d(TAG, "eventNum: "+eventNum);
+                Log.d(TAG, tmp);
                 if ( tmp == "<NO DATA>")
                 {
                     eventDetails.setText("There is no event yet");
@@ -138,8 +140,10 @@ public class ViewEventActivity extends EventListActivity {
             public void onClick(View v) {
                 PartyPlannerDB db = new PartyPlannerDB(v.getContext());
                 String value= eventID.getText().toString();
+                Log.d(TAG, "value: "+value);
                 String eventNum=String.valueOf(Integer.parseInt(value) - 1);
                 int tmp = db.deleteEvent(eventNum);
+                Log.d(TAG, String.valueOf(tmp));
                 if(tmp == -1)
                 {
                     Toast.makeText(getApplicationContext(), "There is no event yet", Toast.LENGTH_SHORT).show();

@@ -225,7 +225,7 @@ public class PartyPlannerDB {
         }
 
         closeCursor(cursor);
-        closeDB();
+        //closeDB();
         return lists;
     }
 
@@ -308,7 +308,7 @@ public class PartyPlannerDB {
         ////////////To check if the data is inserted into database/////////////////
         //Log.d(TAG, cv.toString());
 
-        this.closeDB();
+        //this.closeDB();
         return rowID;
     }
 
@@ -329,7 +329,7 @@ public class PartyPlannerDB {
 
         this.openWriteableDB();
         int rowCount = db.update(TABLE_NAME, cv, where, whereArgs);
-        this.closeDB();
+        //this.closeDB();
 
         return rowCount;
     }
@@ -358,7 +358,7 @@ public class PartyPlannerDB {
 
         this.openWriteableDB();
         int rowCount = db.update(TABLE_NAME, cv, where, whereArgs);
-        this.closeDB();
+        //this.closeDB();
 
         return rowCount;
     }
@@ -396,12 +396,22 @@ public class PartyPlannerDB {
             return -2;
         }
 
+        String value = null;
+        db = dbHelper.getReadableDatabase();
+        String selectQuery = "SELECT * FROM plannerInfo;";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToPosition(eventNum)){
+            value = cursor.getString(0);
+        }
+
+        Log.d(TAG, "value in: "+value);
+
         String where = COL_ID + "= ?";
-        String[] whereArgs = { eventId };
+        String[] whereArgs = { value };
 
         this.openWriteableDB();
         int rowCount = db.delete(TABLE_NAME, where, whereArgs);
-        this.closeDB();
+        //this.closeDB();
 
         return rowCount;
     }

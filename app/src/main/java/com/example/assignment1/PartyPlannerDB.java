@@ -206,17 +206,13 @@ public class PartyPlannerDB {
     // public methods
     public ArrayList<List> getEvents() {
         ArrayList<List> lists = new ArrayList<List>();
-        db = dbHelper.getReadableDatabase();
+        //db = dbHelper.getReadableDatabase();
+        openReadableDB();
+        Cursor cursor = db.query(TABLE_NAME,
+                null, null, null, null, null, null);
 
-        String selectQuery = "SELECT * FROM plannerInfo;";
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //Cursor cursor = db.query(TABLE_NAME,
-                //null, null, null, null, null, null);
-        cursor.moveToFirst();
-        List<String> list = new ArrayList<>();
         while (cursor.moveToNext()) {
+            List<String> list = new ArrayList<>();
             list.add(String.valueOf(cursor.getInt(COL_ID_INDEX)));
             list.add(cursor.getString(COL_NAME_INDEX));
             list.add(cursor.getString(COL_TYPE_INDEX));

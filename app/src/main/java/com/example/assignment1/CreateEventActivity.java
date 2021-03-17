@@ -208,6 +208,10 @@ public class CreateEventActivity extends MainActivity {
                 PartySupplyDB partySupplyDB = new PartySupplyDB(CreateEventActivity.this);
                 partySupplyDB.insertSupply(supplies.getText().toString());
 
+                eventName.setText("");
+                menu.setText("");
+                supplies.setText("");
+
                 finish();
             }
         });

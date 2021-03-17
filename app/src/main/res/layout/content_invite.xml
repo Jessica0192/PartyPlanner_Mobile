@@ -29,6 +29,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InviteActivity"
+    android:id="@+id/mylayout"
     >
 
     <EditText
@@ -209,8 +210,15 @@
 
     <TextView
         android:id="@+id/txtProgress"
-        android:layout_width="170dp"
-        android:layout_height="65dp"
-            />
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:visibility="gone" />
     </RelativeLayout>
     </ScrollView>

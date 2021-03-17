@@ -22,6 +22,11 @@ public class PartyMenuDB {
     public static final String COL_ITEM = "menuItem";
     public static final int COL_ITEM_INDEX = index++;
 
+    // database and database helper objects
+    private SQLiteDatabase db = null;
+    private PartyMenuDB.DBHelper dbHelper = null;
+
+
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
         "CREATE TABLE " + TABLE_NAME + " (" +
@@ -58,6 +63,7 @@ public class PartyMenuDB {
                 db = getWritableDatabase();
                 db.execSQL(CREATE_TABLE);
             }
+
         }
 
         @Override
@@ -90,9 +96,6 @@ public class PartyMenuDB {
         }
     }
 
-    // database and database helper objects
-    private SQLiteDatabase db = null;
-    private PartyMenuDB.DBHelper dbHelper = null;
 
     // constructor
     public PartyMenuDB(Context context) {
@@ -181,9 +184,11 @@ public class PartyMenuDB {
     }
 
     public int updateMenuItem(
-            String eventId,
-            String menuItem
+        String eventId,
+        String menuItem
     ) {
+        Log.d(TAG, "===xx======eventId===========" + eventId);
+        Log.d(TAG, " ===xx======menuItem===========" + menuItem);
         ContentValues cv = new ContentValues();
         cv.put(COL_ITEM, menuItem);
 

@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin = null;
     public static final String TAG = "EventListActivity";
 
+
     /*
      * FUNCTION: onCreate
      * DESCRIPTION:
@@ -83,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+
 
         password.setOnKeyListener(new View.OnKeyListener() {
             /*

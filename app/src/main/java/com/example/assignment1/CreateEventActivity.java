@@ -66,9 +66,6 @@ public class CreateEventActivity extends MainActivity {
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-//    PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
-
-
 
     /*
      * FUNCTION: onCreate
@@ -148,7 +145,7 @@ public class CreateEventActivity extends MainActivity {
             public void onClick(View v)
             {
                 Log.d(TAG, "Create Event Activity -- on click triggered");
-                SharedPreferences.Editor editor = savedValues.edit();
+                //SharedPreferences.Editor editor = savedValues.edit();
 
                 if(eventName.getText().toString().matches("") ||
                         eventTypeSpinner.getSelectedItem().toString().matches("") ||
@@ -162,11 +159,17 @@ public class CreateEventActivity extends MainActivity {
                 Log.d(TAG, "Create Event Activity -- put string");
 
                 //clear out shared preference
-                editor.clear();
-                editor.commit();
+                //editor.clear();
+                //editor.apply();
+
+
+                SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+                SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+                SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+
 
                 StringBuilder guestsls = new StringBuilder();
-                SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+
                 if (!guestSp.getString("guest1", "").equals("")){
                     guestsls.append(guestSp.getString("guest1", ""));
                 }
@@ -188,12 +191,10 @@ public class CreateEventActivity extends MainActivity {
                     guestsls.append(guestSp.getString("guest5", ""));
                 }
 
-                Log.d(TAG, eventName.getText().toString());
-                Log.d(TAG, eventTypeSpinner.getSelectedItem().toString());
-                Log.d(TAG, date.getText().toString());
-                Log.d(TAG, guestsls.toString());
-                Log.d(TAG, menu.getText().toString());
-                Log.d(TAG, supplies.getText().toString());
+                suppliesSp.edit().clear().commit();
+                menuSp.edit().clear().commit();
+                guestSp.edit().clear().commit();
+
 
                 PartyPlannerDB dbhelper = new PartyPlannerDB(CreateEventActivity.this);
                 dbhelper.insertEvent(eventName.getText().toString(), eventTypeSpinner.getSelectedItem().toString(), date.getText().toString(),
@@ -208,6 +209,11 @@ public class CreateEventActivity extends MainActivity {
 
                 PartySupplyDB partySupplyDB = new PartySupplyDB(CreateEventActivity.this);
                 partySupplyDB.insertSupply(supplies.getText().toString());
+
+                address.setText("");
+                eventName.setText("");
+                menu.setText("");
+                supplies.setText("");
 
                 finish();
             }

@@ -10,18 +10,27 @@
 
 package com.example.assignment1;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
+
+import java.util.List;
 
 /*
  * NAME     :    Supplies
@@ -41,8 +50,14 @@ public class Supplies extends AppCompatActivity{
     private CheckBox invitations = null;
     private Button save = null;
     private SharedPreferences savedValues = null;
+    private String eventID = "";
+    private String mySuppliesUpdateItems = "";
     SharedPreferences supplyStorage;
     public static final String TAG = "supplies";
+
+    //instantiate the database
+    PartySupplyDB dbHelper = null;
+    PartySupplyDB db = null;
 
     /*  -- Function Header Comment
 	Name	:   onCreate()
@@ -66,7 +81,7 @@ public class Supplies extends AppCompatActivity{
 
         //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
         Intent updateSupplyIntent = getIntent();
-        String eventID = updateSupplyIntent.getStringExtra("eventID");
+        eventID = updateSupplyIntent.getStringExtra("eventID");
         Log.d(TAG, "'Supply' =========event ID===========" + eventID); // test log msg
         ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,30 +108,44 @@ public class Supplies extends AppCompatActivity{
                 //result.append("Selected Items:");
                 if (balloons.isChecked()) {
                     result.append("balloons");
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems +  balloons + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "balloons" : mySuppliesUpdateItems + ",balloons";
                 }
                 if (cake.isChecked()) {
                     result.append("/");
                     result.append("cake");
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cake + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cake" : mySuppliesUpdateItems + ",cake";
                 }
                 if (flowers.isChecked()) {
                     result.append("/");
                     result.append("flowers");
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + flowers + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "flowers" : mySuppliesUpdateItems + ",flowers";
                 }
                 if (cups.isChecked()) {
                     result.append("/");
                     result.append("cups");
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cups + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cups" : mySuppliesUpdateItems + ",cups";
                 }
                 if (cutlery.isChecked()) {
                     result.append("/");
                     result.append("cutlery");
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cutlery + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cutlery" : mySuppliesUpdateItems + ",cutlery";
                 }
                 if (candle.isChecked()) {
                     result.append("/");
                     result.append("candle");
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + candle + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "candle" : mySuppliesUpdateItems + ",candle";
                 }
                 if (invitations.isChecked()) {
                     result.append("/");
                     result.append("invitations");
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + invitations + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "invitations" : mySuppliesUpdateItems + ",invitations";
                 }
                 //Displaying the message on the toast
                 Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
@@ -171,6 +200,40 @@ public class Supplies extends AppCompatActivity{
     {
         //go back to creation event
         finish();
+    }
+
+
+    /*  -- Function Header Comment
+    Name	:   backToEventDetails(View view)
+    Purpose :   To let the user back to the event details page
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    public void backToEventDetails(View view)
+    {
+        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
+        startActivity(eventDetailsIntent);
+    }
+
+    /*  -- Function Header Comment
+    Name	:   saveUpdate(View view)
+    Purpose :   To save the update
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    public void saveUpdate(View view)
+    {
+        //to update the supplies items
+        PartySupplyDB supplyDB = new PartySupplyDB(this);
+        supplyDB.updateSupply(eventID, mySuppliesUpdateItems);
+
+        PartyPlannerDB db = new PartyPlannerDB(this);
+        List<String> tmp = db.getEvents().get(Integer.parseInt(eventID));
+        tmp.set(PartyPlannerDB.COL_SUPPLY_INDEX, mySuppliesUpdateItems);
+        db.updateEvent(tmp);
+
     }
 
 
@@ -230,5 +293,96 @@ public class Supplies extends AppCompatActivity{
     {
         Log.d(TAG, "'Supplies' Page Destroyed");
         super.onDestroy();
+    }
+
+
+    // new class
+    public class Task_for_supplies extends AsyncTask<Void, Integer, Void>
+    {
+
+        Context context;
+        Handler handler;
+        Dialog dialog;
+        TextView txtprogrss;
+        ProgressBar progressDialog;
+        Button btnCancel;
+
+        Task_for_supplies(Context context, Handler handler)
+        {
+            this.context=context;
+            this.handler=handler;
+
+        }
+
+        Task_for_supplies(Context context)
+        {
+            this.context=context;
+            this.handler=handler;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            progressDialog = new ProgressBar(Supplies.this);
+
+            super.onPreExecute();
+            // create dialog
+            progressDialog.setMax(10);
+            dialog=new Dialog(context);
+            dialog.setCancelable(true);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            // dialog.addContentView(progressDialog, InviteActivity.this);
+            dialog.setContentView(progressDialog);
+            txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
+            //  progress=(ProgressBar)dialog.findViewById(progress);
+
+            btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
+
+            dialog.show();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... arg0)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if(isCancelled())
+                {
+                    break;
+                }
+                else
+                {
+                    Log.e("In Background","current value;"+ i);
+                    publishProgress(i);
+
+                    try
+                    {
+                        Thread.sleep(500);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        //dont forget the catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values)
+        {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            dialog.dismiss();
+            Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+        }
     }
 }

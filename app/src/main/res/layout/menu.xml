@@ -18,8 +18,7 @@
     android:layout_height="match_parent"
     android:background="#F2D7D5">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -48,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="220dp"
         android:text="@string/checkbox_appetizer"
         android:textSize="40sp" />
 
@@ -57,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="290dp"
         android:text="@string/checkbox_mainDish"
         android:textSize="40sp" />
 
@@ -66,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="360dp"
         android:text="@string/checkbox_dessert"
         android:textSize="40sp" />
 
@@ -74,8 +73,8 @@
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="570sp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="520sp"
         android:backgroundTint="#A569BD"
         android:text="@string/SAVE" />
 
@@ -83,8 +82,8 @@
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="570sp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="520sp"
         android:backgroundTint="#A569BD"
         android:onClick="backToEvent"
         android:text="@string/backBtn" />
@@ -93,31 +92,31 @@
         android:id="@+id/imageView14"
         android:layout_width="83dp"
         android:layout_height="76dp"
-        android:layout_marginStart="270dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="200dp"
         app:srcCompat="@drawable/appet" />
 
     <ImageView
         android:id="@+id/imageView18"
         android:layout_width="82dp"
         android:layout_height="66dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="350dp"
         app:srcCompat="@drawable/desser" />
 
     <ImageView
         android:id="@+id/imageView19"
         android:layout_width="85dp"
         android:layout_height="66dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginStart="265dp"
+        android:layout_marginTop="280dp"
         app:srcCompat="@drawable/dish" />
 
     <ImageView
         android:id="@+id/imageView20"
         android:layout_width="53dp"
         android:layout_height="72dp"
-        android:layout_marginStart="200dp"
+        android:layout_marginStart="180dp"
         android:layout_marginTop="140dp"
         app:srcCompat="@drawable/drink" />
 
@@ -125,12 +124,32 @@
         android:id="@+id/linkTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="530dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="440dp"
+        android:onClick="onLinkClick"
         android:text="Order your menu from Sobeys"
         android:textColor="#00F"
-        android:textSize="18sp"
-        android:onClick="onLinkClick"/>
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/saveUpdateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="570sp"
+        android:backgroundTint="#A569BD"
+        android:onClick="saveUpdate"
+        android:text="@string/saveUpdateBtn" />
+
+    <Button
+        android:id="@+id/backDetailsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="570sp"
+        android:backgroundTint="#A569BD"
+        android:onClick="backToEventDetails"
+        android:text="@string/backDetailsBtn" />
 
 
 </RelativeLayout>

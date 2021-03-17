@@ -51,6 +51,10 @@ public class PartyPlannerDB {
     public static final String COL_SUPPLY = "eventSupply";
     public static final int COL_SUPPLY_INDEX = index++;
 
+    // database and database helper objects
+    private SQLiteDatabase db = null;
+    private PartyPlannerDB.DBHelper dbHelper = null;
+
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -139,16 +143,11 @@ public class PartyPlannerDB {
         }
     }
 
-    // database and database helper objects
-    private SQLiteDatabase db = null;
-    private DBHelper dbHelper = null;
 
 
     // constructor
     public PartyPlannerDB(Context context) {
-        dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
-
-
+        dbHelper = new PartyPlannerDB.DBHelper(context, DB_NAME, null, DB_VERSION);
 
 
 
@@ -162,7 +161,6 @@ public class PartyPlannerDB {
 //            "eventMenu1",
 //            "eventSupply1"
 //        )
-
         // Validate insertEvent Function
         openWriteableDB();
         dbHelper.onCreate(db);
@@ -170,7 +168,6 @@ public class PartyPlannerDB {
 //            "eventName1", "eventType1", "eventDate1", "eventAddress1",
 //            "eventGuest1", "eventMenu1", "eventSupply1"
 //        );
-
 
         Log.d(TAG, "==================================================== DB constructor ...");
     }
@@ -209,9 +206,11 @@ public class PartyPlannerDB {
     // public methods
     public ArrayList<List> getEvents() {
         ArrayList<List> lists = new ArrayList<List>();
+        //db = dbHelper.getReadableDatabase();
         openReadableDB();
         Cursor cursor = db.query(TABLE_NAME,
                 null, null, null, null, null, null);
+
         while (cursor.moveToNext()) {
             List<String> list = new ArrayList<>();
             list.add(String.valueOf(cursor.getInt(COL_ID_INDEX)));
@@ -224,13 +223,14 @@ public class PartyPlannerDB {
             list.add(cursor.getString(COL_SUPPLY_INDEX));
             lists.add(list);
         }
+
         closeCursor(cursor);
         closeDB();
         return lists;
     }
 
     public String getFormattedEventsSummary() {
-        dbHelper.reset(dbHelper.getWritableDatabase());
+        //dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
 
         if (events.size() == 0)
@@ -252,7 +252,7 @@ public class PartyPlannerDB {
     }
 
     public String getEventDetails(int eventID) {
-//        dbHelper.reset(dbHelper.getWritableDatabase());
+        //dbHelper.reset(dbHelper.getWritableDatabase());
         ArrayList<List> events = getEvents();
         int eventCount;
         if (events.size() == 0)
@@ -269,13 +269,13 @@ public class PartyPlannerDB {
         }
         String rtnDetails = "";
         rtnDetails += "" +
-                events.get(eventID).get(COL_NAME_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_TYPE_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_DATE_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_ADDRESS_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_GUEST_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_MENU_INDEX) + "\r\n" +
-                events.get(eventID).get(COL_SUPPLY_INDEX);
+                "     NAME : " + events.get(eventID).get(COL_NAME_INDEX) + "\r\n" +
+                "     TYPE : " + events.get(eventID).get(COL_TYPE_INDEX) + "\r\n" +
+                "     DATE : " + events.get(eventID).get(COL_DATE_INDEX) + "\r\n" +
+                "     ADDRESS : " + events.get(eventID).get(COL_ADDRESS_INDEX) + "\r\n" +
+                "     GUEST : " + events.get(eventID).get(COL_GUEST_INDEX) + "\r\n" +
+                "     MENU : " + events.get(eventID).get(COL_MENU_INDEX) + "\r\n" +
+                "     SUPPLY : " + events.get(eventID).get(COL_SUPPLY_INDEX);
         return rtnDetails;
     }
 
@@ -303,22 +303,36 @@ public class PartyPlannerDB {
         //this.openWriteableDB();
         long rowID = db.insert(TABLE_NAME, null, cv);
 
+        Log.d(TAG, cv.toString());
 
         ////////////To check if the data is inserted into database/////////////////
-        //String selectQuery = "SELECT * FROM plannerInfo;";
-        //String value = null;
-        //Cursor cursor = db.rawQuery(selectQuery, null);
-        //if(cursor.moveToFirst()){
-         //   value = cursor.getString(5);
-        //}
-
-        //Log.d(TAG, "HERE: "+value);
+        //Log.d(TAG, cv.toString());
 
         this.closeDB();
-
         return rowID;
     }
 
+    public int updateEvent(
+        List<String> record
+    ) {
+        ContentValues cv = new ContentValues();
+        cv.put(COL_NAME, record.get(PartyPlannerDB.COL_NAME_INDEX));
+        cv.put(COL_TYPE, record.get(PartyPlannerDB.COL_TYPE_INDEX));
+        cv.put(COL_DATE, record.get(PartyPlannerDB.COL_DATE_INDEX));
+        cv.put(COL_ADDRESS, record.get(PartyPlannerDB.COL_ADDRESS_INDEX));
+        cv.put(COL_GUEST, record.get(PartyPlannerDB.COL_GUEST_INDEX));
+        cv.put(COL_MENU, record.get(PartyPlannerDB.COL_MENU_INDEX));
+        cv.put(COL_SUPPLY, record.get(PartyPlannerDB.COL_SUPPLY_INDEX));
+        Log.d(TAG, "'Supply' =========supply===========" + record.get(PartyPlannerDB.COL_SUPPLY_INDEX));
+        String where = COL_ID + "= ?";
+        String[] whereArgs = { record.get(PartyPlannerDB.COL_ID_INDEX) };
+
+        this.openWriteableDB();
+        int rowCount = db.update(TABLE_NAME, cv, where, whereArgs);
+        this.closeDB();
+
+        return rowCount;
+    }
 
     public int updateEvent(
             String eventId,
@@ -365,6 +379,7 @@ public class PartyPlannerDB {
     public int deleteEvent(
             String eventId
     ) {
+        Log.d(TAG, "============='planner db'=======delete====== ");
         int eventNum = Integer.parseInt(eventId);
         ArrayList<List> events = getEvents();
         int eventCount;

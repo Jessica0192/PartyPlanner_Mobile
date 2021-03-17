@@ -137,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="250dp"
         android:layout_marginTop="570sp"
-        android:backgroundTint="#A569BD"
+        android:backgroundTint="#F48FB1"
         android:onClick="saveUpdate"
         android:text="@string/saveUpdateBtn" />
 
@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="570sp"
-        android:backgroundTint="#A569BD"
+        android:backgroundTint="#F48FB1"
         android:onClick="backToEventDetails"
         android:text="@string/backDetailsBtn" />
 

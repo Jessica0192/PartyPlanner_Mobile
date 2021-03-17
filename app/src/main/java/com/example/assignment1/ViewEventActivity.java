@@ -150,10 +150,16 @@ public class ViewEventActivity extends EventListActivity {
             @Override
             public void onClick(View v) {
                 PartyPlannerDB db = new PartyPlannerDB(v.getContext());
+                PartyMenuDB dbMenu= new PartyMenuDB(v.getContext());
+                PartySupplyDB dbSupply= new PartySupplyDB(v.getContext());
+                PartyGuestDB dbGuest= new PartyGuestDB(v.getContext());
                 String value= eventID.getText().toString();
                 Log.d(TAG, "value: "+value);
                 String eventNum=String.valueOf(Integer.parseInt(value) - 1);
                 int tmp = db.deleteEvent(eventNum);
+                dbMenu.deleteMenuItem(eventNum);
+                dbSupply.deleteSupply(eventNum);
+                dbGuest.deleteGuest(eventNum);
                 Log.d(TAG, String.valueOf(tmp));
                 if(tmp == ERROR_EMPTY)
                 {

@@ -181,7 +181,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="590sp"
         android:backgroundTint="#F48FB1"
-        android:onClick="backToEvent"
+        android:onClick="backToEventDetails"
         android:text="@string/backDetailsBtn" />
 
 

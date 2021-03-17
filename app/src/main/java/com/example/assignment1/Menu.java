@@ -124,6 +124,10 @@ public class Menu extends AppCompatActivity {
 
                 editor.putString("MenuItems", result.toString());
                 editor.apply();
+
+                // call the task
+                Menu.Task_for_menu mytask= new Menu.Task_for_menu(Menu.this);
+                mytask.execute();
             }
         });
 

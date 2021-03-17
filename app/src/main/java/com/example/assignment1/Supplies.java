@@ -147,6 +147,10 @@ public class Supplies extends AppCompatActivity{
 
                 editor.putString("SupplyItems", result.toString());
                 editor.apply();
+
+                // call the task
+                Supplies.Task_for_supplies mytask= new Supplies.Task_for_supplies(Supplies.this);
+                mytask.execute();
             }
 
         });

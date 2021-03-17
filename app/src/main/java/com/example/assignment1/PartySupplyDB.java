@@ -295,6 +295,7 @@ public class PartySupplyDB {
             String eventId,
             String supplyItem
     ) {
+        Log.d(TAG, "============='supply db'=======update====== ");
         ContentValues cv = new ContentValues();
         cv.put(COL_ITEM, supplyItem);
 
@@ -334,6 +335,14 @@ public class PartySupplyDB {
         if( eventNum> eventCount || eventNum < 0)
         {
             return ERROR_INVALID;
+        }
+
+        String value = null;
+        db = dbHelper.getReadableDatabase();
+        String selectQuery = "SELECT * FROM plannerInfo;";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToPosition(eventNum)){
+            value = cursor.getString(0);
         }
 
         String where = COL_ID + "= ?";

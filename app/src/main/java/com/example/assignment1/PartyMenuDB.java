@@ -344,6 +344,14 @@ public class PartyMenuDB {
             return ERROR_INVALID;
         }
 
+        String value = null;
+        db = dbHelper.getReadableDatabase();
+        String selectQuery = "SELECT * FROM plannerInfo;";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToPosition(eventNum)){
+            value = cursor.getString(0);
+        }
+
         String where = COL_ID + "= ?";
         String[] whereArgs = { eventId };
 

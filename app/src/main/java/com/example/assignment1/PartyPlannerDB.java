@@ -269,13 +269,13 @@ public class PartyPlannerDB {
         }
         String rtnDetails = "";
         rtnDetails += "" +
-                "     NAME    : " + events.get(eventID).get(COL_NAME_INDEX) + "\r\n" +
-                "     TYPE    : " + events.get(eventID).get(COL_TYPE_INDEX) + "\r\n" +
-                "     DATE    : " + events.get(eventID).get(COL_DATE_INDEX) + "\r\n" +
+                "     NAME : " + events.get(eventID).get(COL_NAME_INDEX) + "\r\n" +
+                "     TYPE : " + events.get(eventID).get(COL_TYPE_INDEX) + "\r\n" +
+                "     DATE : " + events.get(eventID).get(COL_DATE_INDEX) + "\r\n" +
                 "     ADDRESS : " + events.get(eventID).get(COL_ADDRESS_INDEX) + "\r\n" +
-                "     GUEST   : " + events.get(eventID).get(COL_GUEST_INDEX) + "\r\n" +
-                "     MENU    : " + events.get(eventID).get(COL_MENU_INDEX) + "\r\n" +
-                "     SUPPLY  : " + events.get(eventID).get(COL_SUPPLY_INDEX);
+                "     GUEST : " + events.get(eventID).get(COL_GUEST_INDEX) + "\r\n" +
+                "     MENU : " + events.get(eventID).get(COL_MENU_INDEX) + "\r\n" +
+                "     SUPPLY : " + events.get(eventID).get(COL_SUPPLY_INDEX);
         return rtnDetails;
     }
 
@@ -379,6 +379,7 @@ public class PartyPlannerDB {
     public int deleteEvent(
             String eventId
     ) {
+        Log.d(TAG, "============='planner db'=======delete====== ");
         int eventNum = Integer.parseInt(eventId);
         ArrayList<List> events = getEvents();
         int eventCount;

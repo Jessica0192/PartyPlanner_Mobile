@@ -106,28 +106,24 @@ public class Menu extends AppCompatActivity {
                     result.append("drink");
 //                    myMenuUpdateItems = myMenuUpdateItems + drink + ", ";
                     myMenuUpdateItems = ( myMenuUpdateItems == "") ? "drink" : myMenuUpdateItems + ",drink";
-                    Log.d(TAG, "'Menu' =========drink==========="); // test log msg
                 }
                 if (appetizer.isChecked()) {
                     result.append("/");
                     result.append("appetizer");
 //                    myMenuUpdateItems = myMenuUpdateItems + appetizer + ", ";
                     myMenuUpdateItems = ( myMenuUpdateItems == "") ? "appetizer" : myMenuUpdateItems + ",appetizer";
-                    Log.d(TAG, "'Menu' =========appetizer==========="); // test log msg
                 }
                 if (mainDish.isChecked()) {
                     result.append("/");
                     result.append("mainDish");
 //                    myMenuUpdateItems = myMenuUpdateItems + mainDish + ", ";
                     myMenuUpdateItems = ( myMenuUpdateItems == "") ? "mainDish" : myMenuUpdateItems + ",mainDish";
-                    Log.d(TAG, "'Menu' =========mainDish==========="); // test log msg
                 }
                 if (dessert.isChecked()) {
                     result.append("/");
                     result.append("dessert");
 //                    myMenuUpdateItems = myMenuUpdateItems + dessert + ", ";
                     myMenuUpdateItems = ( myMenuUpdateItems == "") ? "dessert" : myMenuUpdateItems + ",dessert";
-                    Log.d(TAG, "'Menu' =========dessert==========="); // test log msg
                 }
                 //Displaying the message on the toast
                 //Toast.makeText(getApplicationContext(), "Menu item  selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();

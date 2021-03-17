@@ -323,7 +323,7 @@ public class PartyPlannerDB {
         cv.put(COL_GUEST, record.get(PartyPlannerDB.COL_GUEST_INDEX));
         cv.put(COL_MENU, record.get(PartyPlannerDB.COL_MENU_INDEX));
         cv.put(COL_SUPPLY, record.get(PartyPlannerDB.COL_SUPPLY_INDEX));
-
+        Log.d(TAG, "'Supply' =========supply===========" + record.get(PartyPlannerDB.COL_SUPPLY_INDEX));
         String where = COL_ID + "= ?";
         String[] whereArgs = { record.get(PartyPlannerDB.COL_ID_INDEX) };
 

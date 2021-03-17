@@ -30,6 +30,8 @@ import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
+import java.util.List;
+
 /*
  * NAME     :    Supplies
  * PURPOSE :    Supplies class contains the functionality behind the supply.xml file.
@@ -106,37 +108,44 @@ public class Supplies extends AppCompatActivity{
                 //result.append("Selected Items:");
                 if (balloons.isChecked()) {
                     result.append("balloons");
-                    mySuppliesUpdateItems = mySuppliesUpdateItems +  balloons + ", ";
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems +  balloons + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "balloons" : mySuppliesUpdateItems + ",balloons";
                 }
                 if (cake.isChecked()) {
                     result.append("/");
                     result.append("cake");
-                    mySuppliesUpdateItems = mySuppliesUpdateItems + cake + ", ";
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cake + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cake" : mySuppliesUpdateItems + ",cake";
                 }
                 if (flowers.isChecked()) {
                     result.append("/");
                     result.append("flowers");
-                    mySuppliesUpdateItems = mySuppliesUpdateItems + flowers + ", ";
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + flowers + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "flowers" : mySuppliesUpdateItems + ",flowers";
                 }
                 if (cups.isChecked()) {
                     result.append("/");
                     result.append("cups");
-                    mySuppliesUpdateItems = mySuppliesUpdateItems + cups + ", ";
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cups + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cups" : mySuppliesUpdateItems + ",cups";
                 }
                 if (cutlery.isChecked()) {
                     result.append("/");
                     result.append("cutlery");
-                    mySuppliesUpdateItems = mySuppliesUpdateItems + cutlery + ", ";
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + cutlery + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "cutlery" : mySuppliesUpdateItems + ",cutlery";
                 }
                 if (candle.isChecked()) {
                     result.append("/");
                     result.append("candle");
-                    mySuppliesUpdateItems = mySuppliesUpdateItems + candle + ", ";
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + candle + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "candle" : mySuppliesUpdateItems + ",candle";
                 }
                 if (invitations.isChecked()) {
                     result.append("/");
                     result.append("invitations");
-                    mySuppliesUpdateItems = mySuppliesUpdateItems + invitations + ", ";
+//                    mySuppliesUpdateItems = mySuppliesUpdateItems + invitations + ", ";
+                    mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "invitations" : mySuppliesUpdateItems + ",invitations";
                 }
                 //Displaying the message on the toast
                 Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
@@ -217,7 +226,14 @@ public class Supplies extends AppCompatActivity{
     public void saveUpdate(View view)
     {
         //to update the supplies items
-        db.updateSupply(eventID, mySuppliesUpdateItems);
+        PartySupplyDB supplyDB = new PartySupplyDB(this);
+        supplyDB.updateSupply(eventID, mySuppliesUpdateItems);
+
+        PartyPlannerDB db = new PartyPlannerDB(this);
+        List<String> tmp = db.getEvents().get(Integer.parseInt(eventID));
+        tmp.set(PartyPlannerDB.COL_SUPPLY_INDEX, mySuppliesUpdateItems);
+        db.updateEvent(tmp);
+
     }
 
 

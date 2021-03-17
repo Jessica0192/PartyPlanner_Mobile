@@ -18,8 +18,7 @@
     android:layout_height="match_parent"
     android:background="@color/pink_background">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -41,68 +40,68 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="120dp"
         android:text="@string/checkbox_balloons"
-        android:textSize="35sp" />
+        android:textSize="25sp" />
 
     <CheckBox
         android:id="@+id/checkbox_cake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="170dp"
         android:text="@string/checkbox_cake"
-        android:textSize="35sp" />
+        android:textSize="25sp" />
 
     <CheckBox
         android:id="@+id/checkbox_flowers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="220dp"
         android:text="@string/checkbox_flowers"
-        android:textSize="35sp" />
+        android:textSize="25sp" />
 
     <CheckBox
         android:id="@+id/checkbox_cups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="270dp"
         android:text="@string/checkbox_cups"
-        android:textSize="35sp" />
+        android:textSize="25sp" />
 
     <CheckBox
         android:id="@+id/checkbox_cutlery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="320dp"
         android:text="@string/checkbox_cutlery"
-        android:textSize="35sp" />
+        android:textSize="25sp" />
 
     <CheckBox
         android:id="@+id/checkbox_candle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="370dp"
         android:text="@string/checkbox_candle"
-        android:textSize="35sp" />
+        android:textSize="25sp" />
 
     <CheckBox
         android:id="@+id/checkbox_invitations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="420dp"
         android:text="@string/checkbox_invitations"
-        android:textSize="35sp" />
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="570sp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="540sp"
         android:backgroundTint="#A569BD"
         android:onClick="onClick"
         android:text="@string/SAVE" />
@@ -111,8 +110,8 @@
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="570sp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="540sp"
         android:backgroundTint="#A569BD"
         android:onClick="backToEvent"
         android:text="@string/backBtn" />
@@ -139,21 +138,51 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="131dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="620dp"
+        android:layout_width="90dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="660dp"
         app:srcCompat="@drawable/balls" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="90dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="660dp"
+        app:srcCompat="@drawable/balls" />
+
 
     <TextView
         android:id="@+id/suppliesLinkTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="530dp"
+        android:layout_marginTop="480dp"
+        android:onClick="onLinkClick"
         android:text="Order your supplies from Amazon"
         android:textColor="#00F"
-        android:textSize="18sp"
-        android:onClick="onLinkClick"/>
+        android:textSize="18sp" />
+
+
+    <Button
+        android:id="@+id/saveUpdateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="590sp"
+        android:backgroundTint="#A569BD"
+        android:text="@string/saveUpdateBtn" />
+
+    <Button
+        android:id="@+id/backDetailsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="590sp"
+        android:backgroundTint="#A569BD"
+        android:onClick="backToEvent"
+        android:text="@string/backDetailsBtn" />
+
 
 </RelativeLayout>
 </ScrollView>

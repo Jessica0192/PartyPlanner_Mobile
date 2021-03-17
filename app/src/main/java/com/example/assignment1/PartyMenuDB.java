@@ -55,7 +55,7 @@ public class PartyMenuDB {
     // DROP TABLE statement
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
-    public static final String TAG = "EventListActivity";
+//    public static final String TAG = "EventListActivity";
     private static class DBHelper extends SQLiteOpenHelper {
 
         public DBHelper(

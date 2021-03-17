@@ -268,10 +268,13 @@ public class Menu extends AppCompatActivity {
     }
 
 
-    // new class
+    /*
+     * NAME     :    Task_for_menu
+     * PURPOSE :    Menu class contains the functionality of the AsyncTask
+     */
     public class Task_for_menu extends AsyncTask<Void, Integer, Void>
     {
-
+        private boolean isCancelled = false;
         Context context;
         Handler handler;
         Dialog dialog;
@@ -283,7 +286,6 @@ public class Menu extends AppCompatActivity {
         {
             this.context=context;
             this.handler=handler;
-
         }
 
         Task_for_menu(Context context)
@@ -305,10 +307,12 @@ public class Menu extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             // dialog.addContentView(progressDialog, InviteActivity.this);
             dialog.setContentView(progressDialog);
-            txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
+            //txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
             //  progress=(ProgressBar)dialog.findViewById(progress);
 
-            btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
+            btnCancel=(Button)dialog.findViewById(R.id.saveBtn);
+
+            dialog.setCancelable(true);
 
             dialog.show();
         }
@@ -319,14 +323,21 @@ public class Menu extends AppCompatActivity {
         {
             for (int i = 0; i < 100; i++)
             {
-                if(isCancelled())
+                if(i == 10)
                 {
+                    isCancelled = true;
+                    dialog.dismiss();
+
+                    //hide the progress bar
+                    progressDialog.setVisibility(ProgressBar.INVISIBLE);
+
                     break;
                 }
                 else
                 {
                     Log.e("In Background","current value;"+ i);
-                    publishProgress(i);
+
+                    isCancelled = false;
 
                     try
                     {
@@ -334,7 +345,7 @@ public class Menu extends AppCompatActivity {
                     }
                     catch (InterruptedException e)
                     {
-                        //don't forget the catch block
+                        isCancelled = true;
                         e.printStackTrace();
                     }
                 }
@@ -346,6 +357,14 @@ public class Menu extends AppCompatActivity {
         protected void onProgressUpdate(Integer... values)
         {
             super.onProgressUpdate(values);
+
+            for (int i = 0; i < 10; i++)
+            {}
+            dialog.dismiss();
+            //Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
+
+            // Hide the progress bar
+            progressDialog.setVisibility(ProgressBar.INVISIBLE);
         }
 
         @Override
@@ -355,6 +374,9 @@ public class Menu extends AppCompatActivity {
 
             dialog.dismiss();
             Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+
+            // Hide the progress bar
+            progressDialog.setVisibility(ProgressBar.INVISIBLE);
         }
     }
 }

@@ -50,6 +50,9 @@ public class PartyPlannerDB {
     //
     public static final String COL_SUPPLY = "eventSupply";
     public static final int COL_SUPPLY_INDEX = index++;
+    //
+    private static final int ERROR_EMPTY =  -1;
+    private static final int ERROR_INVALID =  -2;
 
     // database and database helper objects
     private SQLiteDatabase db = null;
@@ -385,7 +388,7 @@ public class PartyPlannerDB {
         int eventCount;
         if (events.size() == 0)
         {
-            return -1;
+            return ERROR_EMPTY;
         }
         for (eventCount = 0; eventCount < events.size() ; )
         {
@@ -393,7 +396,7 @@ public class PartyPlannerDB {
         }
         if( eventNum> eventCount || eventNum < 0)
         {
-            return -2;
+            return ERROR_INVALID;
         }
 
         String value = null;

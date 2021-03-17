@@ -23,6 +23,10 @@ public class PartySupplyDB {
     public static final String COL_ITEM = "supplyItem";
     public static final int COL_ITEM_INDEX = index++;
 
+        // database and database helper objects
+    private SQLiteDatabase db = null;
+    private PartySupplyDB.DBHelper dbHelper = null;
+
     // CREATE TABLE statement
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -91,9 +95,9 @@ public class PartySupplyDB {
         }
     }
 
-    // database and database helper objects
-    private SQLiteDatabase db = null;
-    private PartySupplyDB.DBHelper dbHelper = null;
+//    // database and database helper objects
+//    private SQLiteDatabase db = null;
+//    private PartySupplyDB.DBHelper dbHelper = null;
 
     // constructor
     public PartySupplyDB(Context context) {

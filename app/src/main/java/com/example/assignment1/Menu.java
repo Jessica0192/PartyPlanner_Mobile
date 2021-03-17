@@ -253,7 +253,8 @@ public class Menu extends AppCompatActivity {
     */
     public void backToEventDetails(View view)
     {
-        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
+//        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.ViewEventActivity.class);
+        Intent eventDetailsIntent = new Intent(view.getContext(), ViewEventActivity.class);
         startActivity(eventDetailsIntent);
     }
 

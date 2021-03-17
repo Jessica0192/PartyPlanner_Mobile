@@ -1,3 +1,12 @@
+/*
+ * FILE          : PartyMenuDB.java
+ * PROJECT       : PROG3150 - Assignment #2
+ * PROGRAMMER    : Suka Sun
+ * FIRST VERSION : 2020-03-19
+ * DESCRIPTION   : This file contains the definition and functions of the menuInfo table
+ *                 in the PartyPlanner database
+ */
+
 package com.example.assignment1;
 
 import android.content.ContentValues;
@@ -10,9 +19,15 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+ * NAME     :   PartyMenuDB
+ * PURPOSE :    PartyMenuDB class contains the definition and functions of the menuInfo table
+ *              in the PartyPlanner database
+ */
 public class PartyMenuDB {
 
-    // database constants
+    // Database constants
     public static final String DB_NAME = "PartyPlanner.db";
     public static final int    DB_VERSION = 1;
     public static int index = 0;
@@ -21,8 +36,11 @@ public class PartyMenuDB {
     public static final int COL_ID_INDEX = index++;
     public static final String COL_ITEM = "menuItem";
     public static final int COL_ITEM_INDEX = index++;
+    // Constants for error code
+    private static final int ERROR_EMPTY =  -1;
+    private static final int ERROR_INVALID =  -2;
 
-    // database and database helper objects
+    // Database and database helper objects
     private SQLiteDatabase db = null;
     private PartyMenuDB.DBHelper dbHelper = null;
 
@@ -55,17 +73,34 @@ public class PartyMenuDB {
             onCreate(db);
         }
 
+        /*
+         * FUNCTION: onCreate
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onCreate(SQLiteDatabase db) {
-            // create tables
+            // Create tables
             if (!isTableExists(TABLE_NAME, db))
             {
                 db = getWritableDatabase();
                 db.execSQL(CREATE_TABLE);
             }
-
         }
 
+        /*
+         * FUNCTION: onUpgrade
+         * DESCRIPTION:
+         *      This function is going to be called as default when this page is loaded
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         @Override
         public void onUpgrade(
             SQLiteDatabase db,
@@ -75,6 +110,15 @@ public class PartyMenuDB {
             onCreate(db);
         }
 
+        /*
+         * FUNCTION: isTableExists
+         * DESCRIPTION:
+         *      This function is going to be called to check an existence of a table
+         * PARAMETER:
+         *      SQLiteDatabase db
+         * RETURNS:
+         *      void: there's no return value
+         */
         public boolean isTableExists(String tableName, SQLiteDatabase db) {
             if(db == null || !db.isOpen()) {
                 db = getReadableDatabase();
@@ -97,14 +141,22 @@ public class PartyMenuDB {
     }
 
 
-    // constructor
+    // Constructor
     public PartyMenuDB(Context context) {
         dbHelper = new PartyMenuDB.DBHelper(context, DB_NAME, null, DB_VERSION);
         openWriteableDB();
         dbHelper.onCreate(db);
     }
 
-    // private methods
+    /*
+     * FUNCTION: openReadableDB
+     * DESCRIPTION:
+     *      This function is going to be called to read info from the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openReadableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getReadableDatabase();
@@ -115,6 +167,15 @@ public class PartyMenuDB {
         }
     }
 
+    /*
+     * FUNCTION: openReadableDB
+     * DESCRIPTION:
+     *      This function is going to be called to edit info in the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void openWriteableDB() {
         if(db == null || !db.isOpen()) {
             db = dbHelper.getWritableDatabase();
@@ -125,17 +186,44 @@ public class PartyMenuDB {
         }
     }
 
+    /*
+     * FUNCTION: closeDB
+     * DESCRIPTION:
+     *      This function is going to be called to close the database
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     public void closeDB() {
         if (db != null)
             db.close();
     }
 
+    /*
+     * FUNCTION: closeCursor
+     * DESCRIPTION:
+     *      This function is going to be called to close the cursor
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
     private void closeCursor(Cursor cursor) {
         if (cursor != null)
             cursor.close();
     }
 
-    // public methods
+
+    /*
+     * FUNCTION: getMenuList
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of the table
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      list: list of details
+     */
     public ArrayList<List> getMenuList() {
         ArrayList<List> lists = new ArrayList<List>();
         openReadableDB();
@@ -151,6 +239,15 @@ public class PartyMenuDB {
         return lists;
     }
 
+    /*
+     * FUNCTION: getMenuList
+     * DESCRIPTION:
+     *      This function is going to be called to get the details of an event
+     * PARAMETER:
+     *      int: eventID
+     * RETURNS:
+     *      list: details of event
+     */
     public String getMenuDetails(int eventID) {
         ArrayList<List> events = getMenuList();
         int eventCount;
@@ -172,6 +269,15 @@ public class PartyMenuDB {
         return rtnDetails;
     }
 
+    /*
+     * FUNCTION: insertMenuItem
+     * DESCRIPTION:
+     *      This function is going to be called to insert item the table
+     * PARAMETER:
+     *      string: menuItem
+     * RETURNS:
+     *      long: rowID
+     */
     public long insertMenuItem(
          String menuItem
     ) {
@@ -183,12 +289,20 @@ public class PartyMenuDB {
         return rowID;
     }
 
+    /*
+     * FUNCTION: updateMenuItem
+     * DESCRIPTION:
+     *      This function is going to be called to update item the table
+     * PARAMETER:
+     *      string: eventId
+     *      string: menuItem
+     * RETURNS:
+     *      long: rowID
+     */
     public int updateMenuItem(
         String eventId,
         String menuItem
     ) {
-        Log.d(TAG, "===xx======eventId===========" + eventId);
-        Log.d(TAG, " ===xx======menuItem===========" + menuItem);
         ContentValues cv = new ContentValues();
         cv.put(COL_ITEM, menuItem);
 
@@ -202,6 +316,15 @@ public class PartyMenuDB {
         return rowCount;
     }
 
+    /*
+     * FUNCTION: deleteMenuItem
+     * DESCRIPTION:
+     *      This function is going to be called to delete item the table
+     * PARAMETER:
+     *      string: eventId
+     * RETURNS:
+     *      int: rowID
+     */
     public int deleteMenuItem(
             String eventId
     ) {
@@ -210,7 +333,7 @@ public class PartyMenuDB {
         int eventCount;
         if (events.size() == 0)
         {
-            return -1;
+            return ERROR_EMPTY;
         }
         for (eventCount = 0; eventCount < events.size() ; )
         {
@@ -218,7 +341,7 @@ public class PartyMenuDB {
         }
         if( eventNum> eventCount || eventNum < 0)
         {
-            return -2;
+            return ERROR_INVALID;
         }
 
         String where = COL_ID + "= ?";

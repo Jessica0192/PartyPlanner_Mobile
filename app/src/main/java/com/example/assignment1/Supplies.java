@@ -55,9 +55,9 @@ public class Supplies extends AppCompatActivity{
     SharedPreferences supplyStorage;
     public static final String TAG = "supplies";
 
-    //instantiate the database
-    PartySupplyDB dbHelper = null;
-    PartySupplyDB db = null;
+//    //instantiate the database
+//    PartySupplyDB dbHelper = null;
+//    PartySupplyDB db = null;
 
     /*  -- Function Header Comment
 	Name	:   onCreate()
@@ -148,7 +148,7 @@ public class Supplies extends AppCompatActivity{
                     mySuppliesUpdateItems = ( mySuppliesUpdateItems == "") ? "invitations" : mySuppliesUpdateItems + ",invitations";
                 }
                 //Displaying the message on the toast
-                Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = supplyStorage.edit();
@@ -212,7 +212,8 @@ public class Supplies extends AppCompatActivity{
     */
     public void backToEventDetails(View view)
     {
-        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
+//        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
+        Intent eventDetailsIntent = new Intent(view.getContext(), ViewEventActivity.class);
         startActivity(eventDetailsIntent);
     }
 

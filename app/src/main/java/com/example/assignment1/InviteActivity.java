@@ -101,6 +101,7 @@ public class InviteActivity extends AppCompatActivity {
     //dropdown list object
     private Spinner spinner;
     private String item;
+    private String eventID = "";
 
     //date picker object to make it easier for the user
     // to choose the date
@@ -119,6 +120,8 @@ public class InviteActivity extends AppCompatActivity {
 
     private String sFileName = "Invitation_Card_For_"; //C:\\MAD\\a2\\Invitation_Card_For_"
 
+
+
     /*
      * FUNCTION   : onCreate()
      * DESCRIPTION: This function is called when the page is loaded, so here
@@ -135,6 +138,13 @@ public class InviteActivity extends AppCompatActivity {
         //content_invite screen
         setContentView(R.layout.content_invite);
 
+
+
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateInviteIntent = getIntent();
+        eventID = updateInviteIntent.getStringExtra("eventID");
+        Log.d(TAG, "'Invitation' =========event ID===========" + eventID); // test log msg
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         //get the spinner from the xml.
         spinner = findViewById(R.id.provinces_dropdown);
@@ -410,51 +420,80 @@ public class InviteActivity extends AppCompatActivity {
 
                 String cur_email = null;
                 FileInputStream fis = null;
-                try {
-                    fis = openFileInput("emails.txt");
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader br = new BufferedReader(isr);
-                    StringBuilder sb = new StringBuilder();
-                    String txt;
-
-                    while ((txt = br.readLine()) !=null)
-                    {
-                        if (txt.contains(curGuest.toLowerCase()))
-                        {
-                            cur_email = txt;
-                            System.out.println("Current guest email found");
-                        }
-                        sb.append(txt).append("\n");
-                    }
-
-                    if (cur_email == null)
-                    {
-                        cur_email = "No email available";
-                    }
-
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                FileOutputStream fs = null;
+//                try {
+//                    fis = openFileInput("emails.txt");
+//                    InputStreamReader isr = new InputStreamReader(fis);
+//                    BufferedReader br = new BufferedReader(isr);
+//                    StringBuilder sb = new StringBuilder();
+//                    String txt;
+//
+//                    while ((txt = br.readLine()) !=null)
+//                    {
+//                        if (txt.contains(curGuest.toLowerCase()))
+//                        {
+//                            cur_email = txt;
+//                            System.out.println("Current guest email found");
+//                        }
+//                        sb.append(txt).append("\n");
+//                    }
+//
+//                    if (cur_email == null)
+//                    {
+//                        cur_email = "No email available";
+//                    }
+//
+//
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
 
                 FileOutputStream fos = null;
-               // FileOutputStream fs = null;
+
                 try{
                     fos = openFileOutput(sFileName, MODE_PRIVATE);
-//                    fs = openFileOutput("emails.txt", MODE_PRIVATE);
-//                    fs.write(("maria@gmail.com\n" +
-//                            "suka@gmail.com\n" +
-//                            "hoda@gmail.com\n" +
-//                            "jessica@gmail.com\n" +
-//                            "troy@gmail.com\n" +
-//                            "norbert@gmail.com\n" +
-//                            "igor@gmail.com\n" +
-//                            "marianna@gmail.com\n" +
-//                            "yeji@gmail.com\n" +
-//                            "priyanka@gmail.com").getBytes());
+                    fs = openFileOutput("emails.txt", MODE_PRIVATE);
+                    fs.write(("maria@gmail.com\n" +
+                            "suka@gmail.com\n" +
+                            "hoda@gmail.com\n" +
+                            "jessica@gmail.com\n" +
+                            "troy@gmail.com\n" +
+                            "norbert@gmail.com\n" +
+                            "igor@gmail.com\n" +
+                            "marianna@gmail.com\n" +
+                            "yeji@gmail.com\n" +
+                            "priyanka@gmail.com").getBytes());
+                    try {
+                        fis = openFileInput("emails.txt");
+                        InputStreamReader isr = new InputStreamReader(fis);
+                        BufferedReader br = new BufferedReader(isr);
+                        StringBuilder sb = new StringBuilder();
+                        String txt;
+
+                        while ((txt = br.readLine()) !=null)
+                        {
+                            if (txt.contains(curGuest.toLowerCase()))
+                            {
+                                cur_email = txt;
+                                System.out.println("Current guest email found");
+                            }
+                            sb.append(txt).append("\n");
+                        }
+
+                        if (cur_email == null)
+                        {
+                            cur_email = "No email available";
+                        }
+
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     String invitation = "\tInvitation to: "+curGuest;
                     String ev_name = "\tEvent Name: " + eventName;
                     fos.write(invitation.getBytes());
@@ -691,7 +730,24 @@ public class InviteActivity extends AppCompatActivity {
         finish();
     }
 
+    /*
+     * FUNCTION   : goToInviteActivity()
+     * DESCRIPTION: This function simply redirects us to to the
+     * invitation screen - content_invite.xml, which corres-
+     * ponds with InviteActivity.
+     * PARAMETERS : NONE
+     * RETURNS    : NONE
+     */
+    public void updDb(View view){
+        //to update the menu items
+        PartyGuestDB inviteDB = new PartyGuestDB(this);
+        inviteDB.updateGuest(eventID, curGuest);
 
+        PartyPlannerDB db = new PartyPlannerDB(this);
+        List<String> tmp = db.getEvents().get(Integer.parseInt(eventID));
+        tmp.set(PartyPlannerDB.COL_MENU_INDEX, curGuest);
+        db.updateEvent(tmp);
+    }
 
     /*
      * FUNCTION   : hideKeyboard

@@ -34,4 +34,6 @@
     <color name="purple_btn">#A569BD </color>
     <color name="pink_btn">#F48FB1</color>
     <color name="grey_btn">#AEB6BF</color>
+    <color name="evDetsColor">#DFE3EE</color>
+    <color name="updColor">#ffe6ba</color>
 </resources>

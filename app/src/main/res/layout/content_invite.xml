@@ -180,22 +180,32 @@
 
     <Button
         android:id="@+id/prevPageBtn"
-        android:layout_width="151dp"
+        android:layout_width="101dp"
         android:layout_height="65dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="510dp"
         android:onClick="backToList"
         android:textColor="@color/backBtnColor"
-        android:text=" back to guest list"
+        android:text="back"
         app:backgroundTint="@color/light_gray_pink" />
-
+<Button
+    android:layout_width="120dp"
+    android:layout_height="65dp"
+    android:id="@+id/upd"
+    android:text="Update &amp; Save"
+    android:backgroundTint="@color/updColor"
+    android:textColor="@color/purple_200"
+    android:layout_marginTop="511dp"
+    android:layout_marginLeft="131dp"
+    android:onClick="updDb"
+    />
 
     <Button
 
         android:id="@+id/sendBtn"
-        android:layout_width="170dp"
+        android:layout_width="140dp"
         android:layout_height="65dp"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="255dp"
         android:layout_marginTop="510dp"
 
         android:text="send invitation"

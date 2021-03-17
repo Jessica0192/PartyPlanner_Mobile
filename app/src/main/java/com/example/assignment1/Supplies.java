@@ -14,6 +14,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,8 +48,14 @@ public class Supplies extends AppCompatActivity{
     private CheckBox invitations = null;
     private Button save = null;
     private SharedPreferences savedValues = null;
+    private String eventID = "";
+    private String mySuppliesUpdateItems = "";
     SharedPreferences supplyStorage;
     public static final String TAG = "supplies";
+
+    //instantiate the database
+    PartySupplyDB dbHelper = null;
+    PartySupplyDB db = null;
 
     /*  -- Function Header Comment
 	Name	:   onCreate()
@@ -71,7 +79,7 @@ public class Supplies extends AppCompatActivity{
 
         //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
         Intent updateSupplyIntent = getIntent();
-        String eventID = updateSupplyIntent.getStringExtra("eventID");
+        eventID = updateSupplyIntent.getStringExtra("eventID");
         Log.d(TAG, "'Supply' =========event ID===========" + eventID); // test log msg
         ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -98,30 +106,37 @@ public class Supplies extends AppCompatActivity{
                 //result.append("Selected Items:");
                 if (balloons.isChecked()) {
                     result.append("balloons");
+                    mySuppliesUpdateItems = mySuppliesUpdateItems +  balloons + ", ";
                 }
                 if (cake.isChecked()) {
                     result.append("/");
                     result.append("cake");
+                    mySuppliesUpdateItems = mySuppliesUpdateItems + cake + ", ";
                 }
                 if (flowers.isChecked()) {
                     result.append("/");
                     result.append("flowers");
+                    mySuppliesUpdateItems = mySuppliesUpdateItems + flowers + ", ";
                 }
                 if (cups.isChecked()) {
                     result.append("/");
                     result.append("cups");
+                    mySuppliesUpdateItems = mySuppliesUpdateItems + cups + ", ";
                 }
                 if (cutlery.isChecked()) {
                     result.append("/");
                     result.append("cutlery");
+                    mySuppliesUpdateItems = mySuppliesUpdateItems + cutlery + ", ";
                 }
                 if (candle.isChecked()) {
                     result.append("/");
                     result.append("candle");
+                    mySuppliesUpdateItems = mySuppliesUpdateItems + candle + ", ";
                 }
                 if (invitations.isChecked()) {
                     result.append("/");
                     result.append("invitations");
+                    mySuppliesUpdateItems = mySuppliesUpdateItems + invitations + ", ";
                 }
                 //Displaying the message on the toast
                 Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
@@ -176,6 +191,33 @@ public class Supplies extends AppCompatActivity{
     {
         //go back to creation event
         finish();
+    }
+
+
+    /*  -- Function Header Comment
+    Name	:   backToEventDetails(View view)
+    Purpose :   To let the user back to the event details page
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    public void backToEventDetails(View view)
+    {
+        Intent eventDetailsIntent = new Intent(view.getContext(), com.example.assignment1.EventListActivity.class);
+        startActivity(eventDetailsIntent);
+    }
+
+    /*  -- Function Header Comment
+    Name	:   saveUpdate(View view)
+    Purpose :   To save the update
+    Inputs	:	View     view
+    Outputs	:	NONE
+    Returns	:	NONE
+    */
+    public void saveUpdate(View view)
+    {
+        //to update the supplies items
+        db.updateSupply(eventID, mySuppliesUpdateItems);
     }
 
 

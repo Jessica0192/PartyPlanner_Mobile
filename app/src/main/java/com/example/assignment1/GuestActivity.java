@@ -92,6 +92,7 @@ public class GuestActivity extends AppCompatActivity {
     //LOG_TAG that we'll use for logging
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
 
+    private String eventID = "";
 
     //NEW THING
     SQLiteOpenHelper dbHelper = null;
@@ -122,6 +123,11 @@ public class GuestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //set the content of what we see
         setContentView(R.layout.choose_guests);
+
+        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        Intent updateGuestIntent = getIntent();
+        eventID = updateGuestIntent.getStringExtra("eventID");
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         //find the list view in our xml by id
         guestList=findViewById(R.id.guestList);
@@ -237,6 +243,7 @@ public class GuestActivity extends AppCompatActivity {
     public void goToInviteActivity(){
         //go to the invitation screen
         Intent intent = new Intent(this, InviteActivity.class);
+        intent.putExtra("eventID", eventID);
         startActivity(intent);
     }
 

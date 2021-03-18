@@ -427,8 +427,11 @@ public class InviteActivity extends AppCompatActivity {
                         //string object where we'll get data from a text file
                         String txt;
 
+                        //read from a text file containing guests emails
+                        //line by line
                         while ((txt = br.readLine()) !=null)
                         {
+                            //look
                             if (txt.contains(curGuest.toLowerCase()))
                             {
                                 cur_email = txt;
@@ -685,15 +688,15 @@ public class InviteActivity extends AppCompatActivity {
     }
 
     /*
-     * FUNCTION   : goToInviteActivity()
-     * DESCRIPTION: This function simply redirects us to to the
-     * invitation screen - content_invite.xml, which corres-
-     * ponds with InviteActivity.
-     * PARAMETERS : NONE
+     * FUNCTION   : updDb()
+     * DESCRIPTION: This function is called whenever the user wants to
+     * update guest information about existing event. We instantiate a new
+     * database and insert a new guest to the guest table.
+     * PARAMETERS : View view
      * RETURNS    : NONE
      */
     public void updDb(View view){
-        //to update the menu items
+        //to update the guest items
         PartyGuestDB inviteDB = new PartyGuestDB(this);
         inviteDB.updateGuest(eventID, curGuest);
 
@@ -701,8 +704,8 @@ public class InviteActivity extends AppCompatActivity {
         List<String> tmp = db.getEvents().get(Integer.parseInt(eventID));
         tmp.set(PartyPlannerDB.COL_MENU_INDEX, curGuest);
         db.updateEvent(tmp);
-        Toast.makeText(InviteActivity.this, "Updated Event Info", Toast.LENGTH_SHORT).show();
-      //  Toast.makeText( InviteActivity.this,"Updated Event Info"Toast.LENGTH_LONG).show();
+        Toast.makeText(InviteActivity.this, "Updated Event Information", Toast.LENGTH_SHORT).show();
+
     }
 
     /*

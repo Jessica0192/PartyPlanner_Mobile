@@ -254,13 +254,17 @@
         android:textColor="#696969"
         android:gravity="center_horizontal"/>
 
-    <Button
-        android:id="@+id/saveBtn"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40sp"
+        android:orientation="horizontal">
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="@string/SAVE"
+        android:text="BACK"
         android:backgroundTint="#CD5C5C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -268,6 +272,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.912" />
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:layout_marginLeft="60dp"
+            android:text="@string/SAVE"
+            android:backgroundTint="#CD5C5C"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.912" />
+    </LinearLayout>
 
 </LinearLayout>
 </ScrollView>

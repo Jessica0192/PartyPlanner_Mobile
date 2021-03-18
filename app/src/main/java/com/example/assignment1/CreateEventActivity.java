@@ -221,6 +221,38 @@ public class CreateEventActivity extends MainActivity {
 
 
 
+        Button backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+           /*
+            * FUNCTION: onClick
+            * DESCRIPTION:
+            *      This function is called when BACK button is clicked
+            * PARAMETER:
+            *      View v: the view within the AdapterView that was clicked
+            * RETURNS:
+            *      void: there's no return value
+            */
+           @Override
+           public void onClick(View v) {
+               SharedPreferences suppliesSp = getApplicationContext().getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
+               SharedPreferences menuSp = getApplicationContext().getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
+               SharedPreferences guestSp = getApplicationContext().getSharedPreferences("GuestPrefs", Context.MODE_PRIVATE);
+
+               suppliesSp.edit().clear().commit();
+               menuSp.edit().clear().commit();
+               guestSp.edit().clear().commit();
+
+               address.setText("");
+               eventName.setText("");
+               menu.setText("");
+               supplies.setText("");
+
+               finish();
+           }
+       });
+
+
+
         addGuests = findViewById(R.id.btnAddGuests);
         addGuests.setOnClickListener(new View.OnClickListener(){
             /*

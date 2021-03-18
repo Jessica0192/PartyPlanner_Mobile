@@ -117,8 +117,6 @@ public class ViewEventActivity extends EventListActivity {
                 String value= eventID.getText().toString();
                 int eventNum=Integer.parseInt(value) - 1;
                 String tmp = db.getEventDetails(eventNum);
-                Log.d(TAG, "eventNum: "+eventNum);
-                Log.d(TAG, tmp);
                 if ( tmp == "<NO DATA>")
                 {
                     eventDetails.setText("There is no event yet");

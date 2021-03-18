@@ -58,9 +58,9 @@ import java.util.List;
 
 /*
  * FILE          : InviteActivity.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #2
  * PROGRAMMER    : Maria Malinina
- * FIRST VERSION : 2020-02-10
+ * FIRST VERSION : 2020-03-12
  * DESCRIPTION   :
  * This file contains the functionality behind the content_invite.xml screen.
  * This is where the user selected the guest he wants to invite to the party
@@ -71,6 +71,15 @@ import java.util.List;
  * with the guest we want to send invitation to, different UI handling and simple
  * on-click events for the button to send invitation and going back to the guest
  * list.
+ * An AsyncTask can be found in this file, which is run in the background when
+ * the user is trying to invite the guest. When the user click on the "Send Invita-
+ * tion" button, he is presented with "loading" screen of progress bar (also infor-
+ * ming him about where the invitation is sent - to which email, if the current guest
+ * has an email), and once the invitation is sent, the user is informed that the invi-
+ * tation sending process was successful. In case this is not a new event, and the user
+ * went to the event details page, stated the event id to update event information and add
+ * a new guest, the user can click on the "Update & Save" button to update the guest table
+ * in our database and assign a new guest to the guests table.
  */
 
 
@@ -111,6 +120,7 @@ public class InviteActivity extends AppCompatActivity {
     //have to be able to hide the keyboard once the user
     //entered all the info
     EditText eventName;
+    String evName ="";
 
     SQLiteDatabase db = null;
     private static String DB_NAME = "PartyPlanner.db";
@@ -309,21 +319,9 @@ public class InviteActivity extends AppCompatActivity {
 
 
         btnThread=(Button)findViewById(R.id.sendBtn);
-        // btntask=(Button)findViewById(R.id.btntsk);
-
-        //  btntask.setOnClickListener(new OnClickListener() {
-//
-        //          @Override
-        //        public void onClick(View arg0) {
-///
-
-        //start myTast
-
-        //             new MyTask(MainActivity.this).execute();
+        // using a thread to start a process on the button
 
 
-        //       }
-        //  });
 
 
         //set a listener when we click on item to handle the on click event
@@ -338,31 +336,6 @@ public class InviteActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View arg0) {
-
-
-                //progress
-//                //progress dialog
-//                progressDialog = new ProgressDialog(InviteActivity.this);
-//                progressDialog.setMessage("Sending Invitation..."); // Setting Message
-//                progressDialog.setTitle("ProgressDialog"); // Setting Title
-//                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-//                progressDialog.show(); // Display Progress Dialog
-//                progressDialog.setCancelable(false);
-//                new Thread(new Runnable() {
-//                    public void run() {
-//                        try {
-//                            Thread.sleep(10000);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                        progressDialog.dismiss();
-//                    }
-//                }).start();
-
-
-                //new
-
-                //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
@@ -384,75 +357,50 @@ public class InviteActivity extends AppCompatActivity {
                 //apply changes
                 editor.apply();
 
-
-//                try {
-//
-//                    //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
-//                  //  String sql =
-//                    //        "INSERT or replace INTO "+ COL_GUEST +" (INVITATION_STATUS_CODE) VALUES(1) WHERE NAME=''" ;
-//                    db.execSQL("UPDATE "+COL_GUEST+" SET INVITATION_STATUS_CODE = 1"+ "WHERE NAME = "+ curGuest);
-//                   // db.execSQL(sql);
-//                }
-//                catch (Exception e) {
-//                    //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
-//                }
-
-                //task here
-                //       new Task_for_invitation_activity().execute();
+                //instantiate a new intance of the asynchronous task
                 Task_for_invitation_activity mytask = new Task_for_invitation_activity(InviteActivity.this);
-
+                //start task execution
                 mytask.execute();
-                // mytask.wait(10);
+
+                //update the invitation card file name to indicate which guest is getting the invitation card
+                // (we create an invitation card once the user clicked on the "send invitation" button, the invitation
+                // card is a text file that can be found if we go to the "View" tab -> "Tool Windows" -> "Device File Explorer"
+                // go to the "data" folder, then to another "data" folder inside this folder, then to the folder called
+                // "com.example.assignment1", then to the folder "files", and there we can find text files "Invitation_Card_For_*guest name*"),
+                //as well as the file called "emails.txt", where we retrieve the guests' emails from
                 sFileName +=curGuest + ".txt";
+
+                //before we can start generating different files such as invitation cards as text files, we need to ask user to grant us permissions,
+                //otherwise android doesn't let you proceed with FILE IO, as it is internal. So if it is the first time the user uses the app, we
+                // will get the permissions granted so that we can generate files
                 if (ContextCompat.checkSelfPermission(InviteActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted
+                    // check if the permissions are not granted
                     if (ActivityCompat.shouldShowRequestPermissionRationale(InviteActivity.this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        // Show an explanation to the user *asynchronously* -- don't block
-                        // this thread waiting for the user's response! After the user
-                        // sees the explanation, try again to request the permission.
+                        // inform the user about the permissions being requested, this process
+                        //is being executed asynchronously
                     } else {
-                        // No explanation needed; request the permission
+                        //request the permissions
                         ActivityCompat.requestPermissions(InviteActivity.this,
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                     }
                 }
 
+                //string that will grab the email of the current guest that we want to send
+                //invitation to (if the guest has an email available)
                 String cur_email = null;
+
+                //file input stream that will enable us to read the file containing the emails
+                //and get information from there
                 FileInputStream fis = null;
                 FileOutputStream fs = null;
-//                try {
-//                    fis = openFileInput("emails.txt");
-//                    InputStreamReader isr = new InputStreamReader(fis);
-//                    BufferedReader br = new BufferedReader(isr);
-//                    StringBuilder sb = new StringBuilder();
-//                    String txt;
-//
-//                    while ((txt = br.readLine()) !=null)
-//                    {
-//                        if (txt.contains(curGuest.toLowerCase()))
-//                        {
-//                            cur_email = txt;
-//                            System.out.println("Current guest email found");
-//                        }
-//                        sb.append(txt).append("\n");
-//                    }
-//
-//                    if (cur_email == null)
-//                    {
-//                        cur_email = "No email available";
-//                    }
-//
-//
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
-
+                //output stream with help of which we will be able to write data to a file -
+                //as we need to produce an invitation card for the user
                 FileOutputStream fos = null;
 
+
+                //first, let's deal with guests' emails
                 try{
                     fos = openFileOutput(sFileName, MODE_PRIVATE);
                     fs = openFileOutput("emails.txt", MODE_PRIVATE);
@@ -467,37 +415,58 @@ public class InviteActivity extends AppCompatActivity {
                             "yeji@gmail.com\n" +
                             "priyanka@gmail.com").getBytes());
                     try {
+                        //open the file containing the guests' emails for reading
                         fis = openFileInput("emails.txt");
+
+                        //instantiate an input stream reader so that we'll be abl to read
+                        //the guests' emails from the text file
                         InputStreamReader isr = new InputStreamReader(fis);
+
+                        //implement the buffered reader
                         BufferedReader br = new BufferedReader(isr);
+
+                        //instantiate a sting builder object to grab strings from the file
                         StringBuilder sb = new StringBuilder();
+
+                        //string object where we'll get data from a text file
                         String txt;
 
+                        //read from a text file containing guests emails
+                        //line by line
                         while ((txt = br.readLine()) !=null)
                         {
+                            //look for the selected guest's email in the email list
                             if (txt.contains(curGuest.toLowerCase()))
                             {
+                                //save the guest's email
                                 cur_email = txt;
                                 System.out.println("Current guest email found");
                             }
+
+                            //append a new line so that we'll be able to go through
+                            //the file's data one line at a time
                             sb.append(txt).append("\n");
                         }
 
+                        //check just in case if there is no email for this guest in the list
                         if (cur_email == null)
                         {
+                            //inform
                             cur_email = "No email available";
                         }
 
-
+                    //catch all the exceptions
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //put all the necessary information in the invitation card file
                     String invitation = "\tInvitation to: "+curGuest;
-                    String ev_name = "\tEvent Name: " + eventName;
+                    String ev_name = "\tEvent Name: " + evName;
                     fos.write(invitation.getBytes());
 
+                    //we use getBytes() to appropriately append information to the file
                     fos.write("\n".getBytes());
                     fos.write(("\tGuest Email: " + cur_email).getBytes());
                     fos.write("\n".getBytes());
@@ -506,6 +475,8 @@ public class InviteActivity extends AppCompatActivity {
                     EditText description  = findViewById(R.id.descrEditText);
 
                     String str_descr;
+
+                    //if there is no event description available, inform the user
                     if (description.getText().toString() == null)
                     {
                         str_descr = "*no description or message available*";
@@ -515,6 +486,7 @@ public class InviteActivity extends AppCompatActivity {
                         str_descr = description.getText().toString();
                     }
 
+                    //add other details
                     String full_descr = "\tEvent Description: " + str_descr;
                     fos.write(full_descr.getBytes());
                     fos.write("\n".getBytes());
@@ -527,7 +499,11 @@ public class InviteActivity extends AppCompatActivity {
                     String ev_addr = "\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + item;
                     fos.write(ev_addr.getBytes());
                     fos.write("\n".getBytes());
+
+                    //print out the information
                     System.out.println("File being processed, trying to save to " + getFilesDir() + "/" + sFileName);
+
+                    //catch all the exceptions
                 }catch (FileNotFoundException e){
                     e.printStackTrace();
 
@@ -545,114 +521,8 @@ public class InviteActivity extends AppCompatActivity {
                     }
                 }
 
-
-
+                //inform the user what email we are sending the invitation to
                 Toast.makeText(InviteActivity.this, "Sending Invitation to " + cur_email, Toast.LENGTH_LONG).show();
-
-
-
-
-//Find the view by its id
-               ////// TextView tv = (TextView)findViewById(R.id.text_view);
-
-//Set the text
-            //    tv.setText(text.toString());
-                //BEGINNING OF THE FILE NAME
-
-//                File file = new File("C:\\MAD\\music.txt"); //initialize File object and passing path as argument
-//                boolean result;
-//                try
-//                {
-//                    result = file.createNewFile();  //creates a new file
-//                    if(result)      // test if successfully created a new file
-//                    {
-//                        System.out.println("file created "+file.getCanonicalPath()); //returns the path string
-//                    }
-//                    else
-//                    {
-//                        System.out.println("File already exist at location: "+file.getCanonicalPath());
-//                    }
-//                }
-//                catch (IOException e)
-//                {
-//                    e.printStackTrace();    //prints exception if any
-//                    System.out.println("Error in file creation");
-//                }
-//
-//                try {
-//                    FileOutputStream fileout=openFileOutput(sFileName, MODE_PRIVATE);
-//                    OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-//                    outputWriter.write("HELLO");
-//                    outputWriter.close();
-//                    //display file saved message
-//                    Toast.makeText(getBaseContext(), "File saved successfully!",
-//                            Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//                try {
-//                    File root = new File(Environment.getExternalStorageDirectory(), "Notes");
-//                    if (!root.exists()) {
-//                        root.mkdirs();
-//                    }
-//                    File gpxfile = new File(root, sFileName);
-//                    FileWriter writer = new FileWriter(gpxfile);
-//
-//                    writer.append("\tInvitation to: "+curGuest);
-//                    writer.append("\n");
-//                    writer.append("\tEvent Name: " + eventName);
-//                    writer.append("\n");
-//                    EditText description  = findViewById(R.id.descrEditText);
-//
-//                    String str_descr;
-//                    if (description.getText().toString() == null)
-//                    {
-//                        str_descr = "*no description or message available*";
-//                    }
-//                    else
-//                    {
-//                        str_descr = description.getText().toString();
-//                    }
-//
-//                    writer.append("\tEvent Description: " + str_descr);
-//                    writer.append("\n");
-//                    TextView sel_date  = findViewById(R.id.selectDate);
-//                    writer.append("\tEvent Date: " + sel_date.getText().toString());
-//                    writer.append("\n");
-//                    EditText addr = findViewById(R.id.addr);
-//                    EditText city = findViewById(R.id.city);
-//                    writer.append("\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + item);
-//                    writer.append("\n");
-//                    writer.flush();
-//                    writer.close();
-//                    Toast.makeText(InviteActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                ////END OF FILE THING
-
-
-//                try {
-//                    Thread.sleep(5 * 1000);
-//                } catch (InterruptedException ie) {
-//                    Thread.currentThread().interrupt();
-//                }
-//                final Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        // Do something after 5s = 5000ms
-//                    }
-//                }, 5000);
-
-                //          mytask.cancel(true);
-                // mytask.onPostExecute();
-
-
-                //inform the user that the invitation has been sent
-                //Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -682,7 +552,7 @@ public class InviteActivity extends AppCompatActivity {
         SharedPreferences sp2 = getApplicationContext().getSharedPreferences("Saved Values", MODE_PRIVATE);
 
         //get the event name value that we filled in in the event creation screen
-        String evName = sp2.getString("eventName","");
+        evName = sp2.getString("eventName","");
 
         //find the edit text that is used for the event name by id
         EditText evNameEdit = findViewById(R.id.inviteEditText);
@@ -731,15 +601,15 @@ public class InviteActivity extends AppCompatActivity {
     }
 
     /*
-     * FUNCTION   : goToInviteActivity()
-     * DESCRIPTION: This function simply redirects us to to the
-     * invitation screen - content_invite.xml, which corres-
-     * ponds with InviteActivity.
-     * PARAMETERS : NONE
+     * FUNCTION   : updDb()
+     * DESCRIPTION: This function is called whenever the user wants to
+     * update guest information about existing event. We instantiate a new
+     * database and insert a new guest to the guest table.
+     * PARAMETERS : View view
      * RETURNS    : NONE
      */
     public void updDb(View view){
-        //to update the menu items
+        //to update the guest items
         PartyGuestDB inviteDB = new PartyGuestDB(this);
         inviteDB.updateGuest(eventID, curGuest);
 
@@ -747,6 +617,8 @@ public class InviteActivity extends AppCompatActivity {
         List<String> tmp = db.getEvents().get(Integer.parseInt(eventID));
         tmp.set(PartyPlannerDB.COL_MENU_INDEX, curGuest);
         db.updateEvent(tmp);
+        Toast.makeText(InviteActivity.this, "Updated Event Information", Toast.LENGTH_SHORT).show();
+
     }
 
     /*
@@ -809,17 +681,28 @@ public class InviteActivity extends AppCompatActivity {
 
 
 
-    // new class
-
+    /*
+     * NAME     :   Task_for_invitation_activity
+     * PURPOSE :    Task_for_invitation_activity class contains the functionality of the AsyncTask to have a progress bar
+     *              AsyncTask  is for helper class around Thread and Handler
+     */
     public class Task_for_invitation_activity extends AsyncTask<Void, Integer, Void> {
 
+        //a boolean variable indicating if the task is cancelled or no
         private boolean isCancelled = false;
+        //the context of the task
         Context context;
+
+        //task handler
         Handler handler;
+
+        //dialog that we'll display
         Dialog dialog;
-        TextView txtprogrss;
+
+        //progress dialog we'll display when the sending invitation process
+        //is in progress
         ProgressBar progressDialog;
-        Button btnCancel;
+       // Button btnCancel;
 
         Task_for_invitation_activity(Context context, Handler handler){
             this.context=context;
@@ -847,67 +730,16 @@ public class InviteActivity extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             // dialog.addContentView(progressDialog, InviteActivity.this);
             dialog.setContentView(progressDialog);
-          //  txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
-           // txtprogrss.setText("Sending Invitation...");
-           // txtprogrss.setVisibility(View.VISIBLE);
-           // progressDialog.setIndeterminate(true);
-           // ((RelativeLayout.LayoutParams) viewToLayout.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.below_id);
-          //  TextView up = new TextView(txtprogrss.getContext());
-           // up.setText("Sending...");
-           // dialog.setContentView(up);
-//            RelativeLayout.LayoutParams paramUp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-//            paramUp.addRule(RelativeLayout.CENTER_IN_PARENT);
-//            RelativeLayout layout= findViewById(R.id.mylayout);
-//            layout.addView(up,paramUp);
-
-            //  progress=(ProgressBar)dialog.findViewById(progress);
-
-            btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
-//
-//            btnCancel.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View arg0) {
-//
-//
-//                    Task_for_invitation_activity.this.cancel(true);
-//                }
-//            });
-
-            //where to show the dialog???
 
 
-            //dialog.setIndeterminate(true);
+           // btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
+
             dialog.setCancelable(true);
-//            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//                @Override
-//                public void onCancel(DialogInterface dialog) {
-//                    Task_for_invitation_activity.this.cancel(true);
-//                    Toast.makeText(InviteActivity.this,"AsyncTask is stopped",Toast.LENGTH_LONG).show();
-//                    dialog.dismiss();
-//                    Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
-//
-//
-//                    // Hide the progress bar
-//                    progressDialog.setVisibility(ProgressBar.INVISIBLE);
-//                }
-//            });
+
 
             dialog.show();
 
-//            try {
-//                Thread.sleep(5 * 1000);
-//            } catch (InterruptedException ie) {
-//                Thread.currentThread().interrupt();
-//            }
-//            final Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    // Do something after 5s = 5000ms
-//                }
-//            }, 5000);
-            //         dialog.dismiss();
+
         }
 
 

@@ -1,6 +1,6 @@
 /*
  *   FILE: CreateEventActivity.java
- *   Project: A1
+ *   Project: A2
  *   PROGRAMMER: Jessica Sim
  *   FIRST VERSION: 2021-02-12
  *   DESCRIPTION:

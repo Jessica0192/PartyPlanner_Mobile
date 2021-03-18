@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     FILE: activity_create_event.xml
-    Project: A1
+    Project: A2
     PROGRAMMER: Jessica Sim
-    FIRST VERSION: 2021-02-12
+    FIRST VERSION: 2021-03-10
     DESCRIPTION:
         This file contains the design of the page to create event. It has various of widget such as
         EditText, dropdown(spinner), button. It is a linear layout and has scrollview to
@@ -106,11 +106,11 @@
                 android:textAlignment="center"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45sp"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45sp"
+                android:orientation="horizontal">
             <TextView
                 android:id="@+id/dateAsterisk"
                 android:layout_width="match_parent"

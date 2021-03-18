@@ -34,44 +34,8 @@
         android:background="@color/pink_background"
         android:listSelector="@color/colorAccent">
 
+
     </ListView>
-
-<Button
-    android:id="@+id/viewEvDets"
-    android:layout_height="156dp"
-    android:layout_width="140dp"
-    android:layout_marginLeft="107dp"
-    android:layout_marginTop="652dp"
-    android:onClick="viewEvDets"
-    android:text="event details"
-    android:textColor="@color/pink"
-    android:backgroundTint="@color/evDetsColor"
-    />
-
-    <Button
-        android:id="@+id/inviteBtn"
-        android:layout_width="156dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="243dp"
-        android:layout_marginTop="500dp"
-        android:onClick="addToWaitList"
-        android:layout_alignBottom="@id/guestList"
-        android:text="Invite"
-        app:backgroundTint="@color/light_gray_green" />
-
-
-
-    <Button
-        android:id="@+id/backToEventBtn"
-        android:layout_width="106dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-
-        android:layout_alignBottom="@id/guestList"
-        android:onClick="backToEventCreation"
-        android:text="Back"
-        app:backgroundTint="@color/pink" />
 
 
 
@@ -107,5 +71,35 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|bottom"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/backToEventBtn"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:onClick="backToEventCreation"
+            android:text="Back"
+            app:backgroundTint="@color/pink" />
+        <Button
+            android:id="@+id/viewEvDets"
+            android:layout_width="134dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/evDetsColor"
+            android:onClick="viewEvDets"
+            android:text="Details"
+            android:textColor="@color/pink" />
+        <Button
+            android:id="@+id/inviteBtn"
+            android:layout_marginLeft="5dp"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:onClick="addToWaitList"
+            android:text="Invite"
+            app:backgroundTint="@color/light_gray_green" />
 
+    </LinearLayout>
 </RelativeLayout>

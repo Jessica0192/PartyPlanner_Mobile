@@ -36,6 +36,14 @@
 
     </ListView>
 
+
+   <Button
+       android:id="@+id/viewDets"
+       android:layout_height="126dp"
+       android:layout_width="140dp"
+       android:layout_marginTop="655dp"
+       android:layout_marginLeft="110dp"
+       />
 <Button
     android:id="@+id/viewEvDets"
     android:layout_height="156dp"
@@ -65,8 +73,6 @@
         android:id="@+id/backToEventBtn"
         android:layout_width="106dp"
         android:layout_height="80dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
 
         android:layout_alignBottom="@id/guestList"
         android:onClick="backToEventCreation"

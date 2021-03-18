@@ -58,9 +58,9 @@ import java.util.List;
 
 /*
  * FILE          : InviteActivity.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #2
  * PROGRAMMER    : Maria Malinina
- * FIRST VERSION : 2020-02-10
+ * FIRST VERSION : 2020-03-12
  * DESCRIPTION   :
  * This file contains the functionality behind the content_invite.xml screen.
  * This is where the user selected the guest he wants to invite to the party
@@ -71,6 +71,12 @@ import java.util.List;
  * with the guest we want to send invitation to, different UI handling and simple
  * on-click events for the button to send invitation and going back to the guest
  * list.
+ * An AsyncTask can be found in this file, which is run in the background when
+ * the user is trying to invite the guest. When the user click on the "Send Invita-
+ * tion" button, he is presented with "loading" screen of progress bar (also infor-
+ * ming him about where the invitation is sent - to which email, if the current guest
+ * has an email), and once the invitation is sent, the user is informed that the invi-
+ * tation sending process was successful.
  */
 
 
@@ -309,21 +315,9 @@ public class InviteActivity extends AppCompatActivity {
 
 
         btnThread=(Button)findViewById(R.id.sendBtn);
-        // btntask=(Button)findViewById(R.id.btntsk);
-
-        //  btntask.setOnClickListener(new OnClickListener() {
-//
-        //          @Override
-        //        public void onClick(View arg0) {
-///
-
-        //start myTast
-
-        //             new MyTask(MainActivity.this).execute();
+        // using a thread to start a process on the button
 
 
-        //       }
-        //  });
 
 
         //set a listener when we click on item to handle the on click event
@@ -338,31 +332,6 @@ public class InviteActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View arg0) {
-
-
-                //progress
-//                //progress dialog
-//                progressDialog = new ProgressDialog(InviteActivity.this);
-//                progressDialog.setMessage("Sending Invitation..."); // Setting Message
-//                progressDialog.setTitle("ProgressDialog"); // Setting Title
-//                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-//                progressDialog.show(); // Display Progress Dialog
-//                progressDialog.setCancelable(false);
-//                new Thread(new Runnable() {
-//                    public void run() {
-//                        try {
-//                            Thread.sleep(10000);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                        progressDialog.dismiss();
-//                    }
-//                }).start();
-
-
-                //new
-
-                //  db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
@@ -384,75 +353,50 @@ public class InviteActivity extends AppCompatActivity {
                 //apply changes
                 editor.apply();
 
-
-//                try {
-//
-//                    //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
-//                  //  String sql =
-//                    //        "INSERT or replace INTO "+ COL_GUEST +" (INVITATION_STATUS_CODE) VALUES(1) WHERE NAME=''" ;
-//                    db.execSQL("UPDATE "+COL_GUEST+" SET INVITATION_STATUS_CODE = 1"+ "WHERE NAME = "+ curGuest);
-//                   // db.execSQL(sql);
-//                }
-//                catch (Exception e) {
-//                    //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
-//                }
-
-                //task here
-                //       new Task_for_invitation_activity().execute();
+                //instantiate a new intance of the asynchronous task
                 Task_for_invitation_activity mytask = new Task_for_invitation_activity(InviteActivity.this);
-
+                //start task execution
                 mytask.execute();
-                // mytask.wait(10);
+
+                //update the invitation card file name to indicate which guest is getting the invitation card
+                // (we create an invitation card once the user clicked on the "send invitation" button, the invitation
+                // card is a text file that can be found if we go to the "View" tab -> "Tool Windows" -> "Device File Explorer"
+                // go to the "data" folder, then to another "data" folder inside this folder, then to the folder called
+                // "com.example.assignment1", then to the folder "files", and there we can find text files "Invitation_Card_For_*guest name*"),
+                //as well as the file called "emails.txt", where we retrieve the guests' emails from
                 sFileName +=curGuest + ".txt";
+
+                //before we can start generating different files such as invitation cards as text files, we need to ask user to grant us permissions,
+                //otherwise android doesn't let you proceed with FILE IO, as it is internal. So if it is the first time the user uses the app, we
+                // will get the permissions granted so that we can generate files
                 if (ContextCompat.checkSelfPermission(InviteActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-                    // Permission is not granted
+                    // check if the permissions are not granted
                     if (ActivityCompat.shouldShowRequestPermissionRationale(InviteActivity.this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        // Show an explanation to the user *asynchronously* -- don't block
-                        // this thread waiting for the user's response! After the user
-                        // sees the explanation, try again to request the permission.
+                        // inform the user about the permissions being requested, this process
+                        //is being executed asynchronously
                     } else {
-                        // No explanation needed; request the permission
+                        //request the permissions
                         ActivityCompat.requestPermissions(InviteActivity.this,
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
                     }
                 }
 
+                //string that will grab the email of the current guest that we want to send
+                //invitation to (if the guest has an email available)
                 String cur_email = null;
+
+                //file input stream that will enable us to read the file containing the emails
+                //and get information from there
                 FileInputStream fis = null;
                 FileOutputStream fs = null;
-//                try {
-//                    fis = openFileInput("emails.txt");
-//                    InputStreamReader isr = new InputStreamReader(fis);
-//                    BufferedReader br = new BufferedReader(isr);
-//                    StringBuilder sb = new StringBuilder();
-//                    String txt;
-//
-//                    while ((txt = br.readLine()) !=null)
-//                    {
-//                        if (txt.contains(curGuest.toLowerCase()))
-//                        {
-//                            cur_email = txt;
-//                            System.out.println("Current guest email found");
-//                        }
-//                        sb.append(txt).append("\n");
-//                    }
-//
-//                    if (cur_email == null)
-//                    {
-//                        cur_email = "No email available";
-//                    }
-//
-//
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
-
+                //output stream with help of which we will be able to write data to a file -
+                //as we need to produce an invitation card for the user
                 FileOutputStream fos = null;
 
+
+                //first, let's deal with guests' emails
                 try{
                     fos = openFileOutput(sFileName, MODE_PRIVATE);
                     fs = openFileOutput("emails.txt", MODE_PRIVATE);
@@ -467,10 +411,20 @@ public class InviteActivity extends AppCompatActivity {
                             "yeji@gmail.com\n" +
                             "priyanka@gmail.com").getBytes());
                     try {
+                        //open the file containing the guests' emails for reading
                         fis = openFileInput("emails.txt");
+
+                        //instantiate an input stream reader so that we'll be abl to read
+                        //the guests' emails from the text file
                         InputStreamReader isr = new InputStreamReader(fis);
+
+                        //implement the buffered reader
                         BufferedReader br = new BufferedReader(isr);
+
+                        //instantiate a sting builder object to grab strings from the file
                         StringBuilder sb = new StringBuilder();
+
+                        //string object where we'll get data from a text file
                         String txt;
 
                         while ((txt = br.readLine()) !=null)
@@ -747,6 +701,8 @@ public class InviteActivity extends AppCompatActivity {
         List<String> tmp = db.getEvents().get(Integer.parseInt(eventID));
         tmp.set(PartyPlannerDB.COL_MENU_INDEX, curGuest);
         db.updateEvent(tmp);
+        Toast.makeText(InviteActivity.this, "Updated Event Info", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText( InviteActivity.this,"Updated Event Info"Toast.LENGTH_LONG).show();
     }
 
     /*

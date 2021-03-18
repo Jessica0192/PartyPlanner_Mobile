@@ -1,11 +1,12 @@
 /*
  * FILE          : Menu.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #2
  * PROGRAMMER    : Hoda Akrami
  * FIRST VERSION : 2020-02-10
  * DESCRIPTION   : This file contains the functionality behind the menu.xml file.
  *                 When the user is presented with this screen, he had a list view of menu,
  *                 he can select the type of food that he wants to serve in his party and save it.
+ *                 Also, he can save the update if he wish and back to event details page.
  */
 
 package com.example.assignment1;
@@ -69,14 +70,12 @@ public class Menu extends AppCompatActivity {
         mainDish = findViewById(R.id.checkbox_mainDish);
         dessert = findViewById(R.id.checkbox_dessert);
 
-        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        //Passed event id from ViewEventActivity
         Intent updateMenuIntent = getIntent();
         eventID = updateMenuIntent.getStringExtra("eventID");
         Log.d(TAG, "'Menu' =========event ID===========" + eventID); // test log msg
-        ////////////////////////////////////////////////////////////////////////////////////////
 
         menuStorage = getSharedPreferences("MenuSelected", Context.MODE_PRIVATE);
-
         menuStorage.edit().clear().apply();
 
         Button saveBtn = findViewById(R.id.saveBtn);
@@ -116,8 +115,6 @@ public class Menu extends AppCompatActivity {
                     result.append("/");
                     result.append("dessert");
                 }
-                //Displaying the message on the toast
-                //Toast.makeText(getApplicationContext(), "Menu item  selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = menuStorage.edit();
@@ -190,6 +187,7 @@ public class Menu extends AppCompatActivity {
     */
     public void saveUpdate(View view)
     {
+        //to check if the item is selected, if yes, append to the string
         if (drink.isChecked()) {
             myMenuUpdateItems = ( myMenuUpdateItems == "") ? "drink" : myMenuUpdateItems + ",drink";
         }
@@ -278,7 +276,8 @@ public class Menu extends AppCompatActivity {
 
     /*
      * NAME     :    Task_for_menu
-     * PURPOSE :    Menu class contains the functionality of the AsyncTask
+     * PURPOSE :    Task_for_menu class contains the functionality of the AsyncTask to have a progress bar
+     *              AsyncTask  is for helper class around Thread and Handler
      */
     public class Task_for_menu extends AsyncTask<Void, Integer, Void>
     {
@@ -290,18 +289,28 @@ public class Menu extends AppCompatActivity {
         ProgressBar progressDialog;
         Button btnCancel;
 
+        //constructor
         Task_for_menu(Context context, Handler handler)
         {
             this.context=context;
             this.handler=handler;
         }
 
+        //constructor
         Task_for_menu(Context context)
         {
             this.context=context;
             this.handler=handler;
         }
 
+
+        /*  -- Function Header Comment
+        Name	:   onPreExecute()
+        Purpose :   This function is called to provides a way of decoupling task submission from the mechanics of how task runs
+        Inputs	:	NONE
+        Outputs	:	NONE
+        Returns	:	NONE
+        */
         @Override
         protected void onPreExecute()
         {
@@ -313,19 +322,22 @@ public class Menu extends AppCompatActivity {
             dialog=new Dialog(context);
             dialog.setCancelable(true);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            // dialog.addContentView(progressDialog, InviteActivity.this);
             dialog.setContentView(progressDialog);
-            //txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
-            //  progress=(ProgressBar)dialog.findViewById(progress);
 
             btnCancel=(Button)dialog.findViewById(R.id.saveBtn);
-
             dialog.setCancelable(true);
-
             dialog.show();
         }
 
 
+        /*  -- Function Header Comment
+        Name	:   doInBackground(Void... arg0)
+        Purpose :   This function is called right after onPreExecute finishes and
+                    uses the background thread. This is where you’ll doing your work.
+        Inputs	:	Void... arg0
+        Outputs	:	NONE
+        Returns	:	NONE
+        */
         @Override
         protected Void doInBackground(Void... arg0)
         {
@@ -335,16 +347,13 @@ public class Menu extends AppCompatActivity {
                 {
                     isCancelled = true;
                     dialog.dismiss();
-
                     //hide the progress bar
                     progressDialog.setVisibility(ProgressBar.INVISIBLE);
-
                     break;
                 }
                 else
                 {
                     Log.e("In Background","current value;"+ i);
-
                     isCancelled = false;
 
                     try
@@ -361,6 +370,14 @@ public class Menu extends AppCompatActivity {
             return null;
         }
 
+
+        /*  -- Function Header Comment
+        Name	:   onProgressUpdate(Integer... values)
+        Purpose :   is called on the UI thread and is used to display progress to the user while the task is running
+        Inputs	:	Integer... values
+        Outputs	:	NONE
+        Returns	:	NONE
+        */
         @Override
         protected void onProgressUpdate(Integer... values)
         {
@@ -369,19 +386,25 @@ public class Menu extends AppCompatActivity {
             for (int i = 0; i < 10; i++)
             {}
             dialog.dismiss();
-            //Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
-
             // Hide the progress bar
             progressDialog.setVisibility(ProgressBar.INVISIBLE);
         }
 
+        /*  -- Function Header Comment
+        Name	:   onPostExecute(Void result)
+        Purpose :   is called right after ‘doInBackground’ finishes and uses the UI thread.
+        Inputs	:	Void result
+        Outputs	:	NONE
+        Returns	:	NONE
+        */
         @Override
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
 
             dialog.dismiss();
-            Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+            //Displaying the message on the toast
+            Toast.makeText(context, "Menu item  selected has been saved!", Toast.LENGTH_LONG).show();
 
             // Hide the progress bar
             progressDialog.setVisibility(ProgressBar.INVISIBLE);

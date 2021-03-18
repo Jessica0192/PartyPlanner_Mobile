@@ -335,7 +335,7 @@ public class PartyPlannerDB {
         {
             eventCount ++;
         }
-        if( eventID> eventCount || eventID < 0)
+        if( eventID>= eventCount || eventID < 0)
         {
             return "<INVALID ID>";
         }

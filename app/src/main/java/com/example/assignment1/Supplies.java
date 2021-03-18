@@ -251,6 +251,10 @@ public class Supplies extends AppCompatActivity{
         tmp.set(PartyPlannerDB.COL_SUPPLY_INDEX, mySuppliesUpdateItems);
         db.updateEvent(tmp);
 
+        // call the task
+        Supplies.Task_for_supplies mytask= new Supplies.Task_for_supplies(Supplies.this);
+        mytask.execute();
+
     }
 
 

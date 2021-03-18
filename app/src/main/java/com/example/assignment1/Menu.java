@@ -212,6 +212,10 @@ public class Menu extends AppCompatActivity {
         tmp.set(PartyPlannerDB.COL_MENU_INDEX, myMenuUpdateItems);
         db.updateEvent(tmp);
 
+        // call the task
+        Menu.Task_for_menu mytask= new Menu.Task_for_menu(Menu.this);
+        mytask.execute();
+
     }
 
     /*  -- Function Header Comment

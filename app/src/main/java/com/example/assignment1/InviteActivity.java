@@ -431,26 +431,33 @@ public class InviteActivity extends AppCompatActivity {
                         //line by line
                         while ((txt = br.readLine()) !=null)
                         {
-                            //look
+                            //look for the selected guest's email in the email list
                             if (txt.contains(curGuest.toLowerCase()))
                             {
+                                //save the guest's email
                                 cur_email = txt;
                                 System.out.println("Current guest email found");
                             }
+
+                            //append a new line so that we'll be able to go through
+                            //the file's data one line at a time
                             sb.append(txt).append("\n");
                         }
 
+                        //check just in case if there is no email for this guest in the list
                         if (cur_email == null)
                         {
+                            //inform
                             cur_email = "No email available";
                         }
 
-
+                    //catch all the exceptions
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //put all the necessary information in the invitation card file
                     String invitation = "\tInvitation to: "+curGuest;
                     String ev_name = "\tEvent Name: " + eventName;
                     fos.write(invitation.getBytes());
@@ -768,17 +775,28 @@ public class InviteActivity extends AppCompatActivity {
 
 
 
-    // new class
-
+    /*
+     * NAME     :   Task_for_invitation_activity
+     * PURPOSE :    Task_for_invitation_activity class contains the functionality of the AsyncTask to have a progress bar
+     *              AsyncTask  is for helper class around Thread and Handler
+     */
     public class Task_for_invitation_activity extends AsyncTask<Void, Integer, Void> {
 
+        //a boolean variable indicating if the task is cancelled or no
         private boolean isCancelled = false;
+        //the context of the task
         Context context;
+
+        //task handler
         Handler handler;
+
+        //dialog that we'll display
         Dialog dialog;
-        TextView txtprogrss;
+
+        //progress dialog we'll display when the sending invitation process
+        //is in progress
         ProgressBar progressDialog;
-        Button btnCancel;
+       // Button btnCancel;
 
         Task_for_invitation_activity(Context context, Handler handler){
             this.context=context;
@@ -806,67 +824,16 @@ public class InviteActivity extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             // dialog.addContentView(progressDialog, InviteActivity.this);
             dialog.setContentView(progressDialog);
-          //  txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
-           // txtprogrss.setText("Sending Invitation...");
-           // txtprogrss.setVisibility(View.VISIBLE);
-           // progressDialog.setIndeterminate(true);
-           // ((RelativeLayout.LayoutParams) viewToLayout.getLayoutParams()).addRule(RelativeLayout.BELOW, R.id.below_id);
-          //  TextView up = new TextView(txtprogrss.getContext());
-           // up.setText("Sending...");
-           // dialog.setContentView(up);
-//            RelativeLayout.LayoutParams paramUp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-//            paramUp.addRule(RelativeLayout.CENTER_IN_PARENT);
-//            RelativeLayout layout= findViewById(R.id.mylayout);
-//            layout.addView(up,paramUp);
-
-            //  progress=(ProgressBar)dialog.findViewById(progress);
-
-            btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
-//
-//            btnCancel.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View arg0) {
-//
-//
-//                    Task_for_invitation_activity.this.cancel(true);
-//                }
-//            });
-
-            //where to show the dialog???
 
 
-            //dialog.setIndeterminate(true);
+           // btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
+
             dialog.setCancelable(true);
-//            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//                @Override
-//                public void onCancel(DialogInterface dialog) {
-//                    Task_for_invitation_activity.this.cancel(true);
-//                    Toast.makeText(InviteActivity.this,"AsyncTask is stopped",Toast.LENGTH_LONG).show();
-//                    dialog.dismiss();
-//                    Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
-//
-//
-//                    // Hide the progress bar
-//                    progressDialog.setVisibility(ProgressBar.INVISIBLE);
-//                }
-//            });
+
 
             dialog.show();
 
-//            try {
-//                Thread.sleep(5 * 1000);
-//            } catch (InterruptedException ie) {
-//                Thread.currentThread().interrupt();
-//            }
-//            final Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    // Do something after 5s = 5000ms
-//                }
-//            }, 5000);
-            //         dialog.dismiss();
+
         }
 
 

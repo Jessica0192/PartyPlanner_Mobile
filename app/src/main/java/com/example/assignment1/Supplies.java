@@ -1,11 +1,12 @@
 /*
  * FILE          : Supplies.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #2
  * PROGRAMMER    : Hoda Akrami
  * FIRST VERSION : 2020-02-10
  * DESCRIPTION   : This file contains the functionality behind the supply.xml file.
  *                 When the user is presented with this screen, he had a list view of supplies,
  *                 he can select the item that he wants to use in his party and save it.
+ *                 Also, he can save the update if he wish and back to event details page.
  */
 
 package com.example.assignment1;
@@ -55,10 +56,6 @@ public class Supplies extends AppCompatActivity{
     SharedPreferences supplyStorage;
     public static final String TAG = "supplies";
 
-//    //instantiate the database
-//    PartySupplyDB dbHelper = null;
-//    PartySupplyDB db = null;
-
     /*  -- Function Header Comment
 	Name	:   onCreate()
 	Purpose :   This function is called when the page is loaded,
@@ -79,11 +76,10 @@ public class Supplies extends AppCompatActivity{
         candle = findViewById(R.id.checkbox_candle);
         invitations = findViewById(R.id.checkbox_invitations);
 
-        //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
+        //Passed event id from ViewEventActivity
         Intent updateSupplyIntent = getIntent();
         eventID = updateSupplyIntent.getStringExtra("eventID");
         Log.d(TAG, "'Supply' =========event ID===========" + eventID); // test log msg
-        ////////////////////////////////////////////////////////////////////////////////////////
 
         supplyStorage = getSharedPreferences("SupplySelected", Context.MODE_PRIVATE);
         supplyStorage.edit().clear().apply();
@@ -139,8 +135,6 @@ public class Supplies extends AppCompatActivity{
                     result.append("/");
                     result.append("invitations");
                 }
-                //Displaying the message on the toast
-                //Toast.makeText(getApplicationContext(), "Supply items selected has been saved! " + result.toString(), Toast.LENGTH_LONG).show();
 
                 //to save the selected items on shared preferences
                 SharedPreferences.Editor editor = supplyStorage.edit();
@@ -319,7 +313,8 @@ public class Supplies extends AppCompatActivity{
 
     /*
      * NAME     :    Task_for_supplies
-     * PURPOSE :    Menu class contains the functionality of the AsyncTask
+     * PURPOSE :    Supplies class contains the functionality of the AsyncTask class contains the functionality of the AsyncTask to have a progress bar
+     *              AsyncTask  is for helper class around Thread and Handler
      */
     public class Task_for_supplies extends AsyncTask<Void, Integer, Void>
     {
@@ -343,6 +338,14 @@ public class Supplies extends AppCompatActivity{
             this.handler=handler;
         }
 
+
+        /*  -- Function Header Comment
+        Name	:   onPreExecute()
+        Purpose :   This function is called to provides a way of decoupling task submission from the mechanics of how task runs
+        Inputs	:	NONE
+        Outputs	:	NONE
+        Returns	:	NONE
+        */
         @Override
         protected void onPreExecute()
         {
@@ -354,19 +357,22 @@ public class Supplies extends AppCompatActivity{
             dialog=new Dialog(context);
             dialog.setCancelable(true);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            // dialog.addContentView(progressDialog, InviteActivity.this);
             dialog.setContentView(progressDialog);
-            //txtprogrss = (TextView) dialog.findViewById(R.id.txtProgress);
-            //  progress=(ProgressBar)dialog.findViewById(progress);
 
             btnCancel=(Button)dialog.findViewById(R.id.saveBtn);
-
             dialog.setCancelable(true);
-
             dialog.show();
         }
 
 
+        /*  -- Function Header Comment
+        Name	:   doInBackground(Void... arg0)
+        Purpose :   This function is called right after onPreExecute finishes and
+                    uses the background thread. This is where you’ll doing your work.
+        Inputs	:	Void... arg0
+        Outputs	:	NONE
+        Returns	:	NONE
+        */
         @Override
         protected Void doInBackground(Void... arg0)
         {
@@ -402,6 +408,14 @@ public class Supplies extends AppCompatActivity{
             return null;
         }
 
+
+        /*  -- Function Header Comment
+        Name	:   onProgressUpdate(Integer... values)
+        Purpose :   is called on the UI thread and is used to display progress to the user while the task is running
+        Inputs	:	Integer... values
+        Outputs	:	NONE
+        Returns	:	NONE
+        */
         @Override
         protected void onProgressUpdate(Integer... values)
         {
@@ -410,19 +424,27 @@ public class Supplies extends AppCompatActivity{
             for (int i = 0; i < 10; i++)
             {}
             dialog.dismiss();
-            //Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
 
             // Hide the progress bar
             progressDialog.setVisibility(ProgressBar.INVISIBLE);
         }
 
+
+        /*  -- Function Header Comment
+       Name	:   onPostExecute(Void result)
+       Purpose :   is called right after ‘doInBackground’ finishes and uses the UI thread.
+       Inputs	:	Void result
+       Outputs	:	NONE
+       Returns	:	NONE
+       */
         @Override
         protected void onPostExecute(Void result)
         {
             super.onPostExecute(result);
 
             dialog.dismiss();
-            Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
+            //Displaying the message on the toast
+            Toast.makeText(context, "Supply items selected has been saved!", Toast.LENGTH_LONG).show();
 
             // Hide the progress bar
             progressDialog.setVisibility(ProgressBar.INVISIBLE);

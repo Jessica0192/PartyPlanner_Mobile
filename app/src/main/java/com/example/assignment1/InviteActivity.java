@@ -496,7 +496,7 @@ public class InviteActivity extends AppCompatActivity {
                     fos.write("\n".getBytes());
                     EditText addr = findViewById(R.id.addr);
                     EditText city = findViewById(R.id.city);
-                    String ev_addr = "\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + item;
+                    String ev_addr = "\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + spinner.getSelectedItem();
                     fos.write(ev_addr.getBytes());
                     fos.write("\n".getBytes());
 
@@ -763,7 +763,6 @@ public class InviteActivity extends AppCompatActivity {
                     //Task_for_invitation_activity.this.
                     break;
                 }else{
-                    Log.e("In Background","current value;" + i); // + i
                     // publishProgress(i);
                     isCancelled = false;
 

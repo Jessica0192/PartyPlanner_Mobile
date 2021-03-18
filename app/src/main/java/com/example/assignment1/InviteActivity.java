@@ -76,7 +76,10 @@ import java.util.List;
  * tion" button, he is presented with "loading" screen of progress bar (also infor-
  * ming him about where the invitation is sent - to which email, if the current guest
  * has an email), and once the invitation is sent, the user is informed that the invi-
- * tation sending process was successful.
+ * tation sending process was successful. In case this is not a new event, and the user
+ * went to the event details page, stated the event id to update event information and add
+ * a new guest, the user can click on the "Update & Save" button to update the guest table
+ * in our database and assign a new guest to the guests table.
  */
 
 
@@ -117,6 +120,7 @@ public class InviteActivity extends AppCompatActivity {
     //have to be able to hide the keyboard once the user
     //entered all the info
     EditText eventName;
+    String evName ="";
 
     SQLiteDatabase db = null;
     private static String DB_NAME = "PartyPlanner.db";
@@ -459,9 +463,10 @@ public class InviteActivity extends AppCompatActivity {
                     }
                     //put all the necessary information in the invitation card file
                     String invitation = "\tInvitation to: "+curGuest;
-                    String ev_name = "\tEvent Name: " + eventName;
+                    String ev_name = "\tEvent Name: " + evName;
                     fos.write(invitation.getBytes());
 
+                    //we use getBytes() to appropriately append information to the file
                     fos.write("\n".getBytes());
                     fos.write(("\tGuest Email: " + cur_email).getBytes());
                     fos.write("\n".getBytes());
@@ -470,6 +475,8 @@ public class InviteActivity extends AppCompatActivity {
                     EditText description  = findViewById(R.id.descrEditText);
 
                     String str_descr;
+
+                    //if there is no event description available, inform the user
                     if (description.getText().toString() == null)
                     {
                         str_descr = "*no description or message available*";
@@ -479,6 +486,7 @@ public class InviteActivity extends AppCompatActivity {
                         str_descr = description.getText().toString();
                     }
 
+                    //add other details
                     String full_descr = "\tEvent Description: " + str_descr;
                     fos.write(full_descr.getBytes());
                     fos.write("\n".getBytes());
@@ -491,7 +499,11 @@ public class InviteActivity extends AppCompatActivity {
                     String ev_addr = "\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + item;
                     fos.write(ev_addr.getBytes());
                     fos.write("\n".getBytes());
+
+                    //print out the information
                     System.out.println("File being processed, trying to save to " + getFilesDir() + "/" + sFileName);
+
+                    //catch all the exceptions
                 }catch (FileNotFoundException e){
                     e.printStackTrace();
 
@@ -509,114 +521,8 @@ public class InviteActivity extends AppCompatActivity {
                     }
                 }
 
-
-
+                //inform the user what email we are sending the invitation to
                 Toast.makeText(InviteActivity.this, "Sending Invitation to " + cur_email, Toast.LENGTH_LONG).show();
-
-
-
-
-//Find the view by its id
-               ////// TextView tv = (TextView)findViewById(R.id.text_view);
-
-//Set the text
-            //    tv.setText(text.toString());
-                //BEGINNING OF THE FILE NAME
-
-//                File file = new File("C:\\MAD\\music.txt"); //initialize File object and passing path as argument
-//                boolean result;
-//                try
-//                {
-//                    result = file.createNewFile();  //creates a new file
-//                    if(result)      // test if successfully created a new file
-//                    {
-//                        System.out.println("file created "+file.getCanonicalPath()); //returns the path string
-//                    }
-//                    else
-//                    {
-//                        System.out.println("File already exist at location: "+file.getCanonicalPath());
-//                    }
-//                }
-//                catch (IOException e)
-//                {
-//                    e.printStackTrace();    //prints exception if any
-//                    System.out.println("Error in file creation");
-//                }
-//
-//                try {
-//                    FileOutputStream fileout=openFileOutput(sFileName, MODE_PRIVATE);
-//                    OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-//                    outputWriter.write("HELLO");
-//                    outputWriter.close();
-//                    //display file saved message
-//                    Toast.makeText(getBaseContext(), "File saved successfully!",
-//                            Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//                try {
-//                    File root = new File(Environment.getExternalStorageDirectory(), "Notes");
-//                    if (!root.exists()) {
-//                        root.mkdirs();
-//                    }
-//                    File gpxfile = new File(root, sFileName);
-//                    FileWriter writer = new FileWriter(gpxfile);
-//
-//                    writer.append("\tInvitation to: "+curGuest);
-//                    writer.append("\n");
-//                    writer.append("\tEvent Name: " + eventName);
-//                    writer.append("\n");
-//                    EditText description  = findViewById(R.id.descrEditText);
-//
-//                    String str_descr;
-//                    if (description.getText().toString() == null)
-//                    {
-//                        str_descr = "*no description or message available*";
-//                    }
-//                    else
-//                    {
-//                        str_descr = description.getText().toString();
-//                    }
-//
-//                    writer.append("\tEvent Description: " + str_descr);
-//                    writer.append("\n");
-//                    TextView sel_date  = findViewById(R.id.selectDate);
-//                    writer.append("\tEvent Date: " + sel_date.getText().toString());
-//                    writer.append("\n");
-//                    EditText addr = findViewById(R.id.addr);
-//                    EditText city = findViewById(R.id.city);
-//                    writer.append("\tEvent Address: " + addr.getText().toString() + ", "+ city.getText().toString() + ", " + item);
-//                    writer.append("\n");
-//                    writer.flush();
-//                    writer.close();
-//                    Toast.makeText(InviteActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                ////END OF FILE THING
-
-
-//                try {
-//                    Thread.sleep(5 * 1000);
-//                } catch (InterruptedException ie) {
-//                    Thread.currentThread().interrupt();
-//                }
-//                final Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        // Do something after 5s = 5000ms
-//                    }
-//                }, 5000);
-
-                //          mytask.cancel(true);
-                // mytask.onPostExecute();
-
-
-                //inform the user that the invitation has been sent
-                //Toast.makeText(InviteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -646,7 +552,7 @@ public class InviteActivity extends AppCompatActivity {
         SharedPreferences sp2 = getApplicationContext().getSharedPreferences("Saved Values", MODE_PRIVATE);
 
         //get the event name value that we filled in in the event creation screen
-        String evName = sp2.getString("eventName","");
+        evName = sp2.getString("eventName","");
 
         //find the edit text that is used for the event name by id
         EditText evNameEdit = findViewById(R.id.inviteEditText);

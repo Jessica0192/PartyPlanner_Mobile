@@ -35,9 +35,9 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 /*
  * FILE          : GuestActivity.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #2
  * PROGRAMMER    : Maria Malinina
- * FIRST VERSION : 2020-02-10
+ * FIRST VERSION : 2020-03-12
  * DESCRIPTION   :
  * This file contains the functionality behind the choose_guests.xml screen.
  * When the user is presented with this screen, he had a list view of guests
@@ -50,6 +50,9 @@ import java.util.ArrayList;
  * wants to go back. Before going to invitation screen, we store the selected
  * guest in a shared preference variable to make sure in the invitation screen
  * we know who we are sending invitation to.
+ * We also access the eventID passed from the ViewEventActivity to be able to
+ * update the database' guest table later in case we have any updates for that.
+ * We also use adapters here.
  */
 
 
@@ -143,22 +146,6 @@ public class GuestActivity extends AppCompatActivity {
         guestList.setAdapter(arrayAdapter);
 
 
-        // db = dbHelper.getWritableDatabase();
-
-
-
-
-        //String query;
-        //query = "CREATE TABLE Guests ( id INTEGER PRIMARY KEY, guest_name TEXT)";
-        //db.execSQL(query);
-        //Log.d(LOG_TAG,"Guests Created");
-
-        // db =  SQLiteDatabase.openDatabase(DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
-        //  db = openOrCreateDatabase( "PartyPlanner.db", null, SQLiteDatabase.CREATE_IF_NECESSARY        );
-
-
-
-
         //set a listener when we click on item to handle the on click event
         guestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             /*
@@ -220,11 +207,11 @@ public class GuestActivity extends AppCompatActivity {
 
 
     /*
-     * FUNCTION   : goToInviteActivity()
+     * FUNCTION   : viewEvDets()
      * DESCRIPTION: This function simply redirects us to to the
      * invitation screen - content_invite.xml, which corres-
-     * ponds with InviteActivity.
-     * PARAMETERS : NONE
+     * ponds with ViewEventActivity.
+     * PARAMETERS : View view
      * RETURNS    : NONE
      */
     public void viewEvDets(View view){
@@ -306,28 +293,8 @@ public class GuestActivity extends AppCompatActivity {
             //we are going need to know which guest we are sending invitation
             // to in out InviteActivity
             editor.putString("cur_guest", selectedGuests.get(arraySize - 1));
-//            Text sel_guest = null;
-//            sel_guest.setData(selectedGuests.get(arraySize - 1));
-//            id_counter++;
-//
-//            try {
-//                final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "+ COL_GUEST +" ("
-//                        + "ID INTEGER primary key AUTOINCREMENT,"
-//                        + "NAME TEXT,"
-//                        + "EVENTNAME TEXT,"
-//                        + "INVITATION_STATUS_CODE INTEGER"+");";
-//                //   + "AMOUNT TEXT,"
-//                //  + "TRNS TEXT," + "isdefault TEXT);";
-//                db.execSQL(CREATE_TABLE);
-//                //   Toast.makeText(this, "table created ", Toast.LENGTH_LONG).show();
-//                String sql =
-//                        "INSERT or replace INTO "+ COL_GUEST +" (ID, NAME) VALUES(id_counter,sel_guest)" ;
-//                db.execSQL(sql);
-//            }
-//            catch (Exception e) {
-//                //     Toast.makeText(this, "ERROR "+e.toString(), Toast.LENGTH_LONG).show();
-//            }
-            //apply changes
+
+            //apply saved shared preferences
             editor.apply();
             //redirecting to the content_invite.xml screen for invitation
             goToInviteActivity();

@@ -141,8 +141,8 @@ public class InviteActivity extends AppCompatActivity {
 
 
         //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
-        Intent updateInviteIntent = getIntent();
-        eventID = updateInviteIntent.getStringExtra("eventID");
+        Intent intent = getIntent();
+        eventID = intent.getStringExtra("eventID");
         Log.d(TAG, "'Invitation' =========event ID===========" + eventID); // test log msg
         ////////////////////////////////////////////////////////////////////////////////////////
 

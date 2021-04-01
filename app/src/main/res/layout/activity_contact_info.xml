@@ -54,6 +54,7 @@
             android:layout_below="@+id/output"
             android:onClick="onClick"
             android:text="BACK"
+            android:textColor="@color/white"
             android:backgroundTint="#CD5C5C"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"/>

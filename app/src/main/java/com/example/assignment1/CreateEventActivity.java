@@ -129,6 +129,26 @@ public class CreateEventActivity extends MainActivity {
         menu = findViewById(R.id.txtMenu);
         supplies = findViewById(R.id.txtSupplies);
 
+
+        Button contactBtn = findViewById(R.id.btnContact);
+        contactBtn.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when BACK button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                Intent contact = new Intent(CreateEventActivity.this, ContactActivity.class);
+                startActivity(contact);
+            }
+        });
+
+
         //go back to events page
         Button saveBtn = findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -430,6 +450,10 @@ public class CreateEventActivity extends MainActivity {
                             }
                         })
                         .show();
+                break;
+            case R.id.contact:
+                Intent contact = new Intent(CreateEventActivity.this, ContactActivity.class);
+                startActivity(contact);
                 break;
         }
 

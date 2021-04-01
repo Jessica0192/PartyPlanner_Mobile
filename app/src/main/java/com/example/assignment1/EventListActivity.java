@@ -159,6 +159,10 @@ public class EventListActivity extends MainActivity {
                         })
                         .show();
                 break;
+            case R.id.contact:
+                Intent contact = new Intent(EventListActivity.this, ContactActivity.class);
+                startActivity(contact);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

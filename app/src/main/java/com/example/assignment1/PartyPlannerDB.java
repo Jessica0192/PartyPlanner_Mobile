@@ -123,6 +123,8 @@ public class PartyPlannerDB {
             }
         }
 
+
+
         /*
          * FUNCTION: onUpgrade
          * DESCRIPTION:
@@ -424,6 +426,99 @@ public class PartyPlannerDB {
         return rowCount;
     }
 
+
+
+
+
+    /*************************NEW******************************/
+
+
+    public long insertTask(Task task) {
+        db = dbHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COL_NAME, task.getEventName());
+        cv.put(COL_TYPE, task.getEventType());
+        cv.put(COL_DATE, task.getEventDate());
+        cv.put(COL_ADDRESS, task.getEventAddress());
+        cv.put(COL_GUEST, task.getEventGuest());
+        cv.put(COL_MENU, task.getEventMenu());
+        cv.put(COL_SUPPLY, task.getEventSupply());
+
+        long rowID = db.insert(TABLE_NAME, null, cv);
+        this.closeDB();
+
+        Log.d(TAG, cv.toString());
+
+
+
+        return rowID;
+    }
+
+
+
+    public int deleteTask(String where, String[] whereArgs) {
+        this.openWriteableDB();
+        int rowCount = db.delete(TABLE_NAME, where, whereArgs);
+        this.closeDB();
+
+        return rowCount;
+    }
+
+
+    public int deleteTask(long id) {
+        String where = COL_ID + "= ?";
+        String[] whereArgs = { String.valueOf(id) };
+
+        this.openWriteableDB();
+        int rowCount = db.delete(TABLE_NAME, where, whereArgs);
+        this.closeDB();
+
+        return rowCount;
+    }
+
+
+    public int updateTask(Task task) {
+        ContentValues cv = new ContentValues();
+        cv.put(COL_NAME, task.getEventName());
+        cv.put(COL_TYPE, task.getEventType());
+        cv.put(COL_DATE, task.getEventDate());
+        cv.put(COL_ADDRESS, task.getEventAddress());
+        cv.put(COL_GUEST, task.getEventGuest());
+        cv.put(COL_MENU, task.getEventMenu());
+        cv.put(COL_SUPPLY, task.getEventSupply());
+
+        String where = COL_ID + "= ?";
+        String[] whereArgs = { String.valueOf(task.getId()) };
+
+        this.openWriteableDB();
+        int rowCount = db.update(TABLE_NAME, cv, where, whereArgs);
+        this.closeDB();
+
+        return rowCount;
+    }
+
+    public int updateTask(ContentValues cv, String where, String[] whereArgs) {
+        this.openWriteableDB();
+        int rowCount = db.update(TABLE_NAME, cv, where, whereArgs);
+        this.closeDB();
+
+        return rowCount;
+    }
+
+    public Cursor queryTasks(String[] columns, String where,
+                             String[] whereArgs, String orderBy) {
+        this.openReadableDB();
+        Cursor cursor = db.query(TABLE_NAME, columns,
+                where, whereArgs,
+                null, null, orderBy);
+        return cursor;
+    }
+
+
+    /*************************UNTIL HERE******************************/
+
+
     /*
      * FUNCTION: updateEvent
      * DESCRIPTION:
@@ -510,5 +605,6 @@ public class PartyPlannerDB {
 
         return rowCount;
     }
+
 
 }

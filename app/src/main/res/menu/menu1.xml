@@ -4,4 +4,6 @@
         android:id="@+id/logout"/>
     <item android:title="@string/about"
         android:id="@+id/about"/>
+    <item android:title="Contact Info"
+        android:id="@+id/contact"/>
 </menu>

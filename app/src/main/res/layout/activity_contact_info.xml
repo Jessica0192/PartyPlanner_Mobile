@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp" tools:context=".ContactActivity"
+        android:background="@color/pink_background">
+
+        <TextView
+            android:id="@+id/contactInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
+            android:textColor="@color/pink"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:text="Contacts Information" />
+
+        <TextView
+            android:id="@+id/output"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/contactInfo"
+            android:layout_alignRight="@+id/contactInfo"
+            android:layout_below="@+id/contactInfo"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/grey"
+            android:text="TextView" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/output"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+        <Button
+            android:id="@+id/contactBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/output"
+            android:onClick="onClick"
+            android:text="BACK"
+            android:backgroundTint="#CD5C5C"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</ScrollView>

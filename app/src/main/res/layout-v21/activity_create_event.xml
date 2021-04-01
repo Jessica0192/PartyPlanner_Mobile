@@ -203,6 +203,39 @@
         android:textColor="#696969"
         android:gravity="center_horizontal"/>
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btnContact"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30sp"
+            android:text="Contact Info"
+            android:textColor="#4169E1"
+            app:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.912" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_marginTop="5sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:textColor="#696969"
+        android:text="Click button to see the contact info"
+        android:gravity="center_horizontal"/>
+
     <Button
         android:id="@+id/btnAddMenu"
         android:layout_width="wrap_content"

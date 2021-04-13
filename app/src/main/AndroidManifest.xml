@@ -46,7 +46,6 @@
         <activity android:name=".Menu" />
         <activity android:name = ".Supplies"/>
         <activity android:name = ".ContactActivity"/>
-
         <service
             android:name=".PartyService"
             android:enabled="true"

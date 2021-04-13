@@ -37,7 +37,7 @@ public class PartyService extends Service {
         startTimer();
 
         //real intent
-        Intent notificationIntent = new Intent(this, CreateEventActivity.class);
+        Intent notificationIntent = new Intent(PartyService.this, CreateEventActivity.class);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         int piFlag = PendingIntent.FLAG_UPDATE_CURRENT;

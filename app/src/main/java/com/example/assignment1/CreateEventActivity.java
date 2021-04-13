@@ -11,6 +11,7 @@
  */
 package com.example.assignment1;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -66,8 +67,6 @@ public class CreateEventActivity extends MainActivity {
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
 
-    //the intent that we pass to the service
-    final Intent serviceIntent = new Intent(this, PartyService.class);
 
     /*
      * FUNCTION: onCreate
@@ -84,6 +83,9 @@ public class CreateEventActivity extends MainActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
+        //the intent that we pass to the service
+        final Intent serviceIntent = new Intent(CreateEventActivity.this, PartyService.class);
 
         //to start the service
         startService(serviceIntent);
@@ -239,6 +241,9 @@ public class CreateEventActivity extends MainActivity {
                 menu.setText("");
                 supplies.setText("");
 
+                //to stop the service
+                stopService(serviceIntent);
+
                 finish();
             }
         });
@@ -270,6 +275,9 @@ public class CreateEventActivity extends MainActivity {
                eventName.setText("");
                menu.setText("");
                supplies.setText("");
+
+               //to stop the service
+               stopService(serviceIntent);
 
                finish();
            }
@@ -555,8 +563,6 @@ public class CreateEventActivity extends MainActivity {
     @Override
     public void onStop()
     {
-        //to stop the service
-        stopService(serviceIntent);
         //Log.d(TAG, "Service Stopped");
 
         Log.d(TAG, "'Create Event' Page Stopped");

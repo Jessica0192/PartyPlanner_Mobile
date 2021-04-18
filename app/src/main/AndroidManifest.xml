@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    FILE          : AndroidManifest.xml
-    PROJECT       : PROG3150 - Assignment #1
-    PROGRAMMER    : Hoda Akrami, Jessica Sim, Maria Malinina, Suka Sun
-    FIRST VERSION : 2020-02-10
-    DESCRIPTION   : Describes essential information about party app
--->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.assignment1">
@@ -13,17 +6,16 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission-sdk-23 android:name="android.permission.UPDATE_DEVICE_STATS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission-sdk-23 android:name="android.permission.UPDATE_DEVICE_STATS" />
 
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
-        android:xlargeScreens="true"
-        />
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -32,25 +24,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Assignment1">
+        <receiver
+            android:name=".My_Custom_Receiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+        <receiver
+            android:name=".My_Broadcast_Receiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name = ".EventListActivity"/>
-        <activity android:name = ".ViewEventActivity"/>
-        <activity android:name = ".CreateEventActivity"/>
-        <activity android:name = ".GuestActivity"/>
-        <activity android:name = ".InviteActivity"/>
+        <activity android:name=".EventListActivity" />
+        <activity android:name=".ViewEventActivity" />
+        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".GuestActivity" />
+        <activity android:name=".InviteActivity" />
         <activity android:name=".Menu" />
-        <activity android:name = ".Supplies"/>
-        <activity android:name = ".ContactActivity"/>
+        <activity android:name=".Supplies" />
+        <activity android:name=".ContactActivity" />
+
         <service
             android:name=".PartyService"
             android:enabled="true"
             android:exported="true" />
-
     </application>
 
 </manifest>

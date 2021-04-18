@@ -5,14 +5,18 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -95,6 +99,8 @@ import java.util.List;
  */
 public class InviteActivity extends AppCompatActivity {
 
+    // public final static String MY_BROADCAST = "com.example.mmalinina.apptest";
+
     //TAG variable indicating the current activity
     private static final String TAG = "InviteActivity";
     public static int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION =1;
@@ -129,8 +135,60 @@ public class InviteActivity extends AppCompatActivity {
     // private ProgressDialog progressDialog;
 
     private String sFileName = "Invitation_Card_For_"; //C:\\MAD\\a2\\Invitation_Card_For_"
+    My_Custom_Receiver customBroadcast = new My_Custom_Receiver();
+//    My_Broadcast_Receiver myReceiver = new My_Broadcast_Receiver();
+//    My_Broadcast_Receiver_Airplane myAirplaneReceiver = new My_Broadcast_Receiver_Airplane();
+//    My_Broadcast_Receiver_Boot myBootReceiver = new My_Broadcast_Receiver_Boot();
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+//        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+//        registerReceiver(customBroadcast, filter);
+
+//        Intent broadcastIntent = new Intent(String.valueOf(customBroadcast));
+//        broadcastIntent.putExtra("MyData", "HiFromMyIntent");
+//        sendBroadcast(broadcastIntent);
+
+        //IntentFilter myFilter = new IntentFilter(MyService.)
+// clear out classname
+        //  this.getIntent().setComponent(null);
+// do what Market/Store/Finsky should have done in the first place
+        //    List<ResolveInfo> l=InviteActivity.this.getPackageManager().queryBroadcastReceivers(this.getIntent(), 0);
+        IntentFilter filter = new IntentFilter("com.codingflow.EXAMPLE_ACTION");
+        registerReceiver(broadcastReceiver, filter);
+
+//        IntentFilter airplane_intentFilter = new
+//                IntentFilter("android.intent.action.AIRPLANE_MODE_CHANGED");
+//        airplane_intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+//        this.registerReceiver(myAirplaneReceiver, airplane_intentFilter
+//        );
+//        intentFilter.addAction("my_intent_service1"); // Action1 to filter
+//        intentFilter.addAction("my_intent_service2"); // Action2 to filter
+//        intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+//        intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
+//        intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        this.registerReceiver(customBroadcast, filter);
+
+//        this.registerReceiver(myBootReceiver, intentFilter);
+    }
 
 
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+//        this.unregisterReceiver(myReceiver);
+//        this.unregisterReceiver(myAirplaneReceiver);
+        unregisterReceiver(customBroadcast);
+
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        unregisterReceiver(customBroadcast);
+    }
 
     /*
      * FUNCTION   : onCreate()
@@ -148,6 +206,9 @@ public class InviteActivity extends AppCompatActivity {
         //content_invite screen
         setContentView(R.layout.content_invite);
 
+
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(customBroadcast, filter);
 
 
         //////////////////////////////Passed event id from ViewEventActivity///////////////////////////////////////
@@ -337,6 +398,11 @@ public class InviteActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
 
+                Intent intent = new Intent("com.codingflow.EXAMPLE_ACTION");
+                intent.putExtra("com.codingflow.EXTRA_TEXT", "Broadcast Received");
+                sendBroadcast(intent);
+
+
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
 
@@ -455,7 +521,7 @@ public class InviteActivity extends AppCompatActivity {
                             cur_email = "No email available";
                         }
 
-                    //catch all the exceptions
+                        //catch all the exceptions
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -585,6 +651,13 @@ public class InviteActivity extends AppCompatActivity {
     }
 
 
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String receivedText = intent.getStringExtra("com.codingflow.EXTRA_TEXT");
+            Toast.makeText(InviteActivity.this,"Received Text is " + receivedText, Toast.LENGTH_LONG).show();
+        }
+    };
     /*
      * FUNCTION   : backToList()
      * DESCRIPTION: This is a simple an on-click
@@ -598,6 +671,12 @@ public class InviteActivity extends AppCompatActivity {
     {
         //go back to the guests list screen
         finish();
+    }
+
+    public void sendBroadcast(View v){
+        Intent intent = new Intent("com.codingflow.EXAMPLE_ACTION");
+        intent.putExtra("com.codingflow.EXTRA_TEXT", "Broadcast received");
+        sendBroadcast(intent);
     }
 
     /*
@@ -671,6 +750,10 @@ public class InviteActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
     }
 
 
@@ -702,7 +785,7 @@ public class InviteActivity extends AppCompatActivity {
         //progress dialog we'll display when the sending invitation process
         //is in progress
         ProgressBar progressDialog;
-       // Button btnCancel;
+        // Button btnCancel;
 
         Task_for_invitation_activity(Context context, Handler handler){
             this.context=context;
@@ -732,7 +815,7 @@ public class InviteActivity extends AppCompatActivity {
             dialog.setContentView(progressDialog);
 
 
-           // btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
+            // btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
 
             dialog.setCancelable(true);
 

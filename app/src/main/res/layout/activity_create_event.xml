@@ -16,6 +16,7 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -160,16 +161,32 @@
                 android:text="*"
                 android:textSize="30sp"
                 android:textColor="#B22222"/>
+
             <EditText
                 android:id="@+id/editAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/address"
-                android:text =""
-                android:textAlignment="center"
+                android:autofillHints="Address"
                 android:ems="10"
+                android:hint="@string/address"
                 android:inputType="textPostalAddress"
-                android:autofillHints="Address" />
+                android:text=""
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/btnViewMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40sp"
+                app:backgroundTint="@color/white"
+                android:textColor="#4169E1"
+                android:text="View Map"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.87"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.326" />
         </LinearLayout>
 
         <LinearLayout

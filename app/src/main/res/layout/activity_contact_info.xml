@@ -5,14 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/pink_background">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent" android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp" tools:context=".ContactActivity"
-        android:background="@color/pink_background">
+        >
 
         <TextView
             android:id="@+id/contactInfo"
@@ -37,7 +38,7 @@
             android:gravity="center"
             android:textSize="20dp"
             android:textColor="@color/grey"
-            android:text="TextView" />
+            android:text="There's no Contact Information" />
 
         <ProgressBar
             android:id="@+id/progressBar1"

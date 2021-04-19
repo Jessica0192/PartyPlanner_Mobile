@@ -18,17 +18,22 @@ public class My_Custom_Receiver extends My_Broadcast_Receiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction()))
-        {
-            String receivedText = intent.getStringExtra("com.codingflow.EXTRA_TEXT");
-            Toast.makeText(context, receivedText, Toast.LENGTH_SHORT);
-//            boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-//            if (noConnectivity){
-//                Toast.makeText(context, "Disconnected", Toast.LENGTH_SHORT).show();
-//            }else{
-//                Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show();
-//            }
+        if ("com.example.EXAMPLE_ACTION".equals(intent.getAction())){
+            String receivedText = intent.getStringExtra("com.example.EXTRA_TEXT");
+            Toast.makeText(context, receivedText, Toast.LENGTH_SHORT).show();
         }
+
+//        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction()))
+//        {
+//            String receivedText = intent.getStringExtra("com.codingflow.EXTRA_TEXT");
+//            Toast.makeText(context, receivedText, Toast.LENGTH_SHORT);
+////            boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+////            if (noConnectivity){
+////                Toast.makeText(context, "Disconnected", Toast.LENGTH_SHORT).show();
+////            }else{
+////                Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show();
+////            }
+//        }
         //  if ("com.codingflow.EXAMPLE_ACTION".equals())
 //
 //        String myMessage = intent.getStringExtra("MyData");
@@ -41,17 +46,17 @@ public class My_Custom_Receiver extends My_Broadcast_Receiver {
 
 
 
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static boolean isAirplaneModeOn(Context context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return Settings.System.getInt(context.getContentResolver(),
-                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
-        } else {
-            return Settings.Global.getInt(context.getContentResolver(),
-                    Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
-        }
-    }
+//    @SuppressWarnings("deprecation")
+//    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+//    public static boolean isAirplaneModeOn(Context context) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//            return Settings.System.getInt(context.getContentResolver(),
+//                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+//        } else {
+//            return Settings.Global.getInt(context.getContentResolver(),
+//                    Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
+//        }
+//    }
 }
 
 //public class My_Broadcast_Receiver_Airplane extends My_Broadcast_Receiver {

@@ -1,5 +1,5 @@
 package com.example.assignment1;
-
+//THIS IS THE ONE
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -136,6 +136,7 @@ public class InviteActivity extends AppCompatActivity {
 
     private String sFileName = "Invitation_Card_For_"; //C:\\MAD\\a2\\Invitation_Card_For_"
     My_Custom_Receiver customBroadcast = new My_Custom_Receiver();
+    private TextView custom_text_view;
 //    My_Broadcast_Receiver myReceiver = new My_Broadcast_Receiver();
 //    My_Broadcast_Receiver_Airplane myAirplaneReceiver = new My_Broadcast_Receiver_Airplane();
 //    My_Broadcast_Receiver_Boot myBootReceiver = new My_Broadcast_Receiver_Boot();
@@ -143,6 +144,16 @@ public class InviteActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        IntentFilter filter = new IntentFilter("com.example.EXAMPLE_ACTION");
+        registerReceiver(broadcastReceiver, filter);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        unregisterReceiver(broadcastReceiver);
+    }
+//        super.onStart();
 //        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 //        registerReceiver(customBroadcast, filter);
 
@@ -150,13 +161,13 @@ public class InviteActivity extends AppCompatActivity {
 //        broadcastIntent.putExtra("MyData", "HiFromMyIntent");
 //        sendBroadcast(broadcastIntent);
 
-        //IntentFilter myFilter = new IntentFilter(MyService.)
+    //IntentFilter myFilter = new IntentFilter(MyService.)
 // clear out classname
-        //  this.getIntent().setComponent(null);
+    //  this.getIntent().setComponent(null);
 // do what Market/Store/Finsky should have done in the first place
-        //    List<ResolveInfo> l=InviteActivity.this.getPackageManager().queryBroadcastReceivers(this.getIntent(), 0);
-        IntentFilter filter = new IntentFilter("com.codingflow.EXAMPLE_ACTION");
-        registerReceiver(broadcastReceiver, filter);
+    //    List<ResolveInfo> l=InviteActivity.this.getPackageManager().queryBroadcastReceivers(this.getIntent(), 0);
+//        IntentFilter filter = new IntentFilter("com.codingflow.EXAMPLE_ACTION");
+//        registerReceiver(broadcastReceiver, filter);
 
 //        IntentFilter airplane_intentFilter = new
 //                IntentFilter("android.intent.action.AIRPLANE_MODE_CHANGED");
@@ -168,21 +179,21 @@ public class InviteActivity extends AppCompatActivity {
 //        intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
 //        intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
 //        intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-        this.registerReceiver(customBroadcast, filter);
+    ////  this.registerReceiver(customBroadcast, filter);
 
 //        this.registerReceiver(myBootReceiver, intentFilter);
-    }
+    //  }
 
 
-    @Override
-    protected void onStop()
-    {
-        super.onStop();
-//        this.unregisterReceiver(myReceiver);
-//        this.unregisterReceiver(myAirplaneReceiver);
-        unregisterReceiver(customBroadcast);
-
-    }
+//    @Override
+//    protected void onStop()
+//    {
+//        super.onStop();
+////        this.unregisterReceiver(myReceiver);
+////        this.unregisterReceiver(myAirplaneReceiver);
+//        unregisterReceiver(customBroadcast);
+//
+//    }
 
     @Override
     protected void onDestroy(){
@@ -206,8 +217,9 @@ public class InviteActivity extends AppCompatActivity {
         //content_invite screen
         setContentView(R.layout.content_invite);
 
+       // custom_text_view = findViewById(R.id.broadcast_view);
 
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        IntentFilter filter = new IntentFilter("com.example.EXAMPLE_ACTION");
         registerReceiver(customBroadcast, filter);
 
 
@@ -398,8 +410,8 @@ public class InviteActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
 
-                Intent intent = new Intent("com.codingflow.EXAMPLE_ACTION");
-                intent.putExtra("com.codingflow.EXTRA_TEXT", "Broadcast Received");
+                Intent intent = new Intent("com.example.EXAMPLE_ACTION");
+                intent.putExtra("com.example.EXTRA_TEXT", "Broadcast Received");
                 sendBroadcast(intent);
 
 
@@ -654,10 +666,18 @@ public class InviteActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String receivedText = intent.getStringExtra("com.codingflow.EXTRA_TEXT");
-            Toast.makeText(InviteActivity.this,"Received Text is " + receivedText, Toast.LENGTH_LONG).show();
+            String receivedText = intent.getStringExtra("com.example.EXTRA_TEXT");
+            //custom_text_view.setText(receivedText);
+            btnThread.setText("RESEND INVITATION");
         }
     };
+    //    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String receivedText = intent.getStringExtra("com.codingflow.EXTRA_TEXT");
+//            Toast.makeText(InviteActivity.this,"Received Text is " + receivedText, Toast.LENGTH_LONG).show();
+//        }
+//    };
     /*
      * FUNCTION   : backToList()
      * DESCRIPTION: This is a simple an on-click
@@ -673,11 +693,11 @@ public class InviteActivity extends AppCompatActivity {
         finish();
     }
 
-    public void sendBroadcast(View v){
-        Intent intent = new Intent("com.codingflow.EXAMPLE_ACTION");
-        intent.putExtra("com.codingflow.EXTRA_TEXT", "Broadcast received");
-        sendBroadcast(intent);
-    }
+//    public void sendBroadcast(View v){
+//        Intent intent = new Intent("com.codingflow.EXAMPLE_ACTION");
+//        intent.putExtra("com.codingflow.EXTRA_TEXT", "Broadcast received");
+//        sendBroadcast(intent);
+//    }
 
     /*
      * FUNCTION   : updDb()
@@ -899,6 +919,7 @@ public class InviteActivity extends AppCompatActivity {
             progressDialog.setVisibility(ProgressBar.INVISIBLE);
 
         }
+
 
 
 

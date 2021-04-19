@@ -36,7 +36,7 @@ import android.widget.TextView;
  */
 public class ContactActivity extends Activity  {
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS=1;
-
+    public static final String TAG = "ContactActivity";
     public TextView outputText;
 
     /*
@@ -146,7 +146,7 @@ public class ContactActivity extends Activity  {
                     String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
                     int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
                     if (hasPhoneNumber > 0) {
-                        output.append("\n First Name:" + name);
+                        output.append("\n Name:" + name);
                         // Query and loop for every phone number of the contact
                         Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[]{contact_id}, null);
                         while (phoneCursor.moveToNext()) {
@@ -168,6 +168,18 @@ public class ContactActivity extends Activity  {
             }
         }
 
+
+    /*
+     * FUNCTION: onRequestPermissionsResult
+     * DESCRIPTION:
+     *      This function is called to request the permission result
+     * PARAMETER:
+     *      int requestCode: integer value of request code
+     *      String[] permissions: string array which contains permissions
+     *      int[] grantResults: int array which contains the result of grant
+     * RETURNS:
+     *      void: there's no return value
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -175,9 +187,9 @@ public class ContactActivity extends Activity  {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     fetchContacts();
                 } else {
-                    // permission denied, boo! Disable the
+                    // permission denied! Disable the
                     // functionality that depends on this permission.
-                    Log.d("My App", "permission denied");
+                    Log.d(TAG, "permission denied");
                 }
                 return;
             }

@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -40,6 +41,9 @@ public class EventListActivity extends MainActivity {
 
     public static final String TAG = "EventListActivity";
     private TextView eventItem=null;
+    private TextClock clockItem=null;
+    private SharedPreferences savedValues = null;
+    SharedPreferences timeStorage;
     Button viewEventBtn = null;
     Button addEventBtn = null;
 
@@ -65,6 +69,20 @@ public class EventListActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
         eventItem = findViewById(R.id.txtEventItem);
+        clockItem = findViewById(R.id.txtClock);
+
+        SharedPreferences clockSettings = getApplicationContext().getSharedPreferences("TimeFormat", Context.MODE_PRIVATE);
+        if (clockSettings.getString("TimeFormat","") == "24")
+        {
+            clockItem.setFormat12Hour(null);
+            clockItem.setFormat24Hour("dd-MMM-yyyy HH:mm:ss a");
+        }
+        else
+        {
+            clockItem.setFormat12Hour("dd-MMM-yyyy hh:mm:ss a");
+            clockItem.setFormat24Hour(null);
+        }
+
 
 //        Intent eventListIntent = getIntent();
 //        String username = eventListIntent.getStringExtra("username");
@@ -163,6 +181,10 @@ public class EventListActivity extends MainActivity {
                 Intent contact = new Intent(EventListActivity.this, ContactActivity.class);
                 startActivity(contact);
                 break;
+            case R.id.settings:
+                Intent settings = new Intent(EventListActivity.this, SettingsActivity.class);
+                startActivity(settings);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -204,6 +226,20 @@ public class EventListActivity extends MainActivity {
         Log.d(TAG, "'Event List' Page Resumed");
         super.onResume();
 
+        clockItem = findViewById(R.id.txtClock);
+        SharedPreferences clockSettings = getApplicationContext().getSharedPreferences("TimeFormat", Context.MODE_PRIVATE);
+        if (  clockSettings.getString("TimeFormat","") == "24" )
+        {
+            clockItem.setFormat12Hour(null);
+            clockItem.setFormat24Hour("dd-MMM-yyyy HH:mm:ss a");
+        }
+        else
+        {
+            clockItem.setFormat12Hour("dd-MMM-yyyy hh:mm:ss a");
+            clockItem.setFormat24Hour(null);
+        }
+
+
         // Display data
         PartyPlannerDB db = new PartyPlannerDB(this);
 //        PartyMenuDB dbMenu = new PartyMenuDB(this);
@@ -218,6 +254,7 @@ public class EventListActivity extends MainActivity {
         {
             eventItem.setText(tmp.replace(";", System.getProperty("line.separator")));
         }
+
     }
 
 

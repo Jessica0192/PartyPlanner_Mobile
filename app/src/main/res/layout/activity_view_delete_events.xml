@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     FILE          : activity_view_delete_event.xml
-    PROJECT       : PROG3150 - Assignment #1
+    PROJECT       : PROG3150 - Assignment #3
     PROGRAMMER    : Suka Sun
-    FIRST VERSION : 2020-03-19
+    FIRST VERSION : 2021-04-19
     DESCRIPTION   : This file contains the user interface of the ViewEventActivity.java file.
                    When the user is presented with this screen, they can view the details of
                    an event, update info of guests, menu, and supplies, and delete an event.

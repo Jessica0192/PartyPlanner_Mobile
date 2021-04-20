@@ -40,7 +40,6 @@ import java.util.ArrayList;
 public class SettingsActivity extends Activity {
     public static final String TAG = "SettingsActivity";
     private TextView timeFormat=null;
-//    SharedPreferences clockSettings;
     Button btn12hr = null;
     Button btn24hr = null;
     Button btnExit = null;
@@ -85,8 +84,6 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 SharedPreferences clockSettings = getSharedPreferences("TimeFormat", Context.MODE_PRIVATE);
                 clockSettings.edit().putString("TimeFormat", "12").apply();
-//                Intent eventListIntent = new Intent(SettingsActivity.this, EventListActivity.class);
-//                startActivity(eventListIntent);
                 finish();
             }
         });
@@ -107,8 +104,6 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 SharedPreferences clockSettings = getSharedPreferences("TimeFormat", Context.MODE_PRIVATE);
                 clockSettings.edit().putString("TimeFormat", "24").apply();
-//                Intent eventListIntent = new Intent(SettingsActivity.this, EventListActivity.class);
-//                startActivity(eventListIntent);
                 finish();
             }
         });

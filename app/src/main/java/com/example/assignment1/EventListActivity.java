@@ -1,8 +1,8 @@
 /*
  * FILE          : EventListActivity.java
- * PROJECT       : PROG3150 - Assignment #1
+ * PROJECT       : PROG3150 - Assignment #3
  * PROGRAMMER    : Suka Sun
- * FIRST VERSION : 2020-03-19
+ * FIRST VERSION : 2021-04-19
  * DESCRIPTION   : This file contains the functionality behind the activity_event_list.xml file.
  *                 The user can view summary of existing events and choose to add new event
  */

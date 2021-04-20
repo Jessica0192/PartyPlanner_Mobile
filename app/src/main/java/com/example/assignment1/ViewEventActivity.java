@@ -1,8 +1,8 @@
 /*
  * FILE          : ViewEventActivity.java
- * PROJECT       : PROG3150 - Assignment #2
+ * PROJECT       : PROG3150 - Assignment #3
  * PROGRAMMER    : Suka Sun
- * FIRST VERSION : 2020-03-19
+ * FIRST VERSION : 2021-04-19
  * DESCRIPTION   : This file contains the functionality behind the activity_view_delete_events.xml file.
  *                 The user can select an event, view event details, updated information for guests,
  *                 menu items, and supply items, and delete the event.

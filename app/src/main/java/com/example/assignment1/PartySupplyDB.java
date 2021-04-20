@@ -1,8 +1,8 @@
 /*
  * FILE          : PartySupplyDB.java
- * PROJECT       : PROG3150 - Assignment #2
+ * PROJECT       : PROG3150 - Assignment #3
  * PROGRAMMER    : Suka Sun
- * FIRST VERSION : 2020-03-19
+ * FIRST VERSION : 2021-04-19
  * DESCRIPTION   : This file contains the definition and functions of the supplyInfo table
  *                 in the PartyPlanner database
  */

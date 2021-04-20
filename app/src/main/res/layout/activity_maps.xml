@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--
+    FILE          : activity_maps.xml
+    PROJECT       : PROG3150 - Assignment #1
+    PROGRAMMER    : Suka Sun
+    FIRST VERSION : 2020-03-19
+    DESCRIPTION   : This file contains the user interface of the MapActivity.java file.
+                   When the user is presented with this screen, they can view the map.
+-->
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"

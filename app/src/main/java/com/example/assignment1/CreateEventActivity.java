@@ -11,12 +11,14 @@
  */
 package com.example.assignment1;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -39,7 +41,10 @@ import java.util.GregorianCalendar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 /*
  * NAME     :    CreateEventActivity
@@ -63,6 +68,7 @@ public class CreateEventActivity extends MainActivity {
     private final DatePickerDialog.OnDateSetListener callbackMethod = null;
     private SharedPreferences savedValues = null;
     private SharedPreferences menuValues = null;
+    private int MAP_REQUEST_CODE = 1;
     Button viewMap = null;
 
     SQLiteOpenHelper dbHelper = null;
@@ -413,7 +419,7 @@ public class CreateEventActivity extends MainActivity {
             }
         });
 
-        // Add event
+        // Option to view map
         viewMap = (Button) findViewById(R.id.btnViewMap);
         viewMap.setOnClickListener(new View.OnClickListener() {
             /*
@@ -427,11 +433,30 @@ public class CreateEventActivity extends MainActivity {
              */
             @Override
             public void onClick(View v) {
-                Intent viewMapIntent = new Intent(v.getContext(), MapsActivity.class);
-                startActivity(viewMapIntent);
+                if (ContextCompat.checkSelfPermission(CreateEventActivity.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
+                {
+                    Toast.makeText(CreateEventActivity.this, "You have already grated this permission",
+                            Toast.LENGTH_SHORT).show();
+                    Intent viewMapIntent = new Intent(v.getContext(), MapsActivity.class);
+                    startActivity(viewMapIntent);
+                }
+                else {
+                    requestMapsPermission();
+                    if (ContextCompat.checkSelfPermission(CreateEventActivity.this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED)
+                    {
+                        Intent viewMapIntent = new Intent(v.getContext(), MapsActivity.class);
+                        startActivity(viewMapIntent);
+                    }
+                    else
+                    {
+                        Intent createEventIntent = new Intent(v.getContext(), CreateEventActivity.class);
+                        startActivity(createEventIntent);
+                    }
+                }
             }
         });
-
 
     }
 
@@ -646,4 +671,50 @@ public class CreateEventActivity extends MainActivity {
         im.hideSoftInputFromWindow(et.getWindowToken(), 0);
     }
 
+
+    /*
+     * FUNCTION: requestMapsPermission
+     * DESCRIPTION:
+     *      This function is called to request permission for map access
+     * PARAMETER:
+     *      None
+     * RETURNS:
+     *      void: there's no return value
+     */
+    private void requestMapsPermission()
+    {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
+        {
+            new AlertDialog.Builder(this)
+                    .setTitle("Permission needed")
+                    .setMessage("This permission is needed because the map will access your current location.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(CreateEventActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MAP_REQUEST_CODE);
+                        }
+                    })
+                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},MAP_REQUEST_CODE);
+        }
+    }
+//    @Override
+//    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == MAP_REQUEST_CODE) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 }
+
+

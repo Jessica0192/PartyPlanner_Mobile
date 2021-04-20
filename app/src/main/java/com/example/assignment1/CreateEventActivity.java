@@ -63,6 +63,7 @@ public class CreateEventActivity extends MainActivity {
     private final DatePickerDialog.OnDateSetListener callbackMethod = null;
     private SharedPreferences savedValues = null;
     private SharedPreferences menuValues = null;
+    Button viewMap = null;
 
     SQLiteOpenHelper dbHelper = null;
     SQLiteDatabase db = null;
@@ -409,6 +410,25 @@ public class CreateEventActivity extends MainActivity {
             public void onClick(View v) {
                 showDateDialog();
 
+            }
+        });
+
+        // Add event
+        viewMap = (Button) findViewById(R.id.btnViewMap);
+        viewMap.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when Add Event button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
+                Intent viewMapIntent = new Intent(v.getContext(), MapsActivity.class);
+                startActivity(viewMapIntent);
             }
         });
 

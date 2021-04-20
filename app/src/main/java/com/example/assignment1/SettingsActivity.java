@@ -43,6 +43,7 @@ public class SettingsActivity extends Activity {
 //    SharedPreferences clockSettings;
     Button btn12hr = null;
     Button btn24hr = null;
+    Button btnExit = null;
 
     /*
      * FUNCTION: onCreate
@@ -90,7 +91,7 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        // 12 hrs format
+        // 24 hrs format
         btn24hr = (Button) findViewById(R.id.btn24hr);
         btn24hr.setOnClickListener(new View.OnClickListener() {
             /*
@@ -108,6 +109,24 @@ public class SettingsActivity extends Activity {
                 clockSettings.edit().putString("TimeFormat", "24").apply();
 //                Intent eventListIntent = new Intent(SettingsActivity.this, EventListActivity.class);
 //                startActivity(eventListIntent);
+                finish();
+            }
+        });
+
+        // Exit
+        btnExit = (Button) findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            /*
+             * FUNCTION: onClick
+             * DESCRIPTION:
+             *      This function is called when View Event Details button is clicked
+             * PARAMETER:
+             *      View v: the view within the AdapterView that was clicked
+             * RETURNS:
+             *      void: there's no return value
+             */
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

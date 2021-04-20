@@ -24,10 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Assignment1">
-        <receiver
-            android:name=".My_Custom_Receiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
+
         <receiver
             android:name=".My_Broadcast_Receiver"
             android:enabled="true"

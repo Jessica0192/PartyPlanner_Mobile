@@ -62,7 +62,7 @@ import java.util.List;
 
 /*
  * FILE          : InviteActivity.java
- * PROJECT       : PROG3150 - Assignment #2
+ * PROJECT       : PROG3150 - Assignment #3
  * PROGRAMMER    : Maria Malinina
  * FIRST VERSION : 2020-03-12
  * DESCRIPTION   :
@@ -84,6 +84,11 @@ import java.util.List;
  * went to the event details page, stated the event id to update event information and add
  * a new guest, the user can click on the "Update & Save" button to update the guest table
  * in our database and assign a new guest to the guests table.
+ * The idea of broadcasts is implemented here as well, here we have a custom broadcast that
+ * start receiving when the user send the invitation to someone. When the user clicks on the
+ * "Send Invitation", the broadcast receiver dynamically changes the button tag from "Send
+ * Invitation" to "Resend Invitation" and starts receiving, we log the messages from this
+ * activity to indicate when the broadcasts was being received and when it was received.
  */
 
 
@@ -103,6 +108,7 @@ public class InviteActivity extends AppCompatActivity {
 
     //TAG variable indicating the current activity
     private static final String TAG = "InviteActivity";
+    private static final String BROADCAST_TAG = "CustomBroadcast";
     public static int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION =1;
 
     //shared preferences object to store the guests we sent invitations to
@@ -134,70 +140,55 @@ public class InviteActivity extends AppCompatActivity {
     private Button btnThread;//btntask;
     // private ProgressDialog progressDialog;
 
-    private String sFileName = "Invitation_Card_For_"; //C:\\MAD\\a2\\Invitation_Card_For_"
-    My_Custom_Receiver customBroadcast = new My_Custom_Receiver();
-    private TextView custom_text_view;
-//    My_Broadcast_Receiver myReceiver = new My_Broadcast_Receiver();
-//    My_Broadcast_Receiver_Airplane myAirplaneReceiver = new My_Broadcast_Receiver_Airplane();
-//    My_Broadcast_Receiver_Boot myBootReceiver = new My_Broadcast_Receiver_Boot();
+    private String sFileName = "Invitation_Card_For_"; //name for the invitation card
+    My_Custom_Receiver customBroadcast = new My_Custom_Receiver(); //instantiate an object
+    //of the custom broadcast receiver
 
+
+    /*
+     * FUNCTION   : onStart()
+     * DESCRIPTION: This function is called when the application starts, here we need
+     * to register our custom broadcast to handle it appropriately.
+     * RETURNS    : NONE
+     */
     @Override
     protected void onStart(){
         super.onStart();
+
+        //instantiate a new intent object referencing our package name
         IntentFilter filter = new IntentFilter("com.example.EXAMPLE_ACTION");
+
+        //register the broadcast receiver
         registerReceiver(broadcastReceiver, filter);
     }
 
+
+    /*
+     * FUNCTION   : onStop()
+     * DESCRIPTION: This function is called when the application stops, here we need
+     * to unregister our custom broadcast to handle it appropriately.
+     * RETURNS    : NONE
+     */
     @Override
     protected void onStop(){
         super.onStop();
+
+        //unregister the custom broadcast receiver
         unregisterReceiver(broadcastReceiver);
     }
-//        super.onStart();
-//        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-//        registerReceiver(customBroadcast, filter);
-
-//        Intent broadcastIntent = new Intent(String.valueOf(customBroadcast));
-//        broadcastIntent.putExtra("MyData", "HiFromMyIntent");
-//        sendBroadcast(broadcastIntent);
-
-    //IntentFilter myFilter = new IntentFilter(MyService.)
-// clear out classname
-    //  this.getIntent().setComponent(null);
-// do what Market/Store/Finsky should have done in the first place
-    //    List<ResolveInfo> l=InviteActivity.this.getPackageManager().queryBroadcastReceivers(this.getIntent(), 0);
-//        IntentFilter filter = new IntentFilter("com.codingflow.EXAMPLE_ACTION");
-//        registerReceiver(broadcastReceiver, filter);
-
-//        IntentFilter airplane_intentFilter = new
-//                IntentFilter("android.intent.action.AIRPLANE_MODE_CHANGED");
-//        airplane_intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-//        this.registerReceiver(myAirplaneReceiver, airplane_intentFilter
-//        );
-//        intentFilter.addAction("my_intent_service1"); // Action1 to filter
-//        intentFilter.addAction("my_intent_service2"); // Action2 to filter
-//        intentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-//        intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
-//        intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-    ////  this.registerReceiver(customBroadcast, filter);
-
-//        this.registerReceiver(myBootReceiver, intentFilter);
-    //  }
 
 
-//    @Override
-//    protected void onStop()
-//    {
-//        super.onStop();
-////        this.unregisterReceiver(myReceiver);
-////        this.unregisterReceiver(myAirplaneReceiver);
-//        unregisterReceiver(customBroadcast);
-//
-//    }
-
+    /*
+     * FUNCTION   : onDestroy()
+     * DESCRIPTION: This function is called when the application is destroyed, here we need
+     * to unregister our custom broadcast to handle it appropriately.
+     * RETURNS    : NONE
+     */
     @Override
     protected void onDestroy(){
         super.onDestroy();
+
+        //unregister the custom broadcast receiver
         unregisterReceiver(customBroadcast);
     }
 
@@ -235,7 +226,7 @@ public class InviteActivity extends AppCompatActivity {
         //establish a new list object
         List<String> provinces = new ArrayList<>();
 
-        //add all Candian provinces to the list array
+        //add all Canadian provinces to the list array
         provinces.add(0, "Choose Province");
         provinces.add("Alberta");
         provinces.add("British Columbia");
@@ -409,11 +400,20 @@ public class InviteActivity extends AppCompatActivity {
              */
             @Override
             public void onClick(View arg0) {
-
+                //instantiate a new intent object with our package name
                 Intent intent = new Intent("com.example.EXAMPLE_ACTION");
-                intent.putExtra("com.example.EXTRA_TEXT", "Broadcast Received");
+
+                //instantiate a special EXTRA_TEXT object that we defined in our custom broadcast
+                intent.putExtra("com.example.EXTRA_TEXT", "Broadcasting invitation...");
+
+                //log the receiving broadcast process
+                Log.d(TAG, BROADCAST_TAG + ": Receiving Custom Broadcast...");
+
+                //sending broadcast
                 sendBroadcast(intent);
 
+                //log the message indicating that we received the custom broadcast
+                Log.d(TAG, BROADCAST_TAG + ": Received Custom Broadcast...");
 
                 //a new editor object to edit the contents of the "GuestPrefs"
                 SharedPreferences.Editor editor = sp.edit();
@@ -435,7 +435,7 @@ public class InviteActivity extends AppCompatActivity {
                 //apply changes
                 editor.apply();
 
-                //instantiate a new intance of the asynchronous task
+                //instantiate a new instance of the asynchronous task
                 Task_for_invitation_activity mytask = new Task_for_invitation_activity(InviteActivity.this);
                 //start task execution
                 mytask.execute();

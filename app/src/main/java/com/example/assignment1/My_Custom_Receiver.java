@@ -1,5 +1,21 @@
 package com.example.assignment1;
 
+/*
+ * FILE          : My_Custom_Receiver.java
+ * PROJECT       : PROG3150 - Assignment #3
+ * PROGRAMMER    : Maria Malinina
+ * FIRST VERSION : 2020-03-12
+ * DESCRIPTION   :
+ * This file contains the functionality of the custom broadcast which receives the request
+ * when the user sends the invitation to some person. In the application, when the user goes
+ * to the invitation sending screen and sends an invitation, the broadcast is triggered and
+ * the broadcast starts receiving the request (we see a toast and a log message form both bro
+ * adcast class and toast and log message from where we instantiate and broadcast (InviteActi
+ * vity)) indicating that the broadcast is being received and after the invitation is sent and
+ * we see the toast "Invitation sent", the broadcast was received.
+ */
+
+
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,95 +27,40 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
+
+/*
+ * NAME     :   My_Custom_Receiver
+ * PURPOSE :    My_Custom_Receiver class is used to send custom broadcasts. It listens
+ * for requests and handles the invitation sending requests.
+ */
 public class My_Custom_Receiver extends My_Broadcast_Receiver {
 
+
+    //tag of this class that we're going to log it with
     private static final String TAG = "CustomBroadcastReceiver";
 
+
+    /*
+     * FUNCTION   : onReceive()
+     * DESCRIPTION: This function is triggered whenever the user send an invitation
+     * to someone.
+     * PARAMETERS : Context context,
+     *              Intent intent
+     * RETURNS    : NONE
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        //If the action received by the current page is sending invitation (
+        // as we registered our receiver in InviteActivity), then the broadcast
+        //starts to function and we make a toast and a log message indicating
+        // that the broadcast is being received and we are broadcasting invitation
         if ("com.example.EXAMPLE_ACTION".equals(intent.getAction())){
             String receivedText = intent.getStringExtra("com.example.EXTRA_TEXT");
             Toast.makeText(context, receivedText, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, receivedText);
         }
 
-//        if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction()))
-//        {
-//            String receivedText = intent.getStringExtra("com.codingflow.EXTRA_TEXT");
-//            Toast.makeText(context, receivedText, Toast.LENGTH_SHORT);
-////            boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-////            if (noConnectivity){
-////                Toast.makeText(context, "Disconnected", Toast.LENGTH_SHORT).show();
-////            }else{
-////                Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show();
-////            }
-//        }
-        //  if ("com.codingflow.EXAMPLE_ACTION".equals())
-//
-//        String myMessage = intent.getStringExtra("MyData");
-//        Log.d("PartyPlanner", myMessage);
-
-
-
-
     }
-
-
-
-//    @SuppressWarnings("deprecation")
-//    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-//    public static boolean isAirplaneModeOn(Context context) {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            return Settings.System.getInt(context.getContentResolver(),
-//                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
-//        } else {
-//            return Settings.Global.getInt(context.getContentResolver(),
-//                    Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
-//        }
-//    }
 }
 
-//public class My_Broadcast_Receiver_Airplane extends My_Broadcast_Receiver {
-//
-//    private static final String TAG = "AirplaneReceiver";
-//
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//
-//        if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(intent.getAction())){
-//
-//            String actionString = intent.getAction();
-//            Toast.makeText(context, actionString, Toast.LENGTH_LONG).show();
-//
-//            int isOn = 0;
-//            isOn = Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0);
-//
-//            if (isOn !=0)
-//            {
-//                Log.d(TAG, "onReceive: Airplane Mode Enabled");
-//            }
-//            else
-//            {
-//                Log.d(TAG, "onReceive: Airplane Mode Disabled");
-//            }
-//
-//            Log.d("AirplaneMode", "Service state changed");
-//            boolean airplane_active = isAirplaneModeOn(context);
-//        }
-//
-//    }
-//
-//
-//
-//    @SuppressWarnings("deprecation")
-//    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-//    public static boolean isAirplaneModeOn(Context context) {
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            return Settings.System.getInt(context.getContentResolver(),
-//                    Settings.System.AIRPLANE_MODE_ON, 0) != 0;
-//        } else {
-//            return Settings.Global.getInt(context.getContentResolver(),
-//                    Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
-//        }
-//    }
-//}

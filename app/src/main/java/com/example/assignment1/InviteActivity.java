@@ -1,5 +1,4 @@
 package com.example.assignment1;
-//THIS IS THE ONE
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -693,11 +692,7 @@ public class InviteActivity extends AppCompatActivity {
         finish();
     }
 
-//    public void sendBroadcast(View v){
-//        Intent intent = new Intent("com.codingflow.EXAMPLE_ACTION");
-//        intent.putExtra("com.codingflow.EXTRA_TEXT", "Broadcast received");
-//        sendBroadcast(intent);
-//    }
+
 
     /*
      * FUNCTION   : updDb()

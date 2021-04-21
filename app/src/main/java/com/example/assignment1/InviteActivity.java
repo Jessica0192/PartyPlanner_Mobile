@@ -818,14 +818,20 @@ public class InviteActivity extends AppCompatActivity {
             this.handler=handler;
         }
 
+        /*
+         * FUNCTION   : onPostExecute()
+         * DESCRIPTION: This function is executed onPostExecute of the asynchornous task.
+         * PARAMETERS : NONE
+         * RETURNS    : NONE
+         */
         @Override
         protected void onPreExecute() {
 
-            //progress dialog
-//just commented this out
+            //instantiate a new progress dialog object
             progressDialog = new ProgressBar(InviteActivity.this);
 
             super.onPreExecute();
+
             // create dialog
             progressDialog.setMax(10);
             dialog=new Dialog(context);
@@ -835,41 +841,49 @@ public class InviteActivity extends AppCompatActivity {
             dialog.setContentView(progressDialog);
 
 
-            // btnCancel=(Button)dialog.findViewById(R.id.sendBtn);
-
+            //make the button cancelable
             dialog.setCancelable(true);
 
-
+//show the dialog
             dialog.show();
 
 
         }
 
 
+        /*
+         * FUNCTION   : onInBackground()
+         * DESCRIPTION: This function is being executed in the
+         * background of the Party Planner application, The asynchronous task
+         * handles most of tis functionality here.
+         * PARAMETERS : Void... arg0
+         * RETURNS    : NONE
+         */
         @Override
         protected Void doInBackground(Void... arg0) { //Void... arg0)
 
 
-            // while(true){
-            // int i = 0;
+            // execute the main functionality in a loop
             for ( int i = 0; i < 100; i++) {
-                // if(isCancelled()){
+
+                //set the timer for the loading of the
+                //sending invitation process
                 if (i == 10){
                     isCancelled = true;
                     dialog.dismiss();
-//                    Toast.makeText(context, "Finished", Toast.LENGTH_LONG).show();
 
 
                     // Hide the progress bar
                     progressDialog.setVisibility(ProgressBar.INVISIBLE);
-                    //  i = 0;
-                    //Task_for_invitation_activity.this.
+
+                    //break out of the loop
                     break;
                 }else{
-                    // publishProgress(i);
+
+                    //set is cancelled boolean flag to false
                     isCancelled = false;
 
-                    try {
+                    try { //sleep for half a second
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         //dont forget the catch block
@@ -880,38 +894,51 @@ public class InviteActivity extends AppCompatActivity {
                 }
             }
 
-            return null;
-            // return isCancelled;
+            return null;//return nothing
         }
 
 
 
+        /*
+         * FUNCTION   : onProgressUpdate()
+         * DESCRIPTION: This function is being executed when the task
+         * functionality is being updated.
+         * PARAMETERS : Integer... values
+         * RETURNS    : NONE
+         */
         @Override
         protected void onProgressUpdate(Integer... values) {
 
-
+            //set on progress update
             super.onProgressUpdate(values);
 
-
+            //loop 10 times
             for (int i = 0; i < 10; i++)
             {}
-            dialog.dismiss();
-            //Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
 
+            //hide the dialog
+            dialog.dismiss();
 
             // Hide the progress bar
             progressDialog.setVisibility(ProgressBar.INVISIBLE);
-            //          progressDialog.setProgress(values[0]);
-//            txtprogrss.setText("progress update"+ values[0]+"%");
 
         }
 
+
+        /*
+         * FUNCTION   : onPostExecute
+         * DESCRIPTION: This function is being executed on post execute.
+         * PARAMETERS : Void result
+         * RETURNS    : NONE
+         */
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-
+            //hide the dialog
             dialog.dismiss();
+
+            //inform the user about the invitation being sent
             Toast.makeText(context, "Invitation Sent", Toast.LENGTH_LONG).show();
 
 
